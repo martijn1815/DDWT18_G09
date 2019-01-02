@@ -5,40 +5,41 @@
  * Date: 06-11-18
  * Time: 22:20
  */
+include 'model.php';
 
 $navigation_template = Array(
     1 => Array(
         'name' => 'Home',
-        'url' => '/finalproject/'
+        'url' => '/DDWT18_G09/'
     ),
     2 => Array(
         'name' => 'Register',
-        'url' => '/finalproject/register/'
+        'url' => '/DDWT18_G09/register/'
     ),
     3 => Array(
         'name' => 'Login',
-        'url' => '/finalproject/login/'
+        'url' => '/DDWT18_G09/login/'
     ),
     4 => Array(
         'name' => 'User Profile',
-        'url' => '/finalproject/userprofile/'
+        'url' => '/DDWT18_G09/userprofile/'
     ),
     5 => Array(
         'name' => 'Rooms Overview',
-        'url' => '/finalproject/roomsoverview/'
+        'url' => '/DDWT18_G09/roomsoverview/'
     ),
     6 => Array(
         'name' => 'Add Rooms',
-        'url' => '/finalproject/addrooms/'
+        'url' => '/DDWT18_G09/addrooms/'
     ),
     7 => Array(
         'name' => 'My Rooms',
-        'url' => '/finalproject/myrooms/'
+        'url' => '/DDWT18_G09/myrooms/'
     ),
 );
 
 /* Landing page */
-if (new_route('/DDWT18/week2/', 'get')) {
+if (new_route('/DDWT18_G09/', 'get')) {
 
     /* Page info */
     $page_title = 'Home';
