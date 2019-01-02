@@ -105,3 +105,13 @@ function get_breadcrumbs($breadcrumbs) {
 function na($url, $active){
     return [$url, $active];
 }
+
+/**
+ * Creates filename to the template
+ * @param string $template filename of the template without extension
+ * @return string
+ */
+function use_template($template){
+    $template_doc = sprintf("views/%s.php", $template);
+    return $template_doc;
+}

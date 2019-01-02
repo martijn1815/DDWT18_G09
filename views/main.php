@@ -16,7 +16,6 @@
     <body>
         <!-- Menu -->
         <?= $navigation ?>
-
         <!-- Content -->
         <div class="container">
 
