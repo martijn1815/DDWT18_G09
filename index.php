@@ -11,32 +11,37 @@ $db = connect_db('localhost', 'ddwt18_g09', 'ddwt18_g09','finalproject09');
 $navigation_template = Array(
     1 => Array(
         'name' => 'Home',
-        'url' => '/DDWT18_G09/'
-    ),
+        'url' => '/DDWT18_G09/'),
     2 => Array(
         'name' => 'Register',
-        'url' => '/DDWT18_G09/register/'
-    ),
+        'url' => '/DDWT18_G09/register/'),
     3 => Array(
         'name' => 'Login',
-        'url' => '/DDWT18_G09/login/'
-    ),
+        'url' => '/DDWT18_G09/login/'),
     4 => Array(
         'name' => 'User Profile',
-        'url' => '/DDWT18_G09/userprofile/'
-    ),
+        'url' => '/DDWT18_G09/userprofile/'),
     5 => Array(
         'name' => 'Rooms Overview',
-        'url' => '/DDWT18_G09/roomsoverview/'
-    ),
+        'url' => '/DDWT18_G09/roomsoverview/'),
     6 => Array(
         'name' => 'Add Rooms',
-        'url' => '/DDWT18_G09/addrooms/'
-    ),
+        'url' => '/DDWT18_G09/addrooms/'),
     7 => Array(
         'name' => 'My Rooms',
-        'url' => '/DDWT18_G09/myrooms/'
+        'url' => '/DDWT18_G09/myrooms/')
+);
+$crud_systems = Array(
+    'user' => Array(
+        'system' => 'user',
+        'fields' => ['username', 'password', 'firstname', 'lastname', 'gender', 'address', 'dateOfBirth', 'biography', 'profession', 'language', 'email', 'phonenumber']
     ),
+    'room' => Array(
+        'system' => 'room',
+        'fields' => ['type', 'size', 'price', 'serviceIncluding', 'furnished', 'street', 'zip', 'city', 'description', 'availableFrom', 'availableTill', 'description']
+    ),
+    'opt_in' => Array(
+        'system' => 'opt_in')
 );
 
 /* Landing page */

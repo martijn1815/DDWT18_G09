@@ -123,3 +123,126 @@ function use_template($template){
     $template_doc = sprintf("views/%s.php", $template);
     return $template_doc;
 }
+
+/**
+ * Creats HTML alert code with information about the success or failure
+ * @param bool $type True if success, False if failure
+ * @param string $message Error/Success message
+ * @return string
+ */
+function get_error($feedback){
+    $feedback = json_decode($feedback, True);
+    $error_exp = '
+        <div class="alert alert-'.$feedback['type'].'" role="alert">
+            '.$feedback['message'].'
+        </div>';
+    return $error_exp;
+}
+
+/**
+ * @param PDO $pdo
+ * @param $crud_system
+ * @param $input
+ * @return array
+ */
+function crud_add($pdo, $crud_system, $input) {
+    /* Check if all fields are set */
+    foreach ($crud_system['fields'] as $value) {
+        if (
+        empty($input[$value])
+        ) {
+            return [
+                'type' => 'danger',
+                'message' => 'Error; Not all fields were filled in.'
+            ];
+        }
+    }
+
+    /* Check data type */
+    /*
+    if (!is_numeric($input['Seasons'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'There was an error. You should enter a number in the field Seasons.'
+        ];
+    }
+    */
+
+    /* Check if user already exists */
+    if ($crud_system['system'] == 'user') {
+        $stmt = $pdo->prepare('SELECT * FROM series WHERE name = ?');
+        $stmt->execute([$input['Name']]);
+        $serie = $stmt->rowCount();
+        if ($serie) {
+            return [
+                'type' => 'danger',
+                'message' => 'This series was already added.'
+            ];
+        }
+    }
+
+    /* Get user info */
+    if ($crud_system['system'] == 'room') {
+        $stmt = $pdo->prepare('SELECT * FROM series WHERE username = ?');
+        $stmt->execute([$_SESSION['user_id']]);
+        $user_info = $stmt->fetch();
+    }
+
+    /* Add Serie */
+    /*
+    $stmt = $pdo->prepare("INSERT INTO series (name, creator, seasons, abstract, user) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([
+        $input['Name'],
+        $input['Creator'],
+        $input['Seasons'],
+        $input['Abstract'],
+        $user_info['id']
+    ]);
+    */
+    if ($crud_system['system'] == 'user') {
+        $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, service_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $user_info['id'],
+            $input['Size'],
+            $input['Zip'],
+            $input['Street'],
+            $input['City'],
+            $input['Description'],
+            $input['Type'],
+            $input['AvailableFrom'],
+            $input['AvailableTill'],
+            $input['Furnished'],
+            $input['Price'],
+            $input['ServiceIncluding']
+        ]);
+    } elseif ($crud_system['system'] == 'room') {
+        $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, service_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $user_info['id'],
+            $input['Size'],
+            $input['Zip'],
+            $input['Street'],
+            $input['City'],
+            $input['Description'],
+            $input['Type'],
+            $input['AvailableFrom'],
+            $input['AvailableTill'],
+            $input['Furnished'],
+            $input['Price'],
+            $input['ServiceIncluding']
+        ]);
+    }
+    $inserted = $stmt->rowCount();
+    if ($inserted ==  1) {
+        return [
+            'type' => 'success',
+            'message' => sprintf('%s added to database.', $crud_system['system'])
+        ];
+    }
+    else {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('Error: %s not added to database. Please try again.', $crud_system['system'])
+        ];
+    }
+}
