@@ -11,6 +11,14 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+/**
+ * Connects to the database using PDO
+ * @param string $host database host
+ * @param string $db database name
+ * @param string $user database user
+ * @param string $pass database password
+ * @return pdo object
+ */
 function connect_db($host, $db, $user, $pass){
     $charset = 'utf8mb4';
 
