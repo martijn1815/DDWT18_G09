@@ -6,6 +6,7 @@
  * Time: 22:20
  */
 include 'model.php';
+
 $db = connect_db('localhost', 'ddwt18_g09', 'ddwt18_g09','finalproject09');
 $navigation_template = Array(
     1 => Array(
