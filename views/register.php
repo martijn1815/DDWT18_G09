@@ -77,87 +77,88 @@
                 </div>
                 <div class="form-group">
                     <label for="Gender">Gender</label>
-                        <SELECT NAME="gender">
+                        <SELECT name="gender">
                             <option value="" disabled selected hidden>Please Choose...</option>
-                            <OPTION>Male</OPTION>
-                            <OPTION>Female</OPTION>
-                            <OPTION>Other</OPTION>
+                            <OPTION name="gender">Male</OPTION>
+                            <OPTION name="gender">Female</OPTION>
+                            <OPTION name="gender">Other</OPTION>
                         </SELECT>
                 </div>
                 <div class="form-group">
                     <label for="Lang">What languages do you speak?</label><br>
-                    <input type="checkbox" value="AF">Afrikanns
-                    <br><input type="checkbox" value="SQ">Albanian
-                    <br><input type="checkbox" value="AR">Arabic
-                    <br><input type="checkbox" value="HY">Armenian
-                    <br><input type="checkbox" value="EU">Basque
-                    <br><input type="checkbox" value="BN">Bengali
-                    <br><input type="checkbox" value="BG">Bulgarian
-                    <br><input type="checkbox" value="CA">Catalan
-                    <br><input type="checkbox" value="KM">Cambodian
-                    <br><input type="checkbox" value="ZH">Chinese (Mandarin)
-                    <br><input type="checkbox" value="HR">Croation
-                    <br><input type="checkbox" value="CS">Czech
-                    <br><input type="checkbox" value="DA">Danish
-                    <br><input type="checkbox" value="NL">Dutch
-                    <br><input type="checkbox" value="EN">English
-                    <br><input type="checkbox" value="ET">Estonian
-                    <br><input type="checkbox" value="FJ">Fiji
-                    <br><input type="checkbox" value="FI">Finnish
-                    <br><input type="checkbox" value="FR">French
-                    <br><input type="checkbox" value="KA">Georgian
-                    <br><input type="checkbox" value="DE">German
-                    <br><input type="checkbox" value="EL">Greek
-                    <br><input type="checkbox" value="GU">Gujarati
-                    <br><input type="checkbox" value="HE">Hebrew
-                    <br><input type="checkbox" value="HI">Hindi
-                    <br><input type="checkbox" value="HU">Hungarian
-                    <br><input type="checkbox" value="IS">Icelandic
-                    <br><input type="checkbox" value="ID">Indonesian
-                    <br><input type="checkbox" value="GA">Irish
-                    <br><input type="checkbox" value="IT">Italian
-                    <br><input type="checkbox" value="JA">Japanese
-                    <br><input type="checkbox" value="JW">Javanese
-                    <br><input type="checkbox" value="KO">Korean
-                    <br><input type="checkbox" value="LA">Latin
-                    <br><input type="checkbox" value="LV">Latvian
-                    <br><input type="checkbox" value="LT">Lithuanian
-                    <br><input type="checkbox" value="MK">Macedonian
-                    <br><input type="checkbox" value="MS">Malay
-                    <br><input type="checkbox" value="ML">Malayalam
-                    <br><input type="checkbox" value="MT">Maltese
-                    <br><input type="checkbox" value="MI">Maori
-                    <br><input type="checkbox" value="MR">Marathi
-                    <br><input type="checkbox" value="MN">Mongolian
-                    <br><input type="checkbox" value="NE">Nepali
-                    <br><input type="checkbox" value="NO">Norwegian
-                    <br><input type="checkbox" value="FA">Persian
-                    <br><input type="checkbox" value="PL">Polish
-                    <br><input type="checkbox" value="PT">Portuguese
-                    <br><input type="checkbox" value="PA">Punjabi
-                    <br><input type="checkbox" value="QU">Quechua
-                    <br><input type="checkbox" value="RO">Romanian
-                    <br><input type="checkbox" value="RU">Russian
-                    <br><input type="checkbox" value="SM">Samoan
-                    <br><input type="checkbox" value="SR">Serbian
-                    <br><input type="checkbox" value="SK">Slovak
-                    <br><input type="checkbox" value="SL">Slovenian
-                    <br><input type="checkbox" value="ES">Spanish
-                    <br><input type="checkbox" value="SW">Swahili
-                    <br><input type="checkbox" value="SV">Swedish
-                    <br><input type="checkbox" value="TA">Tamil
-                    <br><input type="checkbox" value="TT">Tatar
-                    <br><input type="checkbox" value="TE">Telugu
-                    <br><input type="checkbox" value="TH">Thai
-                    <br><input type="checkbox" value="BO">Tibetan
-                    <br><input type="checkbox" value="TO">Tonga
-                    <br><input type="checkbox" value="TR">Turkish
-                    <br><input type="checkbox" value="UK">Ukranian
-                    <br><input type="checkbox" value="UR">Urdu
-                    <br><input type="checkbox" value="UZ">Uzbek
-                    <br><input type="checkbox" value="VI">Vietnamese
-                    <br><input type="checkbox" value="CY">Welsh
-                    <br><input type="checkbox" value="XH">Xhosa
+                    <input type="checkbox" name= "lang" value="AF">Afrikanns
+                    <br><input type="checkbox" name= "lang" value="SQ">Albanian
+                    <br><input type="checkbox" name= "lang" value="AR">Arabic
+                    <br><input type="checkbox" name= "lang" value="HY">Armenian
+                    <br><input type="checkbox" name= "lang" value="EU">Basque
+                    <br><input type="checkbox" name= "lang" value="BN">Bengali
+                    <br><input type="checkbox" name= "lang" value="BG">Bulgarian
+                    <br><input type="checkbox" name= "lang" value="CA">Catalan
+                    <br><input type="checkbox" name= "lang" value="KM">Cambodian
+                    <br><input type="checkbox" name= "lang" value="ZH">Chinese (Mandarin)
+                    <br><input type="checkbox" name= "lang" value="HR">Croation
+                    <br><input type="checkbox" name= "lang" value="CS">Czech
+                    <br><input type="checkbox" name= "lang" value="DA">Danish
+                    <br><input type="checkbox" name= "lang" value="NL">Dutch
+                    <br><input type="checkbox" name= "lang" value="EN">English
+                    <br><input type="checkbox" name= "lang" value="ET">Estonian
+                    <br><input type="checkbox" name= "lang" value="FJ">Fiji
+                    <br><input type="checkbox" name= "lang" value="FI">Finnish
+                    <br><input type="checkbox" name= "lang" value="FR">French
+                    <br><input type="checkbox" name= "lang" value="KA">Georgian
+                    <br><input type="checkbox" name= "lang" value="DE">German
+                    <br><input type="checkbox" name= "lang" value="EL">Greek
+                    <br><input type="checkbox" name= "lang" value="GU">Gujarati
+                    <br><input type="checkbox" name= "lang" value="HE">Hebrew
+                    <br><input type="checkbox" name= "lang" value="HI">Hindi
+                    <br><input type="checkbox" name= "lang" value="HU">Hungarian
+                    <br><input type="checkbox" name= "lang" value="IS">Icelandic
+                    <br><input type="checkbox" name= "lang" value="ID">Indonesian
+                    <br><input type="checkbox" name= "lang" value="GA">Irish
+                    <br><input type="checkbox" name= "lang" value="IT">Italian
+                    <br><input type="checkbox" name= "lang" value="JA">Japanese
+                    <br><input type="checkbox" name= "lang" value="JW">Javanese
+                    <br><input type="checkbox" name= "lang" value="KO">Korean
+                    <br><input type="checkbox" name= "lang" value="LA">Latin
+                    <br><input type="checkbox" name= "lang" value="LV">Latvian
+                    <br><input type="checkbox" name= "lang" value="LT">Lithuanian
+                    <br><input type="checkbox" name= "lang" value="MK">Macedonian
+                    <br><input type="checkbox" name= "lang" value="MS">Malay
+                    <br><input type="checkbox" name= "lang" value="ML">Malayalam
+                    <br><input type="checkbox" name= "lang" value="MT">Maltese
+                    <br><input type="checkbox" name= "lang" value="MI">Maori
+                    <br><input type="checkbox" name= "lang" value="MR">Marathi
+                    <br><input type="checkbox" name= "lang" value="MN">Mongolian
+                    <br><input type="checkbox" name= "lang" value="NE">Nepali
+                    <br><input type="checkbox" name= "lang" value="NO">Norwegian
+                    <br><input type="checkbox" name= "lang" value="FA">Persian
+                    <br><input type="checkbox" name= "lang" value="PL">Polish
+                    <br><input type="checkbox" name= "lang" value="PT">Portuguese
+                    <br><input type="checkbox" name= "lang" value="PA">Punjabi
+                    <br><input type="checkbox" name= "lang" value="QU">Quechua
+                    <br><input type="checkbox" name= "lang" value="RO">Romanian
+                    <br><input type="checkbox" name= "lang" value="RU">Russian
+                    <br><input type="checkbox" name= "lang" value="SM">Samoan
+                    <br><input type="checkbox" name= "lang" value="SR">Serbian
+                    <br><input type="checkbox" name= "lang" value="SK">Slovak
+                    <br><input type="checkbox" name= "lang" value="SL">Slovenian
+                    <br><input type="checkbox" name= "lang" value="ES">Spanish
+                    <br><input type="checkbox" name= "lang" value="SW">Swahili
+                    <br><input type="checkbox" name= "lang" value="SV">Swedish
+                    <br><input type="checkbox" name= "lang" value="TA">Tamil
+                    <br><input type="checkbox" name= "lang" value="TT">Tatar
+                    <br><input type="checkbox" name= "lang" value="TE">Telugu
+                    <br><input type="checkbox" name= "lang" value="TH">Thai
+                    <br><input type="checkbox" name= "lang" value="BO">Tibetan
+                    <br><input type="checkbox" name= "lang" value="TO">Tonga
+                    <br><input type="checkbox" name= "lang" value="TR">Turkish
+                    <br><input type="checkbox" name= "lang" value="UK">Ukranian
+                    <br><input type="checkbox" name= "lang" value="UR">Urdu
+                    <br><input type="checkbox" name= "lang" value="UZ">Uzbek
+                    <br><input type="checkbox" name= "lang" value="VI">Vietnamese
+                    <br><input type="checkbox" name= "lang" value="CY">Welsh
+                    <br><input type="checkbox" name= "lang" value="XH">Xhosa
+
                 </div>
                 <div class="form-group" id="Biography">
                     <label for="Biography">Biography</label>
@@ -201,6 +202,7 @@
 
     </div>
 </div>
+
 <!--Check the role of the user and display extra fields-->
 <script>
     function check_role(that) {

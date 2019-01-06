@@ -153,7 +153,7 @@ function get_error($feedback){
  */
 function register_user($pdo, $form_data){
     /* Check if all fields are set */
-    $fields = ['username', 'password', 'firstname', 'lastname', 'street', 'zip', 'city', 'phonenumber', 'email', 'biography', 'profession', 'dateOfBirth', 'role', 'gender', 'language'];
+    $fields = ['username', 'password', 'firstname', 'lastname', 'street', 'zip', 'city', 'phone', 'mail', 'biography', "study", 'profession', 'date_of_birth', 'role', 'gender', 'lang'];
     foreach ($fields as $value) {
         if (empty($form_data[$value])) {
             return [
@@ -198,17 +198,17 @@ function register_user($pdo, $form_data){
             $form_data['street'],
             $form_data['zip'],
             $form_data['city'],
-            $form_data['phonenumber'],
-            $form_data['email'],
+            $form_data['phone'],
+            $form_data['mail'],
             $form_data['biography'],
-            $form_data['dateOfBirth'],
+            $form_data['date_of_birth'],
             $form_data['role'],
             $form_data['gender'],
             $form_data['study'],
-            $form_data['profession'],
+            $form_data['profession']
         ]);
         $user_id = $pdo->lastInsertId();
-        foreach ($form_data['language'] as $language) {
+        foreach ($form_data['lang'] as $language) {
             $stmt = $pdo->prepare('INSERT INTO language (user_id, language) VALUES (?, ?)');
             $stmt->execute([$user_id, $language]);
         }
