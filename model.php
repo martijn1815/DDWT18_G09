@@ -189,7 +189,7 @@ function register_user($pdo, $form_data){
 
     /* Save user to the database */
     try {
-        $stmt = $pdo->prepare('INSERT INTO users (username, password, first_name, last_name, street, zip, city, phone_number, email, biography, study/profession, date_of_birth, role, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = $pdo->prepare('INSERT INTO users (username, password, first_name, last_name, street, zip, city, phone_number, email, biography, date_of_birth, role, gender, study, profession) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->execute([
             $form_data['username'],
             $password,
@@ -201,10 +201,11 @@ function register_user($pdo, $form_data){
             $form_data['phonenumber'],
             $form_data['email'],
             $form_data['biography'],
-            $form_data['profession'],
             $form_data['dateOfBirth'],
             $form_data['role'],
             $form_data['gender'],
+            $form_data['study'],
+            $form_data['profession'],
         ]);
         $user_id = $pdo->lastInsertId();
         foreach ($form_data['language'] as $language) {

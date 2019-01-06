@@ -7,7 +7,7 @@
  */
 include 'model.php';
 
-$db = connect_db('localhost', 'ddwt18_g09', 'DDWT18_G09','DDWT18_G09');
+$db = connect_db('localhost', 'ddwt18_g09', 'ddwt18_09','ddwt18_09');
 $navigation_template = Array(
     1 => Array(
         'name' => 'Home',
