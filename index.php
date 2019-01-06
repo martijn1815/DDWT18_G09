@@ -7,7 +7,7 @@
  */
 include 'model.php';
 
-$db = connect_db('localhost', 'ddwt18_g09', 'ddwt18_g09','finalproject09');
+$db = connect_db('localhost', 'ddwt18_g09', 'DDWT18_G09','DDWT18_G09');
 $navigation_template = Array(
     1 => Array(
         'name' => 'Home',
@@ -74,5 +74,4 @@ elseif (new_route('/DDWT18_G09/register/', 'post')){
     $error_msg = register_user($db, $_POST);
     /* Redirect to homepage */
     redirect(sprintf('/DDWT18_G09/register/?error_msg=%s', json_encode($error_msg)));
-
 }

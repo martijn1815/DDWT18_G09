@@ -34,7 +34,14 @@ function connect_db($host, $db, $user, $pass){
     }
     return $pdo;
 }
-
+/**
+ * Changes the HTTP Header to a given location
+ * @param string $location location to be redirected to
+ */
+function redirect($location){
+    header(sprintf('Location: %s', $location));
+    die();
+}
 /**
  * Creates navigation HTML code using given array
  * @param array $navigation Array with as Key the page name and as Value the corresponding url
@@ -202,7 +209,7 @@ function register_user($pdo, $form_data){
         $user_id = $pdo->lastInsertId();
         foreach ($form_data['language'] as $language) {
             $stmt = $pdo->prepare('INSERT INTO language (user_id, language) VALUES (?, ?)');
-            $stmt->execute([$user_id, $language);
+            $stmt->execute([$user_id, $language]);
         }
     } catch (PDOException $e) {
         return [
