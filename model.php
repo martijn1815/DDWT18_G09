@@ -141,108 +141,210 @@ function get_error($feedback){
 
 /**
  * @param PDO $pdo
- * @param $crud_system
- * @param $input
+ * @param $form_data
  * @return array
  */
-function crud_add($pdo, $crud_system, $input) {
+function register_user($pdo, $form_data){
     /* Check if all fields are set */
-    foreach ($crud_system['fields'] as $value) {
-        if (
-        empty($input[$value])
-        ) {
+    $fields = ['username', 'password', 'firstname', 'lastname', 'street', 'zip', 'city', 'phonenumber', 'email', 'biography', 'profession', 'dateOfBirth', 'role', 'gender', 'language'];
+    foreach ($fields as $value) {
+        if (empty($form_data[$value])) {
             return [
                 'type' => 'danger',
-                'message' => 'Error; Not all fields were filled in.'
+                'message' => sprintf('Form not complete, please fill in %s.', $value)
             ];
         }
     }
-
-    /* Check data type */
-    /*
-    if (!is_numeric($input['Seasons'])) {
-        return [
-            'type' => 'danger',
-            'message' => 'There was an error. You should enter a number in the field Seasons.'
-        ];
-    }
-    */
 
     /* Check if user already exists */
-    if ($crud_system['system'] == 'user') {
-        $stmt = $pdo->prepare('SELECT * FROM series WHERE name = ?');
-        $stmt->execute([$input['Name']]);
-        $serie = $stmt->rowCount();
-        if ($serie) {
-            return [
-                'type' => 'danger',
-                'message' => 'This series was already added.'
-            ];
-        }
-    }
-
-    /* Get user info */
-    if ($crud_system['system'] == 'room') {
-        $stmt = $pdo->prepare('SELECT * FROM series WHERE username = ?');
-        $stmt->execute([$_SESSION['user_id']]);
-        $user_info = $stmt->fetch();
-    }
-
-    /* Add Serie */
-    /*
-    $stmt = $pdo->prepare("INSERT INTO series (name, creator, seasons, abstract, user) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([
-        $input['Name'],
-        $input['Creator'],
-        $input['Seasons'],
-        $input['Abstract'],
-        $user_info['id']
-    ]);
-    */
-    if ($crud_system['system'] == 'user') {
-        $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, service_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([
-            $user_info['id'],
-            $input['Size'],
-            $input['Zip'],
-            $input['Street'],
-            $input['City'],
-            $input['Description'],
-            $input['Type'],
-            $input['AvailableFrom'],
-            $input['AvailableTill'],
-            $input['Furnished'],
-            $input['Price'],
-            $input['ServiceIncluding']
-        ]);
-    } elseif ($crud_system['system'] == 'room') {
-        $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, service_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([
-            $user_info['id'],
-            $input['Size'],
-            $input['Zip'],
-            $input['Street'],
-            $input['City'],
-            $input['Description'],
-            $input['Type'],
-            $input['AvailableFrom'],
-            $input['AvailableTill'],
-            $input['Furnished'],
-            $input['Price'],
-            $input['ServiceIncluding']
-        ]);
-    }
-    $inserted = $stmt->rowCount();
-    if ($inserted ==  1) {
-        return [
-            'type' => 'success',
-            'message' => sprintf('%s added to database.', $crud_system['system'])
-        ];
-    }
-    else {
+    try {
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+        $stmt->execute([$form_data['username']]);
+        $user_exists = $stmt->rowCount();
+    } catch (\PDOException $e) {
         return [
             'type' => 'danger',
-            'message' => sprintf('Error: %s not added to database. Please try again.', $crud_system['system'])
+            'message' => sprintf('There was an error: %s', $e->getMessage())
         ];
     }
+    if (!empty($user_exists)){
+        return [
+            'type' => 'danger',
+            'message' => 'The username you entered does already exists!'
+        ];
+    }
+
+    /* Check data types */
+    /* ...To be added... */
+
+    /* Hash password */
+    $password = password_hash($form_data['password'], PASSWORD_DEFAULT);
+
+    /* Save user to the database */
+    try {
+        $stmt = $pdo->prepare('INSERT INTO users (username, password, first_name, last_name, street, zip, city, phone_number, email, biography, study/profession, date_of_birth, role, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->execute([
+            $form_data['username'],
+            $password,
+            $form_data['firstname'],
+            $form_data['lastname'],
+            $form_data['street'],
+            $form_data['zip'],
+            $form_data['city'],
+            $form_data['phonenumber'],
+            $form_data['email'],
+            $form_data['biography'],
+            $form_data['profession'],
+            $form_data['dateOfBirth'],
+            $form_data['role'],
+            $form_data['gender'],
+        ]);
+        $user_id = $pdo->lastInsertId();
+        foreach ($form_data['language'] as $language) {
+            $stmt = $pdo->prepare('INSERT INTO language (user_id, language) VALUES (?, ?)');
+            $stmt->execute([$user_id, $language);
+        }
+    } catch (PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+
+    /* Login user and redirect */
+    session_start();
+    $_SESSION['user_id'] = $user_id;
+    $feedback = [
+        'type' => 'success',
+        'message' => sprintf('%s, your account was successfully created!', get_username($pdo, $_SESSION['user_id']))
+    ];
+    redirect(sprintf('/DDWT18/week2/myaccount/?error_msg=%s', json_encode($feedback)));
 }
+
+/**
+ * @param PDO $pdo
+ * @param $form_data
+ */
+function login_user($pdo, $form_data){
+    /* Check if all fields are set */
+    if (
+        empty($form_data['username']) or
+        empty($form_data['password'])
+    ) {
+        return [
+            'type' => 'danger',
+            'message' => 'You should enter a username and password.'
+        ];
+    }
+
+    /* Check if user exists */
+    try {
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+        $stmt->execute([$form_data['username']]);
+        $user_exists = $stmt->rowCount();
+    } catch (\PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+    if (empty($user_exists)){
+        return [
+            'type' => 'danger',
+            'message' => 'The username you entered does not exists!'
+        ];
+    }
+
+    /* Check password */
+    try {
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+        $stmt->execute([$form_data['username']]);
+        $user_info = $stmt->fetch();
+    } catch (\PDOException $e) {
+        return [
+            'type' => 'danger',
+            'message' => sprintf('There was an error: %s', $e->getMessage())
+        ];
+    }
+    if ( !password_verify($form_data['password'], $user_info['password']) ){
+        return [
+            'type' => 'danger',
+            'message' => 'Password is incorrect'
+        ];
+    }
+
+    /* Login user and redirect */
+    session_start();
+    $_SESSION['user_id'] = $user_info['id'];
+    $feedback = [
+        'type' => 'success',
+        'message' => sprintf('%s, you were logged in successfully!', get_username($pdo, $_SESSION['user_id']))
+    ];
+    redirect(sprintf('/DDWT18/week2/myaccount/?error_msg=%s', json_encode($feedback)));
+}
+
+/**
+ * Get current user id
+ * @return bool current user id or False if not logged in
+ */
+function get_user_id(){
+    session_start();
+    if (isset($_SESSION['user_id'])){
+        return $_SESSION['user_id'];
+    } else {
+        return False;
+    }
+}
+
+/**
+ * Returns the name of a user based on a specific user id
+ * @param PDO $pdo
+ * @param $user_id
+ * @return string
+ */
+function get_username($pdo, $user_id){
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch();
+    return $user['firstname'].' '.$user['lastname'];
+}
+
+function check_login(){
+    session_start();
+    if (isset($_SESSION['user_id'])){
+        return True;
+    } else {
+        return False;
+    }
+}
+
+function logout_user(){
+    session_start();
+    session_unset();
+    session_destroy();
+    $feedback = [
+        'type' => 'success',
+        'message' => 'You successfully logged out.'
+    ];
+    redirect(sprintf('/DDWT18/week2/?logout_msg=%s', json_encode($feedback)));
+}
+
+/*
+ *      $fields = ['type', 'size', 'price', 'serviceIncluding', 'furnished', 'street', 'zip', 'city', 'description', 'availableFrom', 'availableTill', 'description']
+ *
+        $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, service_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $user_info['id'],
+            $input['Size'],
+            $input['Zip'],
+            $input['Street'],
+            $input['City'],
+            $input['Description'],
+            $input['Type'],
+            $input['AvailableFrom'],
+            $input['AvailableTill'],
+            $input['Furnished'],
+            $input['Price'],
+            $input['ServiceIncluding']
+        ]);
+*/

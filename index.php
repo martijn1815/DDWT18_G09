@@ -31,18 +31,6 @@ $navigation_template = Array(
         'name' => 'My Rooms',
         'url' => '/DDWT18_G09/myrooms/')
 );
-$crud_systems = Array(
-    'user' => Array(
-        'system' => 'user',
-        'fields' => ['username', 'password', 'firstname', 'lastname', 'gender', 'address', 'dateOfBirth', 'biography', 'profession', 'language', 'email', 'phonenumber']
-    ),
-    'room' => Array(
-        'system' => 'room',
-        'fields' => ['type', 'size', 'price', 'serviceIncluding', 'furnished', 'street', 'zip', 'city', 'description', 'availableFrom', 'availableTill', 'description']
-    ),
-    'opt_in' => Array(
-        'system' => 'opt_in')
-);
 
 /* Landing page */
 if (new_route('/DDWT18_G09/', 'get')) {
