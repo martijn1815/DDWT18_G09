@@ -9,6 +9,9 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
+        <!-- Include the plugin's CSS and JS: -->
+        <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+        <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
 
         <title><?= $page_title ?></title>
 </head>
@@ -23,7 +26,6 @@
     <?= $breadcrumbs ?>
 
     <div class="row">
-
         <!-- Left column -->
         <div class="col-md-12">
             <!-- Error message -->
@@ -37,133 +39,84 @@
             <form action="/DDWT18_G09/register/" method="POST">
                 <div class="form-group">
                     <label for="inputUsername">Username</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="j.jansen" name="username" required>
+                    <input type="text" class="form-control" id="inputUsername" name="username" required>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="******" name="password" required>
+                    <input type="password" class="form-control" id="inputPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputRole">Role</label>
+                    <select class="form-control" id="inputRole" name="role">
+                        <option value="" disabled selected hidden>Please select</option>
+                        <option value="tenant">Tenant</option>
+                        <option value="owner">Owner</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputMail">Email</label>
+                    <input type="email" class="form-control" id="inputMail" name="mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">Phone number</label>
+                    <input type="number" class="form-control" id="inputPhone" name="phone" minlength="10" maxlength="15" required>
                 </div>
                 <div class="form-group">
                     <label for="inputUsername">First name</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Jan" name="firstname" required>
+                    <input type="text" class="form-control" id="inputUsername" name="firstname" required>
                 </div>
                 <div class="form-group">
                     <label for="inputUsername">Last name</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Jansen" name="lastname" required>
+                    <input type="text" class="form-control" id="inputUsername" name="lastname" required>
                 </div>
                 <div class="form-group">
-                    <label for="Zip">Zip code</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="1234AB" name="zip" required>
+                    <label for="inputGender">Gender</label>
+                    <select class="form-control" id="inputGender" name="gender">
+                        <option value="" disabled selected hidden>Please select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="Street">Street and house number</label>
-                    <input type="text" class="form-control" id="Street" placeholder="Hoofdstraat 10" name="street" required>
+                    <label for="inputDateOfBirth">Date of birth</label>
+                    <input type="date" class="form-control" id="inputDateOfBirth" name="date_of_birth" placeholder="yyyy-mm-dd" required>
                 </div>
                 <div class="form-group">
-                    <label for="City">City</label>
-                    <input type="text" class="form-control" id="City" placeholder="Groningen" name="city" required>
+                    <label for="inputStreet">Street and house number</label>
+                    <input type="text" class="form-control" id="inputStreet" name="street" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm">
+                        <label for="inputZip">Zip code</label>
+                        <input type="text" class="form-control" id="inputZip" name="zip" maxlength="6" required>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity" name="city" required>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="Phone">Phone number</label>
-                    <input type="number" class="form-control" id="Phone" placeholder="0612345678" name="phone" required>
+                    <label for="inputProfession">Study/Profession</label>
+                    <input type="text" class="form-control" id="inputProfession" name="profession/study" required>
                 </div>
                 <div class="form-group">
-                    <label for="mail">Email</label>
-                    <input type="email" class="form-control" id="Mail" placeholder="example@domain.com" name="mail" required>
-                </div>
-                <div class="form-group">
-                    <label for="Date_of_birth">Date of birth</label>
-                    <input type="date" class="form-control" id="Date_of_birth" placeholder="01-03-1980" name="date_of_birth" required>
-                </div>
-                <div class="form-group">
-                    <label for="Gender">Gender</label>
-                        <SELECT name="gender">
-                            <option value="" disabled selected hidden>Please Choose...</option>
-                            <OPTION name="gender">Male</OPTION>
-                            <OPTION name="gender">Female</OPTION>
-                            <OPTION name="gender">Other</OPTION>
-                        </SELECT>
-                </div>
-                <div class="form-group">
-                    <label for="Lang">What languages do you speak?</label><br>
-                    <input type="checkbox" name= "lang" value="AF">Afrikanns
-                    <br><input type="checkbox" name= "lang" value="SQ">Albanian
-                    <br><input type="checkbox" name= "lang" value="AR">Arabic
-                    <br><input type="checkbox" name= "lang" value="HY">Armenian
-                    <br><input type="checkbox" name= "lang" value="EU">Basque
-                    <br><input type="checkbox" name= "lang" value="BN">Bengali
-                    <br><input type="checkbox" name= "lang" value="BG">Bulgarian
-                    <br><input type="checkbox" name= "lang" value="CA">Catalan
-                    <br><input type="checkbox" name= "lang" value="KM">Cambodian
-                    <br><input type="checkbox" name= "lang" value="ZH">Chinese (Mandarin)
-                    <br><input type="checkbox" name= "lang" value="HR">Croation
-                    <br><input type="checkbox" name= "lang" value="CS">Czech
-                    <br><input type="checkbox" name= "lang" value="DA">Danish
-                    <br><input type="checkbox" name= "lang" value="NL">Dutch
-                    <br><input type="checkbox" name= "lang" value="EN">English
-                    <br><input type="checkbox" name= "lang" value="ET">Estonian
-                    <br><input type="checkbox" name= "lang" value="FJ">Fiji
-                    <br><input type="checkbox" name= "lang" value="FI">Finnish
-                    <br><input type="checkbox" name= "lang" value="FR">French
-                    <br><input type="checkbox" name= "lang" value="KA">Georgian
-                    <br><input type="checkbox" name= "lang" value="DE">German
-                    <br><input type="checkbox" name= "lang" value="EL">Greek
-                    <br><input type="checkbox" name= "lang" value="GU">Gujarati
-                    <br><input type="checkbox" name= "lang" value="HE">Hebrew
-                    <br><input type="checkbox" name= "lang" value="HI">Hindi
-                    <br><input type="checkbox" name= "lang" value="HU">Hungarian
-                    <br><input type="checkbox" name= "lang" value="IS">Icelandic
-                    <br><input type="checkbox" name= "lang" value="ID">Indonesian
-                    <br><input type="checkbox" name= "lang" value="GA">Irish
-                    <br><input type="checkbox" name= "lang" value="IT">Italian
-                    <br><input type="checkbox" name= "lang" value="JA">Japanese
-                    <br><input type="checkbox" name= "lang" value="JW">Javanese
-                    <br><input type="checkbox" name= "lang" value="KO">Korean
-                    <br><input type="checkbox" name= "lang" value="LA">Latin
-                    <br><input type="checkbox" name= "lang" value="LV">Latvian
-                    <br><input type="checkbox" name= "lang" value="LT">Lithuanian
-                    <br><input type="checkbox" name= "lang" value="MK">Macedonian
-                    <br><input type="checkbox" name= "lang" value="MS">Malay
-                    <br><input type="checkbox" name= "lang" value="ML">Malayalam
-                    <br><input type="checkbox" name= "lang" value="MT">Maltese
-                    <br><input type="checkbox" name= "lang" value="MI">Maori
-                    <br><input type="checkbox" name= "lang" value="MR">Marathi
-                    <br><input type="checkbox" name= "lang" value="MN">Mongolian
-                    <br><input type="checkbox" name= "lang" value="NE">Nepali
-                    <br><input type="checkbox" name= "lang" value="NO">Norwegian
-                    <br><input type="checkbox" name= "lang" value="FA">Persian
-                    <br><input type="checkbox" name= "lang" value="PL">Polish
-                    <br><input type="checkbox" name= "lang" value="PT">Portuguese
-                    <br><input type="checkbox" name= "lang" value="PA">Punjabi
-                    <br><input type="checkbox" name= "lang" value="QU">Quechua
-                    <br><input type="checkbox" name= "lang" value="RO">Romanian
-                    <br><input type="checkbox" name= "lang" value="RU">Russian
-                    <br><input type="checkbox" name= "lang" value="SM">Samoan
-                    <br><input type="checkbox" name= "lang" value="SR">Serbian
-                    <br><input type="checkbox" name= "lang" value="SK">Slovak
-                    <br><input type="checkbox" name= "lang" value="SL">Slovenian
-                    <br><input type="checkbox" name= "lang" value="ES">Spanish
-                    <br><input type="checkbox" name= "lang" value="SW">Swahili
-                    <br><input type="checkbox" name= "lang" value="SV">Swedish
-                    <br><input type="checkbox" name= "lang" value="TA">Tamil
-                    <br><input type="checkbox" name= "lang" value="TT">Tatar
-                    <br><input type="checkbox" name= "lang" value="TE">Telugu
-                    <br><input type="checkbox" name= "lang" value="TH">Thai
-                    <br><input type="checkbox" name= "lang" value="BO">Tibetan
-                    <br><input type="checkbox" name= "lang" value="TO">Tonga
-                    <br><input type="checkbox" name= "lang" value="TR">Turkish
-                    <br><input type="checkbox" name= "lang" value="UK">Ukranian
-                    <br><input type="checkbox" name= "lang" value="UR">Urdu
-                    <br><input type="checkbox" name= "lang" value="UZ">Uzbek
-                    <br><input type="checkbox" name= "lang" value="VI">Vietnamese
-                    <br><input type="checkbox" name= "lang" value="CY">Welsh
-                    <br><input type="checkbox" name= "lang" value="XH">Xhosa
-
+                    <label for="inputLang">What languages do you speak?</label>
+                    <select class="form-control" id="inputLang" name="lang" multiple="multiple">
+                        <option value="dutch">Dutch</option>
+                        <option value="english">English</option>
+                        <option value="french">French</option>
+                        <option value="german">German</option>
+                        <option value="italian">Italian</option>
+                        <option value="spanish">Spanish</option>
+                    </select>
                 </div>
                 <div class="form-group" id="Biography">
-                    <label for="Biography">Biography</label>
-                    <textarea rows="5" class="form-control" id="Biography" placeholder="Your Biography here.." name="biography" required></textarea>
+                    <label for="inputBiography">Biography; please tell something about yourself</label>
+                    <textarea rows="5" class="form-control" id="inputBiography" name="biography" required></textarea>
                 </div>
+
+                <!--
                 <div class="form-group">
                     <label for="Role">You are</label>
                     <SELECT name="role" onchange="check_role(this);">
@@ -193,17 +146,17 @@
                     <label for="Study">What is your profession</label>
                     <input type="text" class="form-control" id="Work" placeholder="Seller" name="work" required>
                 </div>
+                -->
 
-
-                <button type="submit" class="btn btn-primary">Register now</button>
+                <button type="submit" class="btn btn-primary">Register</button>
             </form>
-
+            </br>
         </div>
-
     </div>
 </div>
 
 <!--Check the role of the user and display extra fields-->
+<!--
 <script>
     function check_role(that) {
         if (that.value == "owner") {
@@ -237,6 +190,13 @@
             document.getElementById("Work").style.display = "none";
         }
     }
+</script>
+-->
+<!-- Initialize the multiselect-plugin: -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#inputLang').multiselect();
+    });
 </script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

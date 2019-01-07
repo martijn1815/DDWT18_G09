@@ -62,7 +62,7 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
     $navigation = get_navigation($navigation_template, 2);
 
     /* Page content */
-    $page_subtitle = 'Please fill in the following form';
+    $page_subtitle = 'Please register by filling in the following form';
 
     /* Choose Template */
     include use_template('register');
