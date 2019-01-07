@@ -80,3 +80,49 @@ elseif (new_route('/DDWT18_G09/register/', 'post')){
     /* Redirect to homepage */
     redirect(sprintf('/DDWT18_G09/register/?error_msg=%s', json_encode($error_msg)));
 }
+
+
+
+
+
+
+/* opt-in GET */
+elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
+    /* Get room info from db */
+    $room_id = $_GET['room_id'];
+    $room_info = get_room_info($db, $room_id);
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_G09/login/');
+    }
+    /* Page info */
+    $page_title = 'Opt-in';
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18' => na('/DDWT18_G09/', False),
+        'Week 2' => na('/DDWT18_G09/opt-in/', False),
+        sprintf("Opt-in room on %s", $room_info['street']) => na('/DDWT18_G09/opt-in/room_id='.$room_id, True)
+    ]);
+    $navigation = get_navigation($navigation_template, 0);
+    /* Page content */
+    $page_subtitle = sprintf("opt-in room on %s", $room_info['street']);
+    $page_content = 'Please fill in a message to the owner with your request.';
+    $submit_btn = "send";
+    $form_action = '/DDWT18_G09/opt-in/';
+
+    /* Choose Template */
+    include use_template('opt-in');
+}
+
+/* opt-in POST */
+elseif (new_route('/DDWT18_G09/opt-in/', 'post')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_G09/login/');
+    }
+    $room_id = $_POST['room_id'];
+    /* Update serie to database */
+    $error_msg = opt_in($db,$room_id, $_POST);
+    /* Redirect to serie GET route */
+    redirect(sprintf('/DDWT18_G09/roomsoverview/?error_msg=%s', json_encode($error_msg)));
+
+}
