@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Gegenereerd op: 07 jan 2019 om 14:50
+-- Gegenereerd op: 07 jan 2019 om 16:04
 -- Serverversie: 5.7.23
 -- PHP-versie: 7.2.10
 
@@ -93,22 +93,8 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `zip`, `street`, `city`, `phone_number`, `email`, `biography`, `date_of_birth`, `role`, `gender`, `profession`) VALUES
-(1, 'test', '$2y$10$WHiCiAzH4s4/oYUM3oKMHeZwtK8G8OjlPSJ44YPszHVU519LhT/vi', 'test', 'test', '0000aa', 'test 1', 'test', 645925691, 'test@test.test', 'test', '2000-11-11', 'tenant', 'male', 'test'),
-(2, 'test2', '$2y$10$zl7FKVEHHosWlshwCnekXOLuGdS/u42ups30kFa/oJw5CNX.ys.Ry', 'test', 'test', '0000bb', 'test 1', 'test', 645925691, 'test2@test.test', 'test', '2000-02-02', 'tenant', 'male', 'test');
-
---
 -- Indexen voor geëxporteerde tabellen
 --
-
---
--- Indexen voor tabel `languages`
---
-ALTER TABLE `languages`
-  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexen voor tabel `opt_in`
@@ -150,17 +136,11 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
-
---
--- Beperkingen voor tabel `languages`
---
-ALTER TABLE `languages`
-  ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Beperkingen voor tabel `opt_in`
