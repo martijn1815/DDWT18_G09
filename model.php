@@ -205,7 +205,6 @@ function register_user($pdo, $form_data){
             $date,
             $form_data['role'],
             $form_data['gender'],
-            $form_data['study'],
             $form_data['profession']
         ]);
         $user_id = $pdo->lastInsertId();

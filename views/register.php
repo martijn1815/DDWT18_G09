@@ -98,7 +98,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputProfession">Study/Profession</label>
-                    <input type="text" class="form-control" id="inputProfession" name="profession/study" required>
+                    <input type="text" class="form-control" id="inputProfession" name="profession" required>
                 </div>
                 <div class="form-group">
                     <label for="inputLang">What languages do you speak?</label>
