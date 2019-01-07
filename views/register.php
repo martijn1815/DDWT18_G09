@@ -111,7 +111,7 @@
                         <option value="spanish">Spanish</option>
                     </select>
                 </div>
-                <div class="form-group" id="Biography">
+                <div class="form-group">
                     <label for="inputBiography">Biography; please tell something about yourself</label>
                     <textarea rows="5" class="form-control" id="inputBiography" name="biography" required></textarea>
                 </div>

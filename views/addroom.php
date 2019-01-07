@@ -33,7 +33,66 @@
             <div class="pd-15">&nbsp;</div>
 
             <form action="/DDWT18_G09/addroom/" method="POST">
-
+                <div class="form-group">
+                    <label for="inputRoomTitle">Room title</label>
+                    <input type="text" class="form-control" id="inputRoomTitle" name="room_title" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputStreet">Street and house number</label>
+                    <input type="text" class="form-control" id="inputStreet" name="street" style="text-transform: capitalize;" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm">
+                        <label for="inputZip">Zip code</label>
+                        <input type="text" class="form-control" id="inputZip" name="zip" maxlength="6" style="text-transform: uppercase;" required>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity" name="city" style="text-transform: capitalize;" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm">
+                        <label for="inputType">Room type</label>
+                        <select class="form-control" id="inputType" name="type" required>
+                            <option value="" disabled selected hidden>Please select</option>
+                            <option value="studenthouse">Room in a student house</option>
+                            <option value="ownershouse">Room in owner's house</option>
+                            <option value="apartment">An apartment</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label for="inputPrice">Price room (&euro;)</label>
+                        <input type="number" class="form-control" id="inputPrice" name="price" maxlength="11" required>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label for="inputSize">Size room (m<sup>2</sup>)</label>
+                        <input type="number" class="form-control" id="inputSize" name="size_m2" maxlength="11" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm">
+                        <label for="inputAvailableFrom">Available from</label>
+                        <input type="date" class="form-control" id="inputAvailableFrom" name="available_from" placeholder="dd-mm-yyyy" required>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label for="inputAvailableTill">Available till</label>
+                        <input type="date" class="form-control" id="inputAvailableTill" name="available_till" placeholder="dd-mm-yyyy" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="furnished" value="no">
+                    <input type="checkbox" name="furnished" value="yes"> The room is furnished
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="services_including" value="no">
+                    <input type="checkbox" name="services_including" value="yes"> Services are included (Gas/Water/Electricity/Internet)
+                </div>
+                <div class="form-group">
+                    <label for="inputDescription">Room description</label>
+                    <textarea rows="5" class="form-control" id="inputDescription" name="description" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
             </br>
         </div>
