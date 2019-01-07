@@ -354,6 +354,7 @@ function get_room_info($pdo, $room_id){
     }
     return $room_info_exp;
 }
+
 /**
  * saves opt_in data to database
  * @param object $pdo db object
@@ -371,8 +372,7 @@ function opt_in($pdo, $room_id, $form_data){
             'type' => 'success',
             'message' => sprintf("Your request on the room '%s', is successfully sent.", $room_ifo['street'])
         ];
-    }
-    else {
+    } else {
         return [
             'type' => 'danger',
             'message' => 'There was an error. Your request was not sent correctly, please try it again!'
