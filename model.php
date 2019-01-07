@@ -334,7 +334,7 @@ function logout_user(){
         'type' => 'success',
         'message' => 'You successfully logged out.'
     ];
-    redirect(sprintf('/DDWT18/week2/?logout_msg=%s', json_encode($feedback)));
+    redirect(sprintf('/DDWT18_G09/?logout_msg=%s', json_encode($feedback)));
 }
 /**
  * Generates an array with room information
