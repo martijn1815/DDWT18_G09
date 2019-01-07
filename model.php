@@ -336,7 +336,49 @@ function logout_user(){
     ];
     redirect(sprintf('/DDWT18/week2/?logout_msg=%s', json_encode($feedback)));
 }
+/**
+ * Generates an array with room information
+ * @param object $pdo db object
+ * @param int $room_id id from the room
+ * @return mixed
+ */
+function get_room_info($pdo, $room_id){
+    $stmt = $pdo->prepare('SELECT * FROM rooms WHERE id = ?');
+    $stmt->execute([$room_id]);
+    $room_info = $stmt->fetch();
+    $room_info_exp = Array();
 
+    /* Create array with htmlspecialchars */
+    foreach ($room_info as $key => $value){
+        $room_info_exp[$key] = htmlspecialchars($value);
+    }
+    return $room_info_exp;
+}
+/**
+ * saves opt_in data to database
+ * @param object $pdo db object
+ * @param int $room_id id from the room
+ * @param $form_data array with the message
+ */
+function opt_in($pdo, $room_id, $form_data){
+    $room_ifo = get_room_info($pdo, $room_id);
+    $user_id = get_user_id();
+    $stmt = $pdo->prepare('INSERT INTO opt_in(room_id, tenant_id, message, date) VALUES (?,?,?,?)');
+    $stmt-> execute([$room_id, $user_id,$form_data["message"],date('Y-m-d H:i:s') ]);
+    $success = $stmt->rowCount();
+    if ($success ==  1) {
+        return [
+            'type' => 'success',
+            'message' => sprintf("Your request on the room '%s', is successfully sent.", $room_ifo['street'])
+        ];
+    }
+    else {
+        return [
+            'type' => 'danger',
+            'message' => 'There was an error. Your request was not sent correctly, please try it again!'
+        ];
+    }
+}
 /*
  *      $fields = ['type', 'size', 'price', 'serviceIncluding', 'furnished', 'street', 'zip', 'city', 'description', 'availableFrom', 'availableTill', 'description']
  *
