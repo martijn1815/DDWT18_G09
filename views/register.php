@@ -63,11 +63,11 @@
                 </div>
                 <div class="form-group">
                     <label for="inputUsername">First name</label>
-                    <input type="text" class="form-control" id="inputUsername" name="firstname" required>
+                    <input type="text" class="form-control" id="inputUsername" name="firstname" style="text-transform: capitalize;" required>
                 </div>
                 <div class="form-group">
                     <label for="inputUsername">Last name</label>
-                    <input type="text" class="form-control" id="inputUsername" name="lastname" required>
+                    <input type="text" class="form-control" id="inputUsername" name="lastname" style="text-transform: capitalize;" required>
                 </div>
                 <div class="form-group">
                     <label for="inputGender">Gender</label>
@@ -84,21 +84,21 @@
                 </div>
                 <div class="form-group">
                     <label for="inputStreet">Street and house number</label>
-                    <input type="text" class="form-control" id="inputStreet" name="street" required>
+                    <input type="text" class="form-control" id="inputStreet" name="street" style="text-transform: capitalize;" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="inputZip">Zip code</label>
-                        <input type="text" class="form-control" id="inputZip" name="zip" maxlength="6" required>
+                        <input type="text" class="form-control" id="inputZip" name="zip" maxlength="6" style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group col-sm">
                         <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity" name="city" required>
+                        <input type="text" class="form-control" id="inputCity" name="city" style="text-transform: capitalize;" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputProfession">Study/Profession</label>
-                    <input type="text" class="form-control" id="inputProfession" name="profession" required>
+                    <input type="text" class="form-control" id="inputProfession" name="profession" style="text-transform: capitalize;" required>
                 </div>
                 <div class="form-group">
                     <label for="inputLang">What languages do you speak?</label>
