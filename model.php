@@ -317,6 +317,10 @@ function get_username($pdo, $user_id){
     return $user['firstname'].' '.$user['lastname'];
 }
 
+/**
+ * Check if a user is logged in
+ * @return bool
+ */
 function check_login(){
     session_start();
     if (isset($_SESSION['user_id'])){
@@ -326,6 +330,9 @@ function check_login(){
     }
 }
 
+/**
+ * Logout current user
+ */
 function logout_user(){
     session_start();
     session_unset();
@@ -336,6 +343,78 @@ function logout_user(){
     ];
     redirect(sprintf('/DDWT18_G09/?logout_msg=%s', json_encode($feedback)));
 }
+
+/**
+ * Add a room to database
+ * @param PDO $pdo
+ * @param $form_data
+ * @return array
+ */
+function add_room($pdo, $form_data){
+    /* Check if all fields are set */
+    $fields = ['type', 'size', 'price', 'serviceIncluding', 'furnished', 'street', 'zip', 'city', 'description', 'availableFrom', 'availableTill', 'description'];
+    foreach ($fields as $value) {
+        if (empty($form_data[$value])) {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('Form not complete, please fill in %s.', $value)
+            ];
+        }
+    }
+
+    /* Check data type */
+    /* ...to be added */
+
+    /* Check if room already exists */
+    /*
+    $stmt = $pdo->prepare('SELECT * FROM series WHERE name = ?');
+    $stmt->execute([$serie_info['Name']]);
+    $serie = $stmt->rowCount();
+    if ($serie){
+        return [
+            'type' => 'danger',
+            'message' => 'This series was already added.'
+        ];
+    }
+    */
+
+    /* Get user info */
+    $stmt = $pdo->prepare('SELECT * FROM series WHERE username = ?');
+    $stmt->execute([$_SESSION['user_id']]);
+    $user_info = $stmt->fetch();
+
+    /* Add Room */
+    $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, room_title, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, service_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([
+        $user_info['id'],
+        $input['room_title'],
+        $input['size_m2'],
+        $input['zip'],
+        $input['street'],
+        $input['city'],
+        $input['description'],
+        $input['type'],
+        $input['available_from'],
+        $input['available_till'],
+        $input['furnished'],
+        $input['price'],
+        $input['service_including']
+    ]);
+    $inserted = $stmt->rowCount();
+    if ($inserted ==  1) {
+        $feedback = [
+            'type' => 'success',
+            'message' => sprintf("Room \''%s'\' added to Series Overview.", $input['room_title'])
+        ];
+        redirect(sprintf('/DDWT18_G09/myrooms/?error_msg=%s', json_encode($feedback)));
+    } else {
+        return [
+            'type' => 'danger',
+            'message' => 'There was an error. The series was not added. Try it again.'
+        ];
+    }
+}
+
 /**
  * Generates an array with room information
  * @param object $pdo db object
