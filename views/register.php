@@ -89,7 +89,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="inputZip">Zip code</label>
-                        <input type="text" class="form-control" id="inputZip" name="zip" maxlength="6" style="text-transform: uppercase;" required>
+                        <input type="text" class="form-control" id="inputZip" name="zip" minlength="6" maxlength="6" style="text-transform: uppercase;" required>
                     </div>
                     <div class="form-group col-sm">
                         <label for="inputCity">City</label>

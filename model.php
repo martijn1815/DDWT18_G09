@@ -352,7 +352,7 @@ function logout_user(){
  */
 function add_room($pdo, $form_data){
     /* Check if all fields are set */
-    $fields = ['type', 'size', 'price', 'serviceIncluding', 'furnished', 'street', 'zip', 'city', 'description', 'availableFrom', 'availableTill', 'description'];
+    $fields = ['room_title', 'type', 'size_m2', 'price', 'services_including', 'furnished', 'street', 'zip', 'city', 'description', 'available_from', 'available_till', 'description'];
     foreach ($fields as $value) {
         if (empty($form_data[$value])) {
             return [
@@ -384,36 +384,36 @@ function add_room($pdo, $form_data){
     $stmt->execute([$_SESSION['user_id']]);
     $user_info = $stmt->fetch();
     */
-    $user_info = Array('id' => '1');
+    $user_info = Array('id' => '5');
 
     /* Add Room */
-    $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, room_title, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, service_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, room_title, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, services_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->execute([
         $user_info['id'],
-        $input['room_title'],
-        $input['size_m2'],
-        $input['zip'],
-        $input['street'],
-        $input['city'],
-        $input['description'],
-        $input['type'],
-        $input['available_from'],
-        $input['available_till'],
-        $input['furnished'],
-        $input['price'],
-        $input['service_including']
+        $form_data['room_title'],
+        $form_data['size_m2'],
+        $form_data['zip'],
+        $form_data['street'],
+        $form_data['city'],
+        $form_data['description'],
+        $form_data['type'],
+        $form_data['available_from'],
+        $form_data['available_till'],
+        $form_data['furnished'],
+        $form_data['price'],
+        $form_data['services_including']
     ]);
     $inserted = $stmt->rowCount();
     if ($inserted ==  1) {
         $feedback = [
             'type' => 'success',
-            'message' => sprintf("Room \''%s'\' added to Series Overview.", $input['room_title'])
+            'message' => sprintf('Room %s added to database.', $form_data['room_title'])
         ];
         redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($feedback)));
     } else {
         return [
             'type' => 'danger',
-            'message' => 'There was an error. The series was not added. Try it again.'
+            'message' => 'There was an error. The room was not added. Try it again.'
         ];
     }
 }
