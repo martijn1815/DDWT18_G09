@@ -186,6 +186,7 @@ function register_user($pdo, $form_data){
 
     /* Hash password */
     $password = password_hash($form_data['password'], PASSWORD_DEFAULT);
+    $date = date('Y-m-d', strtotime($form_data['date_of_birth']));
 
     /* Save user to the database */
     try {
@@ -201,7 +202,7 @@ function register_user($pdo, $form_data){
             $form_data['phone'],
             $form_data['mail'],
             $form_data['biography'],
-            $form_data['date_of_birth'],
+            $date,
             $form_data['role'],
             $form_data['gender'],
             $form_data['study'],
