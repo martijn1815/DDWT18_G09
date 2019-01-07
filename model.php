@@ -153,7 +153,7 @@ function get_error($feedback){
  */
 function register_user($pdo, $form_data){
     /* Check if all fields are set */
-    $fields = ['username', 'password', 'firstname', 'lastname', 'street', 'zip', 'city', 'phone', 'mail', 'biography', "study", 'profession', 'date_of_birth', 'role', 'gender', 'lang'];
+    $fields = ['username', 'password', 'firstname', 'lastname', 'street', 'zip', 'city', 'phone', 'mail', 'biography', 'profession', 'date_of_birth', 'role', 'gender', 'lang'];
     foreach ($fields as $value) {
         if (empty($form_data[$value])) {
             return [
@@ -190,7 +190,7 @@ function register_user($pdo, $form_data){
 
     /* Save user to the database */
     try {
-        $stmt = $pdo->prepare('INSERT INTO users (username, password, first_name, last_name, street, zip, city, phone_number, email, biography, date_of_birth, role, gender, study, profession) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = $pdo->prepare('INSERT INTO users (username, password, first_name, last_name, street, zip, city, phone_number, email, biography, date_of_birth, role, gender, profession) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->execute([
             $form_data['username'],
             $password,

@@ -64,6 +64,11 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
     /* Page content */
     $page_subtitle = 'Please register by filling in the following form';
 
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
     /* Choose Template */
     include use_template('register');
 }
