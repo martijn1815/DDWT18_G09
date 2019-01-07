@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputRole">Role</label>
-                    <select class="form-control" id="inputRole" name="role">
+                    <select class="form-control" id="inputRole" name="role" required>
                         <option value="" disabled selected hidden>Please select</option>
                         <option value="tenant">Tenant</option>
                         <option value="owner">Owner</option>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputGender">Gender</label>
-                    <select class="form-control" id="inputGender" name="gender">
+                    <select class="form-control" id="inputGender" name="gender" required>
                         <option value="" disabled selected hidden>Please select</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -102,7 +102,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputLang">What languages do you speak?</label>
-                    <select class="form-control" id="inputLang" name="lang" multiple="multiple">
+                    <select class="form-control" id="inputLang" name="lang[]" multiple="multiple" required>
                         <option value="dutch">Dutch</option>
                         <option value="english">English</option>
                         <option value="french">French</option>

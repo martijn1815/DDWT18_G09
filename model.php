@@ -209,7 +209,7 @@ function register_user($pdo, $form_data){
         ]);
         $user_id = $pdo->lastInsertId();
         foreach ($form_data['lang'] as $language) {
-            $stmt = $pdo->prepare('INSERT INTO language (user_id, language) VALUES (?, ?)');
+            $stmt = $pdo->prepare('INSERT INTO languages (user_id, language) VALUES (?, ?)');
             $stmt->execute([$user_id, $language]);
         }
     } catch (PDOException $e) {
