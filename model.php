@@ -186,7 +186,6 @@ function register_user($pdo, $form_data){
 
     /* Hash password */
     $password = password_hash($form_data['password'], PASSWORD_DEFAULT);
-    $date = date('Y-m-d', strtotime($form_data['date_of_birth']));
 
     /* Save user to the database */
     try {
@@ -202,7 +201,7 @@ function register_user($pdo, $form_data){
             $form_data['phone'],
             $form_data['mail'],
             $form_data['biography'],
-            $date,
+            date("y-m-d", strtotime($form_data['date_of_birth'])),
             $form_data['role'],
             $form_data['gender'],
             $form_data['profession']
@@ -397,8 +396,8 @@ function add_room($pdo, $form_data){
         $form_data['city'],
         $form_data['description'],
         $form_data['type'],
-        $form_data['available_from'],
-        $form_data['available_till'],
+        date("y-m-d", strtotime($form_data['available_from'])),
+        date("y-m-d", strtotime($form_data['available_till'])),
         $form_data['furnished'],
         $form_data['price'],
         $form_data['services_including']
