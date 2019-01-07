@@ -54,20 +54,20 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="inputMail">Email</label>
-                    <input type="email" class="form-control" id="inputMail" name="mail" required>
-                </div>
-                <div class="form-group">
-                    <label for="inputPhone">Phone number</label>
-                    <input type="number" class="form-control" id="inputPhone" name="phone" minlength="10" maxlength="15" required>
-                </div>
-                <div class="form-group">
                     <label for="inputUsername">First name</label>
                     <input type="text" class="form-control" id="inputUsername" name="firstname" style="text-transform: capitalize;" required>
                 </div>
                 <div class="form-group">
                     <label for="inputUsername">Last name</label>
                     <input type="text" class="form-control" id="inputUsername" name="lastname" style="text-transform: capitalize;" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputMail">Email</label>
+                    <input type="email" class="form-control" id="inputMail" name="mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">Phone number</label>
+                    <input type="number" class="form-control" id="inputPhone" name="phone" minlength="10" maxlength="15" required>
                 </div>
                 <div class="form-group">
                     <label for="inputGender">Gender</label>
