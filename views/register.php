@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputDateOfBirth">Date of birth</label>
-                    <input type="date" class="form-control" id="inputDateOfBirth" name="date_of_birth" placeholder="yyyy-mm-dd" required>
+                    <input type="date" class="form-control" id="inputDateOfBirth" name="date_of_birth" placeholder="dd-mm-yyyy" required>
                 </div>
                 <div class="form-group">
                     <label for="inputStreet">Street and house number</label>
