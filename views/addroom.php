@@ -32,7 +32,7 @@
 
             <div class="pd-15">&nbsp;</div>
 
-            <form action="/DDWT18_G09/addroom/" method="POST">
+            <form action="/DDWT18_G09/addrooms/" method="POST">
                 <div class="form-group">
                     <label for="inputRoomTitle">Room title</label>
                     <input type="text" class="form-control" id="inputRoomTitle" name="room_title" required>

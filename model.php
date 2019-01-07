@@ -379,9 +379,12 @@ function add_room($pdo, $form_data){
     */
 
     /* Get user info */
+    /*
     $stmt = $pdo->prepare('SELECT * FROM series WHERE username = ?');
     $stmt->execute([$_SESSION['user_id']]);
     $user_info = $stmt->fetch();
+    */
+    $user_info = Array('id' => '1');
 
     /* Add Room */
     $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, room_title, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, service_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -406,7 +409,7 @@ function add_room($pdo, $form_data){
             'type' => 'success',
             'message' => sprintf("Room \''%s'\' added to Series Overview.", $input['room_title'])
         ];
-        redirect(sprintf('/DDWT18_G09/myrooms/?error_msg=%s', json_encode($feedback)));
+        redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($feedback)));
     } else {
         return [
             'type' => 'danger',

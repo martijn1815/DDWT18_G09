@@ -59,7 +59,7 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/register', True)
     ]);
-    $navigation = get_navigation($navigation_template, 6);
+    $navigation = get_navigation($navigation_template, 2);
 
     /* Page content */
     $page_subtitle = 'Please register by filling in the following form';
@@ -89,7 +89,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/addrooms', True)
     ]);
-    $navigation = get_navigation($navigation_template, 2);
+    $navigation = get_navigation($navigation_template, 6);
 
     /* Page content */
     $page_subtitle = '';
@@ -105,9 +105,10 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
 
 /* Add Rooms post*/
 elseif (new_route('/DDWT18_G09/addrooms/', 'post')){
-    /* Register user */
+    /* Add user */
     $error_msg = add_room($db, $_POST);
-    /* Redirect to homepage */
+
+    /* Redirect to Add Room page */
     redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($error_msg)));
 }
 
