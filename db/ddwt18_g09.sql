@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Gegenereerd op: 07 jan 2019 om 13:16
+-- Gegenereerd op: 07 jan 2019 om 14:50
 -- Serverversie: 5.7.23
 -- PHP-versie: 7.2.10
 
@@ -19,6 +19,54 @@ SET time_zone = "+00:00";
 --
 -- Database: `ddwt18_g09`
 --
+CREATE DATABASE IF NOT EXISTS `ddwt18_g09` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ddwt18_g09`;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `languages`
+--
+
+CREATE TABLE `languages` (
+  `user_id` int(11) NOT NULL,
+  `language` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `opt_in`
+--
+
+CREATE TABLE `opt_in` (
+  `id` int(11) NOT NULL,
+  `tenant_id` int(11) NOT NULL,
+  `message` varchar(256) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `rooms`
+--
+
+CREATE TABLE `rooms` (
+  `id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
+  `size_m2` int(11) NOT NULL,
+  `zip` varchar(6) NOT NULL,
+  `street` varchar(256) NOT NULL,
+  `city` varchar(256) NOT NULL,
+  `description` text NOT NULL,
+  `type` varchar(256) NOT NULL,
+  `available_from` date NOT NULL,
+  `available_till` date NOT NULL,
+  `furnished` varchar(256) NOT NULL,
+  `price` int(11) NOT NULL,
+  `services_including` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -26,7 +74,6 @@ SET time_zone = "+00:00";
 -- Tabelstructuur voor tabel `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(256) NOT NULL,
@@ -46,8 +93,36 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Gegevens worden geëxporteerd voor tabel `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `zip`, `street`, `city`, `phone_number`, `email`, `biography`, `date_of_birth`, `role`, `gender`, `profession`) VALUES
+(1, 'test', '$2y$10$WHiCiAzH4s4/oYUM3oKMHeZwtK8G8OjlPSJ44YPszHVU519LhT/vi', 'test', 'test', '0000aa', 'test 1', 'test', 645925691, 'test@test.test', 'test', '2000-11-11', 'tenant', 'male', 'test'),
+(2, 'test2', '$2y$10$zl7FKVEHHosWlshwCnekXOLuGdS/u42ups30kFa/oJw5CNX.ys.Ry', 'test', 'test', '0000bb', 'test 1', 'test', 645925691, 'test2@test.test', 'test', '2000-02-02', 'tenant', 'male', 'test');
+
+--
 -- Indexen voor geëxporteerde tabellen
 --
+
+--
+-- Indexen voor tabel `languages`
+--
+ALTER TABLE `languages`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexen voor tabel `opt_in`
+--
+ALTER TABLE `opt_in`
+  ADD PRIMARY KEY (`id`,`tenant_id`),
+  ADD KEY `tenant_id` (`tenant_id`);
+
+--
+-- Indexen voor tabel `rooms`
+--
+ALTER TABLE `rooms`
+  ADD PRIMARY KEY (`id`,`owner_id`),
+  ADD KEY `owner_id` (`owner_id`);
 
 --
 -- Indexen voor tabel `users`
@@ -60,10 +135,44 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT voor een tabel `opt_in`
+--
+ALTER TABLE `opt_in`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT voor een tabel `rooms`
+--
+ALTER TABLE `rooms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Beperkingen voor geëxporteerde tabellen
+--
+
+--
+-- Beperkingen voor tabel `languages`
+--
+ALTER TABLE `languages`
+  ADD CONSTRAINT `languages_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Beperkingen voor tabel `opt_in`
+--
+ALTER TABLE `opt_in`
+  ADD CONSTRAINT `opt_in_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `users` (`id`);
+
+--
+-- Beperkingen voor tabel `rooms`
+--
+ALTER TABLE `rooms`
+  ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
