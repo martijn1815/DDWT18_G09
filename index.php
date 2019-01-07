@@ -112,6 +112,35 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'post')){
 }
 
 
+elseif (new_route('/DDWT18_G09/login/', 'get')){
+    /* Check if logged in */
+
+    /* Page info */
+    $page_title = 'Login';
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18' => na('/DDWT18_G09/', False),
+        'Login' => na('/DDWT18_G09/login', True)
+    ]);
+    $navigation = get_navigation($navigation_template, 3);
+
+    /* Page content */
+    $page_subtitle = 'Please enter your username and password ';
+
+    /* Choose Template */
+    include use_template('login');
+}
+
+/* Login post*/
+elseif (new_route('/DDWT18_G09/login/', 'post')){
+    /* User Login */
+    $error_msg = login_user($db, $_POST);
+    redirect(sprintf('/DDWT18_G09/login/?error_msg=%s', json_encode($error_msg)));
+
+}
+
+
+
+
 
 
 /* opt-in GET */
@@ -127,7 +156,7 @@ elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
     $page_title = 'Opt-in';
     $breadcrumbs = get_breadcrumbs([
         'DDWT18' => na('/DDWT18_G09/', False),
-        'Week 2' => na('/DDWT18_G09/opt-in/', False),
+        'opt-in' => na('/DDWT18_G09/opt-in/', False),
         sprintf("Opt-in room on %s", $room_info['street']) => na('/DDWT18_G09/opt-in/room_id='.$room_id, True)
     ]);
     $navigation = get_navigation($navigation_template, 0);
