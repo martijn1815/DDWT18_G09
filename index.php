@@ -112,7 +112,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'post')){
     redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($error_msg)));
 }
 
-
+/*login get*/
 elseif (new_route('/DDWT18_G09/login/', 'get')){
     /* Check if logged in */
 
@@ -126,6 +126,10 @@ elseif (new_route('/DDWT18_G09/login/', 'get')){
 
     /* Page content */
     $page_subtitle = 'Please enter your username and password ';
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
 
     /* Choose Template */
     include use_template('login');
