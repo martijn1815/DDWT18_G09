@@ -282,6 +282,58 @@ elseif (new_route('/DDWT18_G09/logout/', 'get')){
 
 }
 
+
+/* Single room */
+
+elseif (new_route('/DDWT18_G09/roomsoverview/room', 'get')) {
+    /* Get rooms from db */
+    $room_id = $_GET['room_id'];
+    $room_info = get_room_info($db, $room_id);
+    if (check_login()){
+        $user_status = get_user_role($db);
+    }else{
+        $user_status = "logedout";
+    }
+
+    /* Page info */
+    $page_title = $room_info['room_title'];
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18' => na('/DDWT18_G09/', False),
+        'roomsoverview' => na('/DDWT18_G09/roomsoverview/', False),
+        $room_info['room_title'] => na('/DDWT18_G09/roomsoverview/room/?room_id='.$room_id, True)
+    ]);
+    $navigation = get_navigation($navigation_template, 2, $user_status);
+
+    /* Page content */
+    $page_subtitle = sprintf("Information about %s", $room_info['room_title']);
+    /* Get the owner of the room*/
+    $owner_id = $room_info["owner_id"];
+    $owner = get_username($db, $owner_id);
+    $size = $room_info['size_m2'];
+    $zip = $room_info['zip'];
+    $street = $room_info['street'];
+    $city = $room_info['city'];
+    $description = $room_info['description'];
+    $type = $room_info['type'];
+    $available_from = $room_info['available_from'];
+    $available_till = $room_info['available_till'];
+    $furnished = $room_info['furnished'];
+    $price = $room_info['price'];
+    $services_including = $room_info['services_including'];
+
+
+
+    /* Check if the correct user logged in to edit or remove the room*/
+    if ( check_login() ) {
+        $display_buttons = ($room_info['owner_id'] == $_SESSION['user_id'])? true : false;
+    } else {
+        $display_buttons = false;
+    }
+    /* Choose Template */
+    include use_template('single_room');
+}
+
+
 /* opt-in GET */
 elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
     /* Get room info from db */
