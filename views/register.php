@@ -13,6 +13,9 @@
         <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
         <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
 
+        <!-- Own CSS -->
+        <link rel="stylesheet" href="/DDWT18_G09/css/main.css">
+
         <title><?= $page_title ?></title>
 </head>
 <body>

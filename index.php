@@ -97,7 +97,7 @@ if (new_route('/DDWT18_G09/roomsoverview', 'get')) {
     }
 
     /* Page content */
-    /*$rooms_table = get_rooms_table();*/
+    $rooms_table = get_rooms_table(get_rooms($db));
 
     /* Choose Template */
     include use_template('rooms');

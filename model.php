@@ -514,6 +514,59 @@ function update_room($pdo, $form_data){
 }
 
 /**
+ * Get array with all listed rooms from the database
+ * @param object $pdo database object
+ * @return array Associative array with all rooms
+ */
+function get_rooms($pdo){
+    $stmt = $pdo->prepare('SELECT * FROM rooms');
+    $stmt->execute();
+    $rooms = $stmt->fetchAll();
+    $series_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($rooms as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $rooms_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $rooms_exp;
+}
+
+/**
+ * Creats a Bootstrap table with a list of rooms
+ * @param object $db pdo object
+ * @param array $rooms with rooms from the db
+ * @return string
+ */
+function get_rooms_table($rooms){
+    $table_exp = '
+    <table class="table table-hover">
+    <thead
+    <tr>
+        <th scope="col">Room</th>
+        <th scope="col">Size (m2)</th>
+        <th scope="col">Price</th>
+    </tr>
+    </thead>
+    <tbody>';
+    foreach($rooms as $key => $value){
+        $table_exp .= '
+        <tr>
+            <td>'.$value['room_title'].'</td>
+            <td>'.$value['size_m2'].'</td>
+            <td>'.$value['price'].'</td>
+        </tr>
+        ';
+    }
+    $table_exp .= '
+    </tbody>
+    </table>
+    ';
+    return $table_exp;
+}
+
+/**
  * Generates an array with room information
  * @param object $pdo db object
  * @param int $room_id id from the room
