@@ -57,6 +57,14 @@ if (new_route('/DDWT18_G09/', 'get')) {
 
 /* Register get*/
 elseif (new_route('/DDWT18_G09/register/', 'get')){
+    /* Check if logged in */
+    if ( check_login() ) {
+        $feedback = [
+            'type' => 'success',
+            'message' => sprintf('You are already a user.')
+        ];
+        redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s',  json_encode($feedback)));
+    }
     /* Page info */
     $page_title = 'New user';
     $breadcrumbs = get_breadcrumbs([
@@ -89,7 +97,11 @@ elseif (new_route('/DDWT18_G09/register/', 'post')){
 elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
     /* Check if logged in */
     if ( !check_login() ) {
-        redirect('/DDWT18_G09/login/');
+        $feedback = [
+            'type' => 'danger',
+            'message' => sprintf('You have to login to add rooms!! Please login or register as new user.')
+        ];
+        redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
     }
     /* chech if the user is an owner*/
     if (get_user_info($db,$_SESSION['user_id'])["role"]!= "owner"){
@@ -135,6 +147,13 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'post')){
 /*login get*/
 elseif (new_route('/DDWT18_G09/login/', 'get')){
     /* Check if logged in */
+    if ( check_login() ) {
+        $feedback = [
+            'type' => 'success',
+            'message' => sprintf('You are already logged in.')
+        ];
+        redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s',  json_encode($feedback)));
+    }
 
     /* Page info */
     $page_title = 'Login';
