@@ -522,7 +522,7 @@ function get_rooms($pdo){
     $stmt = $pdo->prepare('SELECT * FROM rooms');
     $stmt->execute();
     $rooms = $stmt->fetchAll();
-    $series_exp = Array();
+    $rooms_exp = Array();
 
     /* Create array with htmlspecialchars */
     foreach ($rooms as $key => $value){
@@ -558,6 +558,47 @@ function get_rooms_table($rooms){
             <td style="width: 15%">&euro;'.number_format($value['price'], 2).'</td>
         </tr>
         ';
+    }
+    $table_exp .= '
+    </tbody>
+    </table>
+    ';
+    return $table_exp;
+}
+
+/**
+ * Creats a Bootstrap table with a list of rooms
+ * @param object $db pdo object
+ * @param array $rooms with rooms from the db
+ * @return string
+ */
+function get_myrooms_table($rooms){
+
+    $user_id = $_SESSION['user_id'];
+    $table_exp = '
+    <table class="table table-hover">
+    <thead
+    <tr>
+        <th scope="col" style="width: 50%">Room</th>
+        <th scope="col" style="width: 15">Size</th>
+        <th scope="col" style="width: 15%">Price</th>
+        <th scope="col" style="width: 10%"></th>
+        <th scope="col" style="width: 10%"></th>
+    </tr>
+    </thead>
+    <tbody>';
+    foreach($rooms as $key => $value){
+        if ($value['owner_id'] == $user_id) {
+            $table_exp .= '
+            <tr class="clickable-row" data-href="/DDWT18_G09/myrooms/room/?room_id='.$value['id'].'">
+                <td style="width: 50%">' . $value['room_title'] . '</td>
+                <td style="width: 15%">' . $value['size_m2'] . 'm<sup>2</sup></td>
+                <td style="width: 15%">&euro;' . number_format($value['price'], 2) . '</td>
+                <td style="width: 10%"><a href="/DDWT18_G09/myrooms/?room_id=' . $value['id'] . '" role="button" class="btn btn-primary">Edit</a></td>
+                <td style="width: 10%"><a href="/DDWT19_G09/myrooms/?room_id=' . $value['id'] . '" role="button" class="btn btn-danger">Delete</a></td>
+            </tr>
+            ';
+        }
     }
     $table_exp .= '
     </tbody>
