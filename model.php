@@ -47,7 +47,7 @@ function redirect($location){
  * @param array $navigation Array with as Key the page name and as Value the corresponding url
  * @return string html code that represents the navigation
  */
-function get_navigation($template, $active_id){
+function get_navigation($template, $active_id, $user_status){
     $navigation_exp = '
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand">Rooms Overview</a>
@@ -57,6 +57,7 @@ function get_navigation($template, $active_id){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">';
     foreach ($template as $id => $info) {
+        if ($info['show'] == 'always' or $info['show'] == $user_status)
         if ($active_id == $id){
             $navigation_exp .= '<li class="nav-item active">';
             $navigation_exp .= '<a class="nav-link" href="'.$info['url'].'">'.$info['name'].'</a>';
@@ -342,7 +343,6 @@ function logout_user($pdo){
     ];
     session_destroy();
     redirect(sprintf('/DDWT18_G09/?error_msg=%s',  json_encode($feedback)));
-
 }
 
 /**

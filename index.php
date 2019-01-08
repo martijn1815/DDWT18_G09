@@ -12,35 +12,35 @@ $navigation_template = Array(
     1 => Array(
         'name' => 'Home',
         'url' => '/DDWT18_G09/',
-        'user_only' => False),
+        'show' => 'always'),
     2 => Array(
         'name' => 'Rooms Overview',
         'url' => '/DDWT18_G09/roomsoverview/',
-        'user_only' => False),
+        'show' => 'always'),
     3 => Array(
         'name' => 'My Rooms',
         'url' => '/DDWT18_G09/myrooms/',
-        'user_only' => True),
+        'show' => 'logedin'),
     4 => Array(
         'name' => 'User Profile',
         'url' => '/DDWT18_G09/userprofile/',
-        'user_only' => True),
+        'show' => 'logedin'),
     5 => Array(
         'name' => 'Add Rooms',
         'url' => '/DDWT18_G09/addrooms/',
-        'user_only' => True),
+        'show' => 'logedin'),
     6 => Array(
         'name' => 'Login',
         'url' => '/DDWT18_G09/login/',
-        'user_only' => False),
+        'show' => 'logedout'),
     7 => Array(
         'name' => 'Logout',
         'url' => '/DDWT18_G09/logout/',
-        'user_only' => False),
+        'show' => 'logedin'),
     8 => Array(
         'name' => 'Register',
         'url' => '/DDWT18_G09/register/',
-        'user_only' => False)
+        'show' => 'logedout')
 );
 
 /* Landing page */
@@ -52,7 +52,13 @@ if (new_route('/DDWT18_G09/', 'get')) {
         'DDWT18_G09' => na('/DDWT18_G09/', True),
     ]);
 
-    $navigation = get_navigation($navigation_template, 1);
+    /* Check if logged in */
+    if ( check_login() ) {
+        $user_status = 'logedin';
+    } else {
+        $user_status = 'logedout';
+    }
+    $navigation = get_navigation($navigation_template, 1, $user_status);
 
     /* Page content */
     $page_subtitle = 'The online platform to view and offer student rooms';
@@ -70,11 +76,14 @@ if (new_route('/DDWT18_G09/', 'get')) {
 elseif (new_route('/DDWT18_G09/register/', 'get')){
     /* Check if logged in */
     if ( check_login() ) {
+        $user_status = 'logedin';
         $feedback = [
             'type' => 'success',
             'message' => sprintf('You are already a user.')
         ];
         redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s',  json_encode($feedback)));
+    } else {
+        $user_status = 'logedout';
     }
     /* Page info */
     $page_title = 'New user';
@@ -82,7 +91,7 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/register', True)
     ]);
-    $navigation = get_navigation($navigation_template, 8);
+    $navigation = get_navigation($navigation_template, 8, $user_status);
 
     /* Page content */
     $page_subtitle = 'Please register by filling in the following form';
@@ -108,11 +117,14 @@ elseif (new_route('/DDWT18_G09/register/', 'post')){
 elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
     /* Check if logged in */
     if ( !check_login() ) {
+        $user_status = 'logedout';
         $feedback = [
             'type' => 'danger',
             'message' => sprintf('You have to login to add rooms!! Please login or register as new user.')
         ];
         redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
+    } else {
+        $user_status = 'logedin';
     }
     /* chech if the user is an owner*/
     if (get_user_info($db,$_SESSION['user_id'])["role"]!= "owner"){
@@ -159,11 +171,14 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'post')){
 elseif (new_route('/DDWT18_G09/login/', 'get')){
     /* Check if logged in */
     if ( check_login() ) {
+        $user_status = 'logedin';
         $feedback = [
             'type' => 'success',
             'message' => sprintf('You are already logged in.')
         ];
         redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s',  json_encode($feedback)));
+    } else {
+        $user_status = 'logedout';
     }
 
     /* Page info */
@@ -172,7 +187,7 @@ elseif (new_route('/DDWT18_G09/login/', 'get')){
         'DDWT18' => na('/DDWT18_G09/', False),
         'Login' => na('/DDWT18_G09/login', True)
     ]);
-    $navigation = get_navigation($navigation_template, 6);
+    $navigation = get_navigation($navigation_template, 6, $user_status);
 
     /* Page content */
     $page_subtitle = 'Please enter your username and password ';
@@ -197,11 +212,14 @@ elseif (new_route('/DDWT18_G09/login/', 'post')){
 elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
     /* Check if logged in */
     if ( !check_login() ) {
+        $user_status = 'logedout';
         $feedback = [
             'type' => 'danger',
             'message' => sprintf('You have to login first to see your profile. Please login or register as new user.')
         ];
         redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
+    } else {
+        $user_status = 'logedin';
     }
     /* Page info */
     $page_title = 'My profile';
@@ -211,7 +229,7 @@ elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
         'DDWT18' => na('/DDWT18_G09/', False),
         'My profile' => na('/DDWT18_G09/userprofile/', True)
     ]);
-    $navigation = get_navigation($navigation_template, 4);
+    $navigation = get_navigation($navigation_template, 4, $user_status);
 
     /* Page content */
     $page_subtitle = 'The overview of your profile';
@@ -249,7 +267,7 @@ elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
         'opt-in' => na('/DDWT18_G09/opt-in/', False),
         sprintf("Opt-in room on %s", $room_info['street']) => na('/DDWT18_G09/opt-in/room_id='.$room_id, True)
     ]);
-    $navigation = get_navigation($navigation_template, 0);
+    $navigation = get_navigation($navigation_template, 0, $user_status);
     /* Page content */
     $page_subtitle = sprintf("opt-in room on %s", $room_info['street']);
     $page_content = 'Please fill in a message to the owner with your request.';
@@ -268,7 +286,10 @@ elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
 elseif (new_route('/DDWT18_G09/opt-in/', 'post')) {
     /* Check if logged in */
     if ( !check_login() ) {
+        $user_status = 'logedout';
         redirect('/DDWT18_G09/login/');
+    } else {
+        $user_status = 'logedin';
     }
     $room_id = $_POST['room_id'];
     /* Update serie to database */
