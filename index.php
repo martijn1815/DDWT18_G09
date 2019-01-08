@@ -143,6 +143,35 @@ elseif (new_route('/DDWT18_G09/login/', 'post')){
 
 }
 
+/* User Profile get */
+elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_G09/login/');
+    }
+    /* Page info */
+    $page_title = 'My profile';
+    $user = get_username($db, $_SESSION['user_id']);
+    $user_role = get_user_info($db,$_SESSION['user_id'])["role"];
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18' => na('/DDWT18_G09/', False),
+        'My profile' => na('/DDWT18_G09/userprofile/', True)
+    ]);
+    $navigation = get_navigation($navigation_template, 4);
+
+    /* Page content */
+    $page_subtitle = 'The overview of your profile';
+    $page_content = 'Here you can manage your profile.';
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
+    /* Choose Template */
+    include use_template('profile');
+}
+
+
 
 
 

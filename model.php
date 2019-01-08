@@ -287,7 +287,7 @@ function login_user($pdo, $form_data){
         'type' => 'success',
         'message' => sprintf('%s, you were logged in successfully!', get_username($pdo, $_SESSION['user_id']))
     ];
-    redirect(sprintf('/DDWT18_G09/myaccount/?error_msg=%s', json_encode($feedback)));
+    redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s', json_encode($feedback)));
 }
 
 /**
@@ -313,7 +313,7 @@ function get_username($pdo, $user_id){
     $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
     $stmt->execute([$user_id]);
     $user = $stmt->fetch();
-    return $user['firstname'].' '.$user['lastname'];
+    return $user['first_name'].' '.$user['last_name'];
 }
 
 /**
@@ -436,6 +436,26 @@ function get_room_info($pdo, $room_id){
     return $room_info_exp;
 }
 
+
+
+/**
+ * Generates an array with user information
+ * @param object $pdo db object
+ * @param int $user_id id from the user
+ * @return mixed
+ */
+function get_user_info($pdo, $user_id ){
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+    $stmt->execute([$user_id]);
+    $user_info = $stmt->fetch();
+    $user_info_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($user_info as $key => $value){
+        $user_info_exp[$key] = htmlspecialchars($value);
+    }
+    return $user_info_exp;
+}
 /**
  * saves opt_in data to database
  * @param object $pdo db object
