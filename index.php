@@ -12,35 +12,35 @@ $navigation_template = Array(
     1 => Array(
         'name' => 'Home',
         'url' => '/DDWT18_G09/',
-        'show' => 'always'),
+        'show' => ['logedout', 'tenant', 'owner']),
     2 => Array(
         'name' => 'Rooms Overview',
         'url' => '/DDWT18_G09/roomsoverview/',
-        'show' => 'always'),
+        'show' => ['logedout', 'tenant', 'owner']),
     3 => Array(
         'name' => 'My Rooms',
         'url' => '/DDWT18_G09/myrooms/',
-        'show' => 'logedin'),
+        'show' => ['tenant', 'owner']),
     4 => Array(
         'name' => 'User Profile',
         'url' => '/DDWT18_G09/userprofile/',
-        'show' => 'logedin'),
+        'show' => ['tenant', 'owner']),
     5 => Array(
         'name' => 'Add Rooms',
         'url' => '/DDWT18_G09/addrooms/',
-        'show' => 'logedin'),
+        'show' => ['owner']),
     6 => Array(
         'name' => 'Login',
         'url' => '/DDWT18_G09/login/',
-        'show' => 'logedout'),
+        'show' => ['logedout']),
     7 => Array(
         'name' => 'Logout',
         'url' => '/DDWT18_G09/logout/',
-        'show' => 'logedin'),
+        'show' => ['tenant', 'owner']),
     8 => Array(
         'name' => 'Register',
         'url' => '/DDWT18_G09/register/',
-        'show' => 'logedout')
+        'show' => ['logedout'])
 );
 
 /* Landing page */
@@ -54,7 +54,7 @@ if (new_route('/DDWT18_G09/', 'get')) {
 
     /* Check if logged in */
     if ( check_login() ) {
-        $user_status = 'logedin';
+        $user_status = get_user_role($db);
     } else {
         $user_status = 'logedout';
     }
@@ -76,7 +76,7 @@ if (new_route('/DDWT18_G09/', 'get')) {
 elseif (new_route('/DDWT18_G09/register/', 'get')){
     /* Check if logged in */
     if ( check_login() ) {
-        $user_status = 'logedin';
+        $user_status = get_user_role($db);
         $feedback = [
             'type' => 'success',
             'message' => sprintf('You are already a user.')
@@ -124,7 +124,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
         ];
         redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
     } else {
-        $user_status = 'logedin';
+        $user_status = get_user_role($db);
     }
     /* chech if the user is an owner*/
     if (get_user_info($db,$_SESSION['user_id'])["role"]!= "owner"){
@@ -171,7 +171,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'post')){
 elseif (new_route('/DDWT18_G09/login/', 'get')){
     /* Check if logged in */
     if ( check_login() ) {
-        $user_status = 'logedin';
+        $user_status = get_user_role($db);
         $feedback = [
             'type' => 'success',
             'message' => sprintf('You are already logged in.')
@@ -219,7 +219,7 @@ elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
         ];
         redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
     } else {
-        $user_status = 'logedin';
+        $user_status = get_user_role($db);
     }
     /* Page info */
     $page_title = 'My profile';
@@ -258,7 +258,10 @@ elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
     $room_info = get_room_info($db, $room_id);
     /* Check if logged in */
     if ( !check_login() ) {
+        $user_status = 'logedout';
         redirect('/DDWT18_G09/login/');
+    } else {
+        $user_status = get_user_role($db);
     }
     /* Page info */
     $page_title = 'Opt-in';
@@ -289,7 +292,7 @@ elseif (new_route('/DDWT18_G09/opt-in/', 'post')) {
         $user_status = 'logedout';
         redirect('/DDWT18_G09/login/');
     } else {
-        $user_status = 'logedin';
+        $user_status = get_user_role($db);
     }
     $room_id = $_POST['room_id'];
     /* Update serie to database */

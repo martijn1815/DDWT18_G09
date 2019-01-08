@@ -57,15 +57,15 @@ function get_navigation($template, $active_id, $user_status){
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">';
     foreach ($template as $id => $info) {
-        if ($info['show'] == 'always' or $info['show'] == $user_status)
-        if ($active_id == $id){
-            $navigation_exp .= '<li class="nav-item active">';
-            $navigation_exp .= '<a class="nav-link" href="'.$info['url'].'">'.$info['name'].'</a>';
-        }else{
-            $navigation_exp .= '<li class="nav-item">';
-            $navigation_exp .= '<a class="nav-link" href="'.$info['url'].'">'.$info['name'].'</a>';
+        if (in_array($user_status, $info['show'])) {
+            if ($active_id == $id) {
+                $navigation_exp .= '<li class="nav-item active">';
+                $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
+            } else {
+                $navigation_exp .= '<li class="nav-item">';
+                $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
+            }
         }
-
         $navigation_exp .= '</li>';
     }
     $navigation_exp .= '
@@ -315,6 +315,24 @@ function get_username($pdo, $user_id){
     $stmt->execute([$user_id]);
     $user = $stmt->fetch();
     return $user['first_name'].' '.$user['last_name'];
+}
+
+/**
+ * Returns the role of a user based on a specific user id
+ * @param PDO $pdo
+ * @param $user_id
+ * @return string
+ */
+function get_user_role($pdo){
+    if (isset($_SESSION['user_id'])){
+        $user_id = $_SESSION['user_id'];
+    } else {
+        return False;
+    }
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch();
+    return $user['role'];
 }
 
 /**
