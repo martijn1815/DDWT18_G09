@@ -45,6 +45,7 @@
                     <input type="password" class="form-control" id="inputPassword" placeholder="Enter password" name="password" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Login</button>
+                <a href="/DDWT18_G09/register/" class="btn btn-primary">Not a user? register here</a>
             </form>
 
         </div>

@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-
+        <?php if ($user_role == "owner"){echo'
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
@@ -62,7 +62,21 @@
                     <p>Publish Your room to Rooms Overview.</p>
                     <a href="/DDWT18_G09/addrooms/" class="btn btn-primary">Add a room</a>
                 </div>
-            </div>
+            </div>';}
+            ?>
+
+        <?php if ($user_role == "tenant"){echo'
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Check the new rooms
+                </div>
+                <div class="card-body">
+                    <p>You can check here the rooms overview </p>
+                    <a href="/DDWT18_G09/roomsoverview/" class="btn btn-primary">Room s overview</a>
+                </div>
+            </div>';}
+        ?>
         </div>
 
     </div>
@@ -70,6 +84,8 @@
 
 
 <!-- Optional JavaScript -->
+
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
