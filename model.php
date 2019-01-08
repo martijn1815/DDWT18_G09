@@ -398,7 +398,8 @@ function add_room($pdo, $form_data){
     */
 
     /* Get user info */
-    $stmt = $pdo->prepare('SELECT * FROM series WHERE username = ?');
+    session_start();
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
     $stmt->execute([$_SESSION['user_id']]);
     $user_info = $stmt->fetch();
 
@@ -471,7 +472,8 @@ function update_room($pdo, $form_data){
     */
 
     /* Get user info */
-    $stmt = $pdo->prepare('SELECT * FROM series WHERE username = ?');
+    session_start();
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
     $stmt->execute([$_SESSION['user_id']]);
     $user_info = $stmt->fetch();
 
