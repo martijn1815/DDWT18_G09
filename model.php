@@ -684,16 +684,16 @@ function get_user_info($pdo, $user_id ){
  * @param int $room_id id from the room
  * @param $form_data array with the message
  */
-function opt_in($pdo, $room_id, $form_data){
-    $room_ifo = get_room_info($pdo, $room_id);
+function opt_in($pdo, $form_data){
+    $room_ifo = get_room_info($pdo, $form_data['room_id']);
     $user_id = get_user_id();
     $stmt = $pdo->prepare('INSERT INTO opt_in(room_id, tenant_id, message, date) VALUES (?,?,?,?)');
-    $stmt-> execute([$room_id, $user_id,$form_data["message"],date('Y-m-d H:i:s') ]);
+    $stmt-> execute([$form_data['room_id'], $user_id,$form_data["message"],date('Y-m-d H:i:s') ]);
     $success = $stmt->rowCount();
     if ($success ==  1) {
         return [
             'type' => 'success',
-            'message' => sprintf("Your request on the room '%s', is successfully sent.", $room_ifo['street'])
+            'message' => sprintf("Your request on the room '%s', is successfully sent.", $room_ifo['room_title'])
         ];
     } else {
         return [
