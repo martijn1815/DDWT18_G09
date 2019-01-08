@@ -145,7 +145,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/addrooms', True)
     ]);
-    $navigation = get_navigation($navigation_template, 4);
+    $navigation = get_navigation($navigation_template, 4, $user_status);
 
     /* Page content */
     $page_subtitle = '';
