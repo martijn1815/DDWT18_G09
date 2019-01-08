@@ -174,7 +174,7 @@ elseif (new_route('/DDWT18_G09/register/', 'post')){
     redirect(sprintf('/DDWT18_G09/register/?error_msg=%s', json_encode($error_msg)));
 }
 
-/* Add Rooms get*/
+/* Add Rooms GET*/
 elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
     /* Check if logged in */
     if ( !check_login() ) {
@@ -195,9 +195,6 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
                 get_username($db, $_SESSION['user_id']))
         ];
         redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s',  json_encode($feedback)));
-
-
-
     }
     /* Page info */
     $page_title = 'Add new room';
@@ -209,6 +206,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
 
     /* Page content */
     $page_subtitle = '';
+    $form_action = "/DDWT18_G09/addrooms/";
 
     /* Get error msg from POST route */
     if ( isset($_GET['error_msg']) ) {
@@ -219,13 +217,72 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
     include use_template('addroom');
 }
 
-/* Add Rooms post*/
+/* Add Rooms POST*/
 elseif (new_route('/DDWT18_G09/addrooms/', 'post')){
     /* Add user */
     $error_msg = add_room($db, $_POST);
 
     /* Redirect to Add Room page */
-    redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($error_msg)));
+    redirect(sprintf('/DDWT18_G09/myrooms/?error_msg=%s', json_encode($error_msg)));
+}
+
+/* Edit Rooms GET*/
+elseif (new_route('/DDWT18_G09/myrooms/edit', 'get')){
+    /* Check if logged in */
+    if ( !check_login() ) {
+        $user_status = 'logedout';
+        $feedback = [
+            'type' => 'danger',
+            'message' => sprintf('You have to login to add rooms!! Please login or register as new user.')
+        ];
+        redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
+    } else {
+        $user_status = get_user_role($db);
+    }
+
+    /* chech if the user is an owner*/
+    if (get_user_info($db,$_SESSION['user_id'])["role"]!= "owner"){
+        $feedback = [
+            'type' => 'danger',
+            'message' => sprintf('%s, you do not have the permission to add rooms!',
+                get_username($db, $_SESSION['user_id']))
+        ];
+        redirect(sprintf('/DDWT18_G09/myrooms/?error_msg=%s',  json_encode($feedback)));
+    }
+
+    /* Get room info from db */
+    $room_id = $_GET['room_id'];
+    $room_info = get_room_info($db, $room_id);
+
+    /* Page info */
+    $page_title = 'Edit room';
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18_G09' => na('/DDWT18_G09/', False),
+        'My Rooms' => na('/DDWT18_G09/myrooms', False),
+        'Edit Room' => na('/DDWT18_G09/myrooms/edit', True)
+    ]);
+    $navigation = get_navigation($navigation_template, 3, $user_status);
+
+    /* Page content */
+    $page_subtitle = '';
+    $form_action = "/DDWT18_G09/myrooms/edit";
+
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
+    /* Choose Template */
+    include use_template('addroom');
+}
+
+/* Edit Room POST*/
+elseif (new_route('/DDWT18_G09/myrooms/edit', 'post')){
+    /* Add user */
+    $error_msg = update_room($db, $_POST);
+
+    /* Redirect to Add Room page */
+    redirect(sprintf('/DDWT18_G09/myrooms/?error_msg=%s', json_encode($error_msg)));
 }
 
 /* Remove Room POST */

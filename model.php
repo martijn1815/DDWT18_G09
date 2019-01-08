@@ -425,11 +425,10 @@ function add_room($pdo, $form_data){
     ]);
     $inserted = $stmt->rowCount();
     if ($inserted ==  1) {
-        $feedback = [
+        return [
             'type' => 'success',
             'message' => sprintf('Room %s added to database.', $form_data['room_title'])
         ];
-        redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($feedback)));
     } else {
         return [
             'type' => 'danger',
@@ -500,15 +499,14 @@ function update_room($pdo, $form_data){
     ]);
     $updated = $stmt->rowCount();
     if ($updated ==  1) {
-        $feedback = [
+        return [
             'type' => 'success',
-            'message' => sprintf('Room %s added to database.', $form_data['room_title'])
+            'message' => sprintf('Room %s updated in the database.', $form_data['room_title'])
         ];
-        redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($feedback)));
     } else {
         return [
             'type' => 'danger',
-            'message' => 'There was an error. The room was not added. Try it again.'
+            'message' => 'There was an error. The room was not updated. Try it again.'
         ];
     }
 }
