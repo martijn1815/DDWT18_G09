@@ -31,6 +31,8 @@
             <?php if (isset($error_msg)){echo $error_msg;} ?>
             <?php if(isset($rooms_table)){echo $rooms_table;} ?>
         </div>
+
+
     </div>
 
 </div>

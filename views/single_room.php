@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Own CSS -->
-    <link rel="stylesheet" href="/DDWT18/week2/css/main.css">
+    <link rel="stylesheet" href="/DDWT18_G09/css/main.css">
 
     <title><?= $page_title ?></title>
 </head>
@@ -26,7 +26,7 @@
     <div class="row">
 
         <!-- Left column -->
-        <div class="col-md-8">
+        <div class="col-md-12">
             <!-- Error message -->
             <?php if (isset($error_msg)){echo $error_msg;} ?>
 
@@ -67,6 +67,10 @@
 
                 </tbody>
             </table>
+            <?php if (check_login()){
+                if ($user_role == "tenant"){echo'
+        <a href="/DDWT18_G09/roomsoverview/room/opt-in/?room_id='.$room_id.' " class="btn btn-primary">Opt-in this room</a>';}
+            }?>
 
 
         </div>

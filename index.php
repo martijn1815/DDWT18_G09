@@ -125,7 +125,6 @@ if (new_route('/DDWT18_G09/myrooms', 'get')) {
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
     }
-
     /* Page content */
     $rooms_table = get_myrooms_table(get_rooms($db));
 
@@ -397,6 +396,7 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room', 'get')) {
     }
 
     /* Page info */
+
     $page_title = $room_info['room_title'];
     $breadcrumbs = get_breadcrumbs([
         'DDWT18' => na('/DDWT18_G09/', False),
@@ -406,6 +406,11 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room', 'get')) {
     $navigation = get_navigation($navigation_template, 2, $user_status);
 
     /* Page content */
+    /*check if the user logged in*/
+    if (check_login()) {
+        $user = get_username($db, $_SESSION['user_id']);
+        $user_role = get_user_info($db, $_SESSION['user_id'])["role"];
+    };
     $page_subtitle = sprintf("Information about %s", $room_info['room_title']);
     /* Get the owner of the room*/
     $owner_id = $room_info["owner_id"];
@@ -436,7 +441,7 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room', 'get')) {
 
 
 /* opt-in GET */
-elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
+elseif (new_route('/DDWT18_G09/roomsoverview/room/opt-in', 'get')) {
     /* Get room info from db */
     $room_id = $_GET['room_id'];
     $room_info = get_room_info($db, $room_id);
@@ -451,12 +456,13 @@ elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
     $page_title = 'Opt-in';
     $breadcrumbs = get_breadcrumbs([
         'DDWT18' => na('/DDWT18_G09/', False),
-        'opt-in' => na('/DDWT18_G09/opt-in/', False),
-        sprintf("Opt-in room on %s", $room_info['street']) => na('/DDWT18_G09/opt-in/room_id='.$room_id, True)
+        'roomsoverview' => na('/DDWT18_G09/roomsoverview/', False),
+        'opt-in' => na('/DDWT18_G09/roomsoverview/room/opt-in/', False),
+        sprintf("Opt-in room %s", $room_info['room_title']) => na('/DDWT18_G09/roomsoverview/room/opt-in/?room_id='.$room_id, True)
     ]);
     $navigation = get_navigation($navigation_template, 0, $user_status);
     /* Page content */
-    $page_subtitle = sprintf("opt-in room on %s", $room_info['street']);
+    $page_subtitle = sprintf("opt-in room %s", $room_info['room_title']);
     $page_content = 'Please fill in a message to the owner with your request.';
     $submit_btn = "send";
     $form_action = '/DDWT18_G09/opt-in/';
