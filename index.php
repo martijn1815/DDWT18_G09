@@ -20,15 +20,15 @@ $navigation_template = Array(
     3 => Array(
         'name' => 'My Rooms',
         'url' => '/DDWT18_G09/myrooms/',
-        'show' => ['tenant', 'owner']),
+        'show' => ['owner']),
     4 => Array(
-        'name' => 'User Profile',
-        'url' => '/DDWT18_G09/userprofile/',
-        'show' => ['tenant', 'owner']),
-    5 => Array(
         'name' => 'Add Rooms',
         'url' => '/DDWT18_G09/addrooms/',
         'show' => ['owner']),
+    5 => Array(
+        'name' => 'User Profile',
+        'url' => '/DDWT18_G09/userprofile/',
+        'show' => ['tenant', 'owner']),
     6 => Array(
         'name' => 'Login',
         'url' => '/DDWT18_G09/login/',
@@ -145,7 +145,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/addrooms', True)
     ]);
-    $navigation = get_navigation($navigation_template, 5);
+    $navigation = get_navigation($navigation_template, 4);
 
     /* Page content */
     $page_subtitle = '';
@@ -230,7 +230,7 @@ elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
         'DDWT18' => na('/DDWT18_G09/', False),
         'My profile' => na('/DDWT18_G09/userprofile/', True)
     ]);
-    $navigation = get_navigation($navigation_template, 4, $user_status);
+    $navigation = get_navigation($navigation_template, 5, $user_status);
 
     /* Page content */
     $page_subtitle = 'The overview of your profile';
