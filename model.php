@@ -545,7 +545,7 @@ function get_rooms_table($rooms){
     <thead
     <tr>
         <th scope="col">Room</th>
-        <th scope="col">Size (m2)</th>
+        <th scope="col">Size</th>
         <th scope="col">Price</th>
     </tr>
     </thead>
@@ -554,8 +554,8 @@ function get_rooms_table($rooms){
         $table_exp .= '
         <tr>
             <td>'.$value['room_title'].'</td>
-            <td>'.$value['size_m2'].'</td>
-            <td>'.$value['price'].'</td>
+            <td>'.$value['size_m2'].' m<sup>2</sup></td>
+            <td>&euro;'.$value['price'].'</td>
         </tr>
         ';
     }
