@@ -87,6 +87,22 @@ elseif (new_route('/DDWT18_G09/register/', 'post')){
 
 /* Add Rooms get*/
 elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_G09/login/');
+    }
+    /* chech if the user is an owner*/
+    if (get_user_info($db,$_SESSION['user_id'])["role"]!= "owner"){
+        $feedback = [
+            'type' => 'danger',
+            'message' => sprintf('%s, you do not have the permission to add rooms!',
+                get_username($db, $_SESSION['user_id']))
+        ];
+        redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s',  json_encode($feedback)));
+
+
+
+    }
     /* Page info */
     $page_title = 'Add new room';
     $breadcrumbs = get_breadcrumbs([

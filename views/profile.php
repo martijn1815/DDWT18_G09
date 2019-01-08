@@ -73,7 +73,7 @@
                 </div>
                 <div class="card-body">
                     <p>You can check here the rooms overview </p>
-                    <a href="/DDWT18_G09/roomsoverview/" class="btn btn-primary">Room s overview</a>
+                    <a href="/DDWT18_G09/roomsoverview/" class="btn btn-primary">Rooms overview</a>
                 </div>
             </div>';}
         ?>
