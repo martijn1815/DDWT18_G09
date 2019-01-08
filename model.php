@@ -332,15 +332,17 @@ function check_login(){
 /**
  * Logout current user
  */
-function logout_user(){
+function logout_user($pdo){
     session_start();
-    session_unset();
-    session_destroy();
+
     $feedback = [
         'type' => 'success',
-        'message' => 'You successfully logged out.'
+        'message' => sprintf('%s, you were logged out successfully!',
+            get_username($pdo, $_SESSION['user_id']))
     ];
-    redirect(sprintf('/DDWT18_G09/?logout_msg=%s', json_encode($feedback)));
+    session_destroy();
+    redirect(sprintf('/DDWT18_G09/?error_msg=%s',  json_encode($feedback)));
+
 }
 
 /**

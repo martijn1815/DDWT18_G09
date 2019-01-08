@@ -18,6 +18,11 @@
         <?= $navigation ?>
         <!-- Content -->
         <div class="container">
+            <!-- Left column -->
+            <div class="col-md-8">
+                <!-- Error message -->
+                <?php if (isset($error_msg)){echo $error_msg;} ?>
+            </div>
 
         </div>
 
