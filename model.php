@@ -417,6 +417,80 @@ function add_room($pdo, $form_data){
     }
 }
 
+function update_room($pdo, $form_data){
+    /* Check if all fields are set */
+    $fields = ['room_title', 'type', 'size_m2', 'price', 'services_including', 'furnished', 'street', 'zip', 'city', 'description', 'available_from', 'available_till', 'description'];
+    foreach ($fields as $value) {
+        if (empty($form_data[$value])) {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('Form not complete, please fill in %s.', $value)
+            ];
+        }
+    }
+
+    /* Check data type */
+    /* ...to be added */
+
+    /* Check if user is creator */
+    if ( !isset($_SESSION['user_id']) and $_SESSION['user_id'] != $serie['user']) {
+        return [
+            'type' => 'danger',
+            'message' => 'User is not creator of this serie'
+        ];
+    }
+
+    /* Check if room already exists */
+    /*
+    $stmt = $pdo->prepare('SELECT * FROM series WHERE name = ?');
+    $stmt->execute([$serie_info['Name']]);
+    $serie = $stmt->rowCount();
+    if ($serie){
+        return [
+            'type' => 'danger',
+            'message' => 'This series was already added.'
+        ];
+    }
+    */
+
+    /* Get user info */
+    $stmt = $pdo->prepare('SELECT * FROM series WHERE username = ?');
+    $stmt->execute([$_SESSION['user_id']]);
+    $user_info = $stmt->fetch();
+
+    /* Add Room */
+    $stmt = $pdo->prepare("UPDATE rooms SET owner_id = ?, room_title = ?, size_m2 = ?, zip = ?, street = ?, city = ?, description = ?, type = ?, available_from = ?, available_till = ?, furnished = ?, price = ?, services_including = ? WHERE id = ?");
+    $stmt->execute([
+        $user_info['id'],
+        $form_data['room_title'],
+        $form_data['size_m2'],
+        $form_data['zip'],
+        $form_data['street'],
+        $form_data['city'],
+        $form_data['description'],
+        $form_data['type'],
+        date("y-m-d", strtotime($form_data['available_from'])),
+        date("y-m-d", strtotime($form_data['available_till'])),
+        $form_data['furnished'],
+        $form_data['price'],
+        $form_data['services_including'],
+        $form_data['id']
+    ]);
+    $updated = $stmt->rowCount();
+    if ($updated ==  1) {
+        $feedback = [
+            'type' => 'success',
+            'message' => sprintf('Room %s added to database.', $form_data['room_title'])
+        ];
+        redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($feedback)));
+    } else {
+        return [
+            'type' => 'danger',
+            'message' => 'There was an error. The room was not added. Try it again.'
+        ];
+    }
+}
+
 /**
  * Generates an array with room information
  * @param object $pdo db object
