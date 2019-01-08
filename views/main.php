@@ -20,6 +20,7 @@
         <div class="container">
             <!-- Left column -->
             <div class="col-md-8">
+                'The online platform to view and offer student rooms'
                 <!-- Error message -->
                 <?php if (isset($error_msg)){echo $error_msg;} ?>
             </div>
