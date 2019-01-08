@@ -530,7 +530,7 @@ function get_room_info($pdo, $room_id){
 }
 
 function remove_room($pdo, $room_id){
-    /* Get series info */
+    /* Get room info */
     $room_info = get_room_info($pdo, $room_id);
 
     /* Check if user is creator */
@@ -541,7 +541,7 @@ function remove_room($pdo, $room_id){
         ];
     }
 
-    /* Delete Serie */
+    /* Delete room */
     $stmt = $pdo->prepare("DELETE FROM rooms WHERE id = ?");
     $stmt->execute([$room_id]);
     $deleted = $stmt->rowCount();
