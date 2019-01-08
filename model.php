@@ -602,3 +602,19 @@ function opt_in($pdo, $room_id, $form_data){
             $input['ServiceIncluding']
         ]);
 */
+
+function room_count($pdo){
+    /* Get users */
+    $stmt = $pdo->prepare('SELECT * FROM rooms');
+    $stmt->execute();
+    $rooms = $stmt->rowCount();
+    return $rooms;
+}
+
+function student_count($pdo){
+    /* Get users */
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE role = tenant');
+    $stmt->execute();
+    $tenants = $stmt->rowCount();
+    return $tenants;
+}
