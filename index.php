@@ -60,13 +60,14 @@ if (new_route('/DDWT18_G09/', 'get')) {
     }
     $navigation = get_navigation($navigation_template, 1, $user_status);
 
-    /* Page content */
-    $page_subtitle = 'The online platform to view and offer student rooms';
-    $page_content = 'content';
     /* Get error msg from POST route */
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
     }
+
+    /* Page content */
+    $page_subtitle = 'The online platform to view and offer student rooms';
+    $page_content = 'content';
 
     /* Choose Template */
     include use_template('main');
