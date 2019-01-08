@@ -39,7 +39,8 @@
                         <label for="inputMessage">Message; please enter a message to the owner of this room</label>
                         <textarea rows="5" class="form-control" id="inputMessage" name="message" required></textarea>
                     </div>
-                <button type="submit" class="btn btn-primary">Send</button>
+                    <?php if(isset($room_id)){ ?><input type="hidden" name="room_id" value="<?php echo $room_id ?>"><?php } ?>
+                    <button type="submit" class="btn btn-primary">Send</button>
                 </div>
             </form>
 
