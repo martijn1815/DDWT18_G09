@@ -103,7 +103,7 @@ if (new_route('/DDWT18_G09/roomsoverview', 'get')) {
     include use_template('rooms');
 }
 
-/* Rooms Overview GET*/
+/* My Rooms GET*/
 if (new_route('/DDWT18_G09/myrooms', 'get')) {
 
     /* Page info */
@@ -119,7 +119,7 @@ if (new_route('/DDWT18_G09/myrooms', 'get')) {
     } else {
         $user_status = 'logedout';
     }
-    $navigation = get_navigation($navigation_template, 2, $user_status);
+    $navigation = get_navigation($navigation_template, 3, $user_status);
 
     /* Get error msg from POST route */
     if ( isset($_GET['error_msg']) ) {
@@ -199,7 +199,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
     $page_title = 'Add new room';
     $breadcrumbs = get_breadcrumbs([
         'DDWT18_G09' => na('/DDWT18_G09/', False),
-        'Register' => na('/DDWT18_G09/addrooms', True)
+        'Add Room' => na('/DDWT18_G09/addrooms', True)
     ]);
     $navigation = get_navigation($navigation_template, 4, $user_status);
 
