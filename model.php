@@ -509,6 +509,36 @@ function get_room_info($pdo, $room_id){
     return $room_info_exp;
 }
 
+function remove_room($pdo, $room_id){
+    /* Get series info */
+    $room_info = get_room_info($pdo, $room_id);
+
+    /* Check if user is creator */
+    if ( !isset($_SESSION['user_id']) and $_SESSION['user_id'] != $room_info['owner_id']) {
+        return [
+            'type' => 'danger',
+            'message' => 'User is not creator of this room'
+        ];
+    }
+
+    /* Delete Serie */
+    $stmt = $pdo->prepare("DELETE FROM rooms WHERE id = ?");
+    $stmt->execute([$room_id]);
+    $deleted = $stmt->rowCount();
+    if ($deleted ==  1) {
+        return [
+            'type' => 'success',
+            'message' => sprintf("Room '%s' was removed!", $room_info['room_title'])
+        ];
+    }
+    else {
+        return [
+            'type' => 'warning',
+            'message' => 'An error occurred. The room was not removed.'
+        ];
+    }
+}
+
 
 
 /**
