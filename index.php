@@ -186,7 +186,11 @@ elseif (new_route('/DDWT18_G09/login/', 'post')){
 elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
     /* Check if logged in */
     if ( !check_login() ) {
-        redirect('/DDWT18_G09/login/');
+        $feedback = [
+            'type' => 'danger',
+            'message' => sprintf('You have to login first to see your profile. Please login or register as new user.')
+        ];
+        redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
     }
     /* Page info */
     $page_title = 'My profile';
