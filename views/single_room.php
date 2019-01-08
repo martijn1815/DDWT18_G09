@@ -47,7 +47,7 @@
                     <td><?= $type ?></td>
                 </tr>
                 <tr>
-                    <th scope="row">Size</th> <td><?= $size ?></td>
+                    <th scope="row">Size</th> <td><?= $size ?> m&sup2</td>
                 </tr>
                 <tr>
                     <th scope="row">Available from</th> <td><?= $available_from ?></td>
@@ -62,7 +62,7 @@
                     <th scope="row">Services are included (Gas/Water/Electricity/Internet)</th> <td><?= $services_including ?></td>
                 </tr>
                 <tr>
-                    <th scope="row">Price per month</th> <td><?= $price ?></td>
+                    <th scope="row">Price per month</th> <td>€ <?= $price ?></td>
                 </tr>
 
                 </tbody>

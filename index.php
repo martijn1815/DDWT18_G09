@@ -259,10 +259,10 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room', 'get')) {
     /* Get rooms from db */
     $room_id = $_GET['room_id'];
     $room_info = get_room_info($db, $room_id);
-    if (!check_login()){
-        $user_status = "logedout";
-    }else{
+    if (check_login()){
         $user_status = get_user_role($db);
+    }else{
+        $user_status = "logedout";
     }
 
     /* Page info */
