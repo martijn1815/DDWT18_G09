@@ -686,7 +686,7 @@ function get_user_info($pdo, $user_id ){
  */
 function opt_in($pdo, $form_data){
     $room_ifo = get_room_info($pdo, $form_data['room_id']);
-    $user_id = get_user_id();
+    $user_id = $_SESSION['user_id'];
     $stmt = $pdo->prepare('INSERT INTO opt_in(room_id, tenant_id, message, date) VALUES (?,?,?,?)');
     $stmt-> execute([$form_data['room_id'], $user_id,$form_data["message"],date('Y-m-d H:i:s') ]);
     $success = $stmt->rowCount();
