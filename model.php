@@ -50,7 +50,7 @@ function redirect($location){
 function get_navigation($template, $active_id){
     $navigation_exp = '
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">Series Overview</a>
+    <a class="navbar-brand">Rooms Overview</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -287,7 +287,7 @@ function login_user($pdo, $form_data){
         'type' => 'success',
         'message' => sprintf('%s, you were logged in successfully!', get_username($pdo, $_SESSION['user_id']))
     ];
-    redirect(sprintf('/DDWT18_G09/myaccount/?error_msg=%s', json_encode($feedback)));
+    redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s', json_encode($feedback)));
 }
 
 /**
@@ -313,7 +313,7 @@ function get_username($pdo, $user_id){
     $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
     $stmt->execute([$user_id]);
     $user = $stmt->fetch();
-    return $user['firstname'].' '.$user['lastname'];
+    return $user['first_name'].' '.$user['last_name'];
 }
 
 /**
@@ -332,15 +332,17 @@ function check_login(){
 /**
  * Logout current user
  */
-function logout_user(){
+function logout_user($pdo){
     session_start();
-    session_unset();
-    session_destroy();
+
     $feedback = [
         'type' => 'success',
-        'message' => 'You successfully logged out.'
+        'message' => sprintf('%s, you were logged out successfully!',
+            get_username($pdo, $_SESSION['user_id']))
     ];
-    redirect(sprintf('/DDWT18_G09/?logout_msg=%s', json_encode($feedback)));
+    session_destroy();
+    redirect(sprintf('/DDWT18_G09/?error_msg=%s',  json_encode($feedback)));
+
 }
 
 /**
@@ -507,6 +509,26 @@ function get_room_info($pdo, $room_id){
     return $room_info_exp;
 }
 
+
+
+/**
+ * Generates an array with user information
+ * @param object $pdo db object
+ * @param int $user_id id from the user
+ * @return mixed
+ */
+function get_user_info($pdo, $user_id ){
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+    $stmt->execute([$user_id]);
+    $user_info = $stmt->fetch();
+    $user_info_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($user_info as $key => $value){
+        $user_info_exp[$key] = htmlspecialchars($value);
+    }
+    return $user_info_exp;
+}
 /**
  * saves opt_in data to database
  * @param object $pdo db object

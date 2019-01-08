@@ -46,6 +46,10 @@ if (new_route('/DDWT18_G09/', 'get')) {
     /* Page content */
     $page_subtitle = 'The online platform to view and offer student rooms';
     $page_content = 'content';
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
 
     /* Choose Template */
     include use_template('main');
@@ -143,10 +147,41 @@ elseif (new_route('/DDWT18_G09/login/', 'post')){
 
 }
 
+/* User Profile get */
+elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_G09/login/');
+    }
+    /* Page info */
+    $page_title = 'My profile';
+    $user = get_username($db, $_SESSION['user_id']);
+    $user_role = get_user_info($db,$_SESSION['user_id'])["role"];
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18' => na('/DDWT18_G09/', False),
+        'My profile' => na('/DDWT18_G09/userprofile/', True)
+    ]);
+    $navigation = get_navigation($navigation_template, 4);
 
+    /* Page content */
+    $page_subtitle = 'The overview of your profile';
+    $page_content = 'Here you can manage your profile.';
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
 
+    /* Choose Template */
+    include use_template('profile');
+}
 
+/* Logout get*/
+elseif (new_route('/DDWT18_G09/logout/', 'get')){
+    /* Page info */
+    $error_msg = logout_user($db);
+    redirect(sprintf('/DDWT18_G09/logout/?error_msg=%s', json_encode($error_msg)));
 
+}
 
 /* opt-in GET */
 elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
@@ -170,6 +205,10 @@ elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
     $page_content = 'Please fill in a message to the owner with your request.';
     $submit_btn = "send";
     $form_action = '/DDWT18_G09/opt-in/';
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
 
     /* Choose Template */
     include use_template('opt-in');

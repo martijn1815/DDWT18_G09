@@ -25,29 +25,58 @@
 
     <div class="row">
 
-        <!-- Left column -->
         <div class="col-md-12">
             <!-- Error message -->
-            <?php if (isset($error_msg)){echo $error_msg;} ?>
+            <?php if (isset($error_msg)){echo $error_msg;}?>
 
             <h1><?= $page_title ?></h1>
             <h5><?= $page_subtitle ?></h5>
+            <p><?= $page_content ?></p>
+        </div>
 
-            <div class="pd-15">&nbsp;</div>
+    </div>
 
-            <form action="/DDWT18_G09/login/" method="POST">
-                <div class="form-group">
-                    <label for="inputUsername">Username</label>
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Enter username" name="username" required>
+    <div class="pd-15">&nbsp;</div>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Welcome, <?= $user ?> <br/>
+                    Your role is "<?= $user_role?>".
                 </div>
-                <div class="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Enter password" name="password" required>
+                <div class="card-body">
+                    <p>You're logged in to Rooms Overview.</p>
+                    <a href="/DDWT18_G09/logout/" class="btn btn-primary">Logout</a>
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-                <a href="/DDWT18_G09/register/" class="btn btn-primary">Not a user? register here</a>
-            </form>
+            </div>
+        </div>
+        <?php if ($user_role == "owner"){echo'
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Add rooms
+                </div>
+                <div class="card-body">
+                    <p>Publish Your room to Rooms Overview.</p>
+                    <a href="/DDWT18_G09/addrooms/" class="btn btn-primary">Add a room</a>
+                </div>
+            </div>';}
+            ?>
 
+        <?php if ($user_role == "tenant"){echo'
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Check the new rooms
+                </div>
+                <div class="card-body">
+                    <p>You can check here the rooms overview </p>
+                    <a href="/DDWT18_G09/roomsoverview/" class="btn btn-primary">Room s overview</a>
+                </div>
+            </div>';}
+        ?>
         </div>
 
     </div>
@@ -55,6 +84,8 @@
 
 
 <!-- Optional JavaScript -->
+
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
