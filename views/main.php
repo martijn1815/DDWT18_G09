@@ -18,7 +18,12 @@
         <?= $navigation ?>
         <!-- Content -->
         <div class="container">
-        Welcome to the student housing website, ideal for tenants and owners.
+            <!-- Left column -->
+            <div class="col-md-8">
+                <!-- Error message -->
+                <?php if (isset($error_msg)){echo $error_msg;} ?>
+            </div>
+
         </div>
 
 
