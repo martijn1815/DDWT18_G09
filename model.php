@@ -378,12 +378,9 @@ function add_room($pdo, $form_data){
     */
 
     /* Get user info */
-    /*
     $stmt = $pdo->prepare('SELECT * FROM series WHERE username = ?');
     $stmt->execute([$_SESSION['user_id']]);
     $user_info = $stmt->fetch();
-    */
-    $user_info = Array('id' => '5');
 
     /* Add Room */
     $stmt = $pdo->prepare("INSERT INTO rooms (owner_id, room_title, size_m2, zip, street, city, description, type, available_from, available_till, furnished, price, services_including) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -433,7 +430,7 @@ function update_room($pdo, $form_data){
     /* ...to be added */
 
     /* Check if user is creator */
-    if ( !isset($_SESSION['user_id']) and $_SESSION['user_id'] != $serie['user']) {
+    if ( !isset($_SESSION['user_id']) and $_SESSION['user_id'] != $form_data['owner_id']) {
         return [
             'type' => 'danger',
             'message' => 'User is not creator of this serie'
