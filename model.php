@@ -544,18 +544,18 @@ function get_rooms_table($rooms){
     <table class="table table-hover">
     <thead
     <tr>
-        <th scope="col">Room</th>
-        <th scope="col">Size</th>
-        <th scope="col">Price</th>
+        <th scope="col" style="width: 70%">Room</th>
+        <th scope="col" style="width: 15">Size</th>
+        <th scope="col" style="width: 15%">Price</th>
     </tr>
     </thead>
     <tbody>';
     foreach($rooms as $key => $value){
         $table_exp .= '
         <tr>
-            <td>'.$value['room_title'].'</td>
-            <td>'.$value['size_m2'].' m<sup>2</sup></td>
-            <td>&euro;'.$value['price'].'</td>
+            <td style="width: 70%">'.$value['room_title'].'</td>
+            <td style="width: 15%" align="char" char=".">'.$value['size_m2'].'m<sup>2</sup></td>
+            <td style="width: 15%" align="char" char=".">&euro;'.$value['price'].'</td>
         </tr>
         ';
     }
