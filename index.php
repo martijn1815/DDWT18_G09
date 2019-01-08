@@ -73,6 +73,36 @@ if (new_route('/DDWT18_G09/', 'get')) {
     include use_template('main');
 }
 
+/* Rooms Overview */
+if (new_route('/DDWT18_G09/roomsoverview', 'get')) {
+
+    /* Page info */
+    $page_title = 'Rooms Overview';
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18_G09' => na('/DDWT18_G09/', False),
+        'Rooms Overview' => na('/DDWT18_G09/roomsoverview', True)
+    ]);
+
+    /* Check if logged in */
+    if ( check_login() ) {
+        $user_status = get_user_role($db);
+    } else {
+        $user_status = 'logedout';
+    }
+    $navigation = get_navigation($navigation_template, 2, $user_status);
+
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+
+    /* Page content */
+    /*$rooms_table = get_rooms_table();*/
+
+    /* Choose Template */
+    include use_template('rooms');
+}
+
 /* Register get*/
 elseif (new_route('/DDWT18_G09/register/', 'get')){
     /* Check if logged in */
