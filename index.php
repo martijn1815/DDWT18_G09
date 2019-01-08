@@ -228,6 +228,20 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'post')){
     redirect(sprintf('/DDWT18_G09/addrooms/?error_msg=%s', json_encode($error_msg)));
 }
 
+/* Remove Room POST */
+elseif (new_route('/DDWT18_G09/myrooms/remove', 'post')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_G09/login/');
+    }
+
+    /* Remove serie in database */
+    $feedback = remove_room($db, $_POST['id']);
+
+    /* Redirect to serie GET route */
+    redirect(sprintf('/DDWT18_G09/myrooms/?error_msg=%s', json_encode($feedback)));
+}
+
 /*login get*/
 elseif (new_route('/DDWT18_G09/login/', 'get')){
     /* Check if logged in */

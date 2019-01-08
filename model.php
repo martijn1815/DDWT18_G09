@@ -594,8 +594,13 @@ function get_myrooms_table($rooms){
                 <td style="width: 50%">' . $value['room_title'] . '</td>
                 <td style="width: 15%">' . $value['size_m2'] . 'm<sup>2</sup></td>
                 <td style="width: 15%">&euro;' . number_format($value['price'], 2) . '</td>
-                <td style="width: 10%"><a href="/DDWT18_G09/myrooms/?room_id=' . $value['id'] . '" role="button" class="btn btn-primary">Edit</a></td>
-                <td style="width: 10%"><a href="/DDWT19_G09/myrooms/?room_id=' . $value['id'] . '" role="button" class="btn btn-danger">Delete</a></td>
+                <td style="width: 10%"><a href="/DDWT18_G09/myrooms/edit/?room_id=' . $value['id'] . '" role="button" class="btn btn-primary">Edit</a></td>
+                <td style="width: 10%">
+                    <form action="/DDWT18_G09/myrooms/remove/" method="POST">
+                        <input type="hidden" value="'.$value['id'].'" name="id">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
             ';
         }
@@ -655,7 +660,6 @@ function remove_room($pdo, $room_id){
         ];
     }
 }
-
 
 
 /**
