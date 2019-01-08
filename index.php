@@ -34,6 +34,10 @@ $navigation_template = Array(
         'url' => '/DDWT18_G09/login/',
         'user_only' => False),
     7 => Array(
+        'name' => 'Logout',
+        'url' => '/DDWT18_G09/logout/',
+        'user_only' => False),
+    8 => Array(
         'name' => 'Register',
         'url' => '/DDWT18_G09/register/',
         'user_only' => False)
@@ -78,7 +82,7 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/register', True)
     ]);
-    $navigation = get_navigation($navigation_template, 7);
+    $navigation = get_navigation($navigation_template, 8);
 
     /* Page content */
     $page_subtitle = 'Please register by filling in the following form';
