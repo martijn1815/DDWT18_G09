@@ -552,10 +552,10 @@ function get_rooms_table($rooms){
     <tbody>';
     foreach($rooms as $key => $value){
         $table_exp .= '
-        <tr>
+        <tr class="clickable-row" data-href="/DDWT18_G09/roomsoverview/room/?room_id='.$value['id'].'">
             <td style="width: 70%">'.$value['room_title'].'</td>
-            <td style="width: 15%" align="char" char=".">'.$value['size_m2'].'m<sup>2</sup></td>
-            <td style="width: 15%" align="char" char=".">&euro;'.$value['price'].'</td>
+            <td style="width: 15%">'.$value['size_m2'].'m<sup>2</sup></td>
+            <td style="width: 15%">&euro;'.number_format($value['price'], 2).'</td>
         </tr>
         ';
     }
