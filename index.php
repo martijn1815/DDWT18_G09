@@ -476,7 +476,7 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room/opt-in', 'get')) {
 }
 
 /* opt-in POST */
-elseif (new_route('/DDWT18_G09/opt-in/', 'post')) {
+elseif (new_route('/DDWT18_G09/roomsoverview/room/opt-in', 'post')) {
     /* Check if logged in */
     if ( !check_login() ) {
         $user_status = 'logedout';
@@ -484,10 +484,8 @@ elseif (new_route('/DDWT18_G09/opt-in/', 'post')) {
     } else {
         $user_status = get_user_role($db);
     }
-    $room_id = $_POST['room_id'];
-    /* Update serie to database */
-    $error_msg = opt_in($db,$room_id, $_POST);
-    /* Redirect to serie GET route */
+    $error_msg = opt_in($db, $_POST);
+    /* Redirect to room GET route */
     redirect(sprintf('/DDWT18_G09/roomsoverview/?error_msg=%s', json_encode($error_msg)));
 
 }

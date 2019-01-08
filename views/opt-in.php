@@ -33,18 +33,17 @@
             <h1><?= $page_title ?></h1>
             <h5><?= $page_subtitle ?></h5>
 
-            <div class="pd-15">&nbsp;</div>
-
-            <form action="/DDWT18_G09/opt-in/" method="POST">
+            <form action='/DDWT18_G09/roomsoverview/room/opt-in/' method="POST">
                 <div class="form-group">
                     <div class="form-group">
                         <label for="inputMessage">Message; please enter a message to the owner of this room</label>
-                        <textarea rows="5" class="form-control" id="inputBiography" name="biography" required></textarea>
+                        <textarea rows="5" class="form-control" id="inputMessage" name="message" required></textarea>
                     </div>
                 <button type="submit" class="btn btn-primary">Send</button>
+                </div>
             </form>
 
-        </div>
+
 
     </div>
 </div>
