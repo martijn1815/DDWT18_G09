@@ -18,7 +18,7 @@
         <?= $navigation ?>
         <!-- Content -->
         <div class="container">
-
+        Welcome to the student housing website, ideal for tenants and owners.
         </div>
 
 

@@ -172,11 +172,6 @@ elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
 }
 
 
-
-
-
-
-
 /* opt-in GET */
 elseif (new_route('/DDWT18_G09/opt-in', 'get')) {
     /* Get room info from db */
