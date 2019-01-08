@@ -11,25 +11,32 @@ $db = connect_db('localhost', 'ddwt18_g09', 'ddwt18_09','ddwt18_09');
 $navigation_template = Array(
     1 => Array(
         'name' => 'Home',
-        'url' => '/DDWT18_G09/'),
+        'url' => '/DDWT18_G09/',
+        'user_only' => False),
     2 => Array(
-        'name' => 'Register',
-        'url' => '/DDWT18_G09/register/'),
+        'name' => 'Rooms Overview',
+        'url' => '/DDWT18_G09/roomsoverview/',
+        'user_only' => False),
     3 => Array(
-        'name' => 'Login',
-        'url' => '/DDWT18_G09/login/'),
+        'name' => 'My Rooms',
+        'url' => '/DDWT18_G09/myrooms/',
+        'user_only' => True),
     4 => Array(
         'name' => 'User Profile',
-        'url' => '/DDWT18_G09/userprofile/'),
+        'url' => '/DDWT18_G09/userprofile/',
+        'user_only' => True),
     5 => Array(
-        'name' => 'Rooms Overview',
-        'url' => '/DDWT18_G09/roomsoverview/'),
-    6 => Array(
         'name' => 'Add Rooms',
-        'url' => '/DDWT18_G09/addrooms/'),
+        'url' => '/DDWT18_G09/addrooms/',
+        'user_only' => True),
+    6 => Array(
+        'name' => 'Login',
+        'url' => '/DDWT18_G09/login/',
+        'user_only' => False),
     7 => Array(
-        'name' => 'My Rooms',
-        'url' => '/DDWT18_G09/myrooms/')
+        'name' => 'Register',
+        'url' => '/DDWT18_G09/register/',
+        'user_only' => False)
 );
 
 /* Landing page */
@@ -71,7 +78,7 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/register', True)
     ]);
-    $navigation = get_navigation($navigation_template, 2);
+    $navigation = get_navigation($navigation_template, 7);
 
     /* Page content */
     $page_subtitle = 'Please register by filling in the following form';
@@ -121,7 +128,7 @@ elseif (new_route('/DDWT18_G09/addrooms/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/addrooms', True)
     ]);
-    $navigation = get_navigation($navigation_template, 6);
+    $navigation = get_navigation($navigation_template, 5);
 
     /* Page content */
     $page_subtitle = '';
@@ -161,7 +168,7 @@ elseif (new_route('/DDWT18_G09/login/', 'get')){
         'DDWT18' => na('/DDWT18_G09/', False),
         'Login' => na('/DDWT18_G09/login', True)
     ]);
-    $navigation = get_navigation($navigation_template, 3);
+    $navigation = get_navigation($navigation_template, 6);
 
     /* Page content */
     $page_subtitle = 'Please enter your username and password ';
