@@ -590,7 +590,7 @@ function get_myrooms_table($rooms){
     foreach($rooms as $key => $value){
         if ($value['owner_id'] == $user_id) {
             $table_exp .= '
-            <tr class="clickable-row" data-href="/DDWT18_G09/myrooms/room/?room_id='.$value['id'].'">
+            <tr class="clickable-row" data-href="/DDWT18_G09/roomsoverview/room/?room_id='.$value['id'].'">
                 <td style="width: 50%">' . $value['room_title'] . '</td>
                 <td style="width: 15%">' . $value['size_m2'] . 'm<sup>2</sup></td>
                 <td style="width: 15%">&euro;' . number_format($value['price'], 2) . '</td>
