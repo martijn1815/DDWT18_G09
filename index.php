@@ -491,7 +491,7 @@ elseif (new_route('/DDWT18_G09/userprofile/update/', 'get')){
     $page_title = 'Update user information';
     $breadcrumbs = get_breadcrumbs([
         'DDWT18_G09' => na('/DDWT18_G09/', False),
-        'My Profile' => na('/DDWT18_G09/userprofile/update/', True),
+        'My Profile' => na('/DDWT18_G09/userprofile/', False),
         'Update Profile' => na('/DDWT18_G09/userprofile/update/', True)
     ]);
     $navigation = get_navigation($navigation_template, 6, $user_status);
@@ -501,7 +501,7 @@ elseif (new_route('/DDWT18_G09/userprofile/update/', 'get')){
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
     }
-    $user_info = get_user_info($db, get_user_id());
+    $user_info = get_user_info($db, get_user_id2());
     $button_text = 'Update';
     /* Choose Template */
     include use_template('register');

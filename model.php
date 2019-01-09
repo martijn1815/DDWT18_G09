@@ -306,6 +306,18 @@ function get_user_id(){
 }
 
 /**
+ * Get current user id, no session_start()
+ * @return bool current user id or False if not logged in
+ */
+function get_user_id2(){
+    if (isset($_SESSION['user_id'])){
+        return $_SESSION['user_id'];
+    } else {
+        return False;
+    }
+}
+
+/**
  * Returns the name of a user based on a specific user id
  * @param PDO $pdo
  * @param $user_id
