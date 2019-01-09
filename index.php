@@ -499,3 +499,10 @@ elseif (new_route('/DDWT18_G09/userprofile/update/', 'post')){
     /* Redirect to homepage */
     redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s', json_encode($error_msg)));
 }
+/* Remove Profile post*/
+elseif (new_route('/DDWT18_G09/userprofile/remove/', 'post')){
+    /* Register user */
+    $error_msg = remove_user($db, $_POST['id']);
+    /* Redirect to homepage */
+    redirect(sprintf('/DDWT18_G09/login/?error_msg=%s', json_encode($error_msg)));
+}

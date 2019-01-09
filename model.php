@@ -1118,3 +1118,38 @@ function update_user($pdo, $form_data){
         ];
     }
 }
+
+function remove_user($pdo, $user_id){
+    /* Check if user is creator */
+    session_start();
+    if ( !isset($_SESSION['user_id']) and $_SESSION['user_id'] != $user_id) {
+        return [
+            'type' => 'danger',
+            'message' => 'User is not creator of this account'
+        ];
+    }
+
+    /* Delete user */
+    $stmt = $pdo->prepare("DELETE FROM languages WHERE user_id = ?");
+    $stmt->execute([$user_id]);
+    $stmt = $pdo->prepare("DELETE FROM opt_in WHERE tenant_id = ? OR owner_id = ?");
+    $stmt->execute([$user_id, $user_id]);
+    $stmt = $pdo->prepare("DELETE FROM rooms WHERE owner_id = ?");
+    $stmt->execute([$user_id]);
+    $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
+    $stmt->execute([$user_id]);
+    $deleted = $stmt->rowCount();
+    if ($deleted ==  1) {
+        session_destroy();
+        return [
+            'type' => 'success',
+            'message' => 'User-account has been removed!'
+        ];
+    }
+    else {
+        return [
+            'type' => 'warning',
+            'message' => 'An error occurred. The user-account was not removed.'
+        ];
+    }
+}

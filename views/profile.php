@@ -59,7 +59,10 @@
                 </div>
                 <div class="card-body">
                     <p><a href="/DDWT18_G09/userprofile/update/" class="btn btn-success">Change user information</a></p>
-                    <a href="/DDWT18_G09/userprofile/" class="btn btn-danger">Delete user account</a>
+                    <form class="form-inline"  action="/DDWT18_G09/userprofile/remove" method="POST">
+                        <input class="form-control mr-sm-2" type="hidden" name="id" value="<?= $_SESSION['user_id'] ?>">
+                        <button class="btn btn-danger" type="submit">Delete user account</button>
+                    </form>
                 </div>
             </div>
         </div>
