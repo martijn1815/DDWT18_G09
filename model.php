@@ -593,7 +593,7 @@ function get_myrooms_table($rooms){
     <thead
     <tr>
         <th scope="col" style="width: 50%">Room</th>
-        <th scope="col" style="width: 15">Size</th>
+        <th scope="col" style="width: 15%">Size</th>
         <th scope="col" style="width: 15%">Price</th>
         <th scope="col" style="width: 10%"></th>
         <th scope="col" style="width: 10%"></th>
