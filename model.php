@@ -796,20 +796,38 @@ function get_messages($pdo){
 function get_messages_view($pdo, $messages){
     $content_exp = '<div class="container">';
     $user_id = $_SESSION['user_id'];
+    $user_role = get_user_role($pdo);
     foreach ($messages as $key => $value) {
-        if ($value['owner_id'] == $user_id) {
-            $tennant = get_user_info($pdo, $value["tenant_id"]);
-            $content_exp .= '
+        if ($user_role == 'owner') {
+            if ($value['owner_id'] == $user_id) {
+                $tennant = get_user_info($pdo, $value["tenant_id"]);
+                $content_exp .= '
                 <div>
                     <div class="row">
-                        <div class="col"><h5><a href="/DDWT18_G09/">'.$tennant["first_name"].' '.$tennant["last_name"].'</a></h5></div>
-                        <div class="col" align="right">'.$value["date"].'</div>
+                        <div class="col"><h5><a href="/DDWT18_G09/">' . $tennant["first_name"] . ' ' . $tennant["last_name"] . '</a></h5></div>
+                        <div class="col" align="right">' . $value["date"] . '</div>
                     </div>
                     <div class="row">
-                        <div class="col">'.$value["message"].'</div>
+                        <div class="col">' . $value["message"] . '</div>
                     </div>
                     </br>
                 </div>';
+            }
+        } elseif ($user_role == 'tenant') {
+            if ($value['tenant_id'] == $user_id) {
+                $owner = get_user_info($pdo, $value["owner_id"]);
+                $content_exp .= '
+                <div>
+                    <div class="row">
+                        <div class="col"><h5><a href="/DDWT18_G09/">Send to: ' . $owner["first_name"] . ' ' . $owner["last_name"] . '</a></h5></div>
+                        <div class="col" align="right">' . $value["date"] . '</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">' . $value["message"] . '</div>
+                    </div>
+                    </br>
+                </div>';
+            }
         }
     }
     $content_exp .= '</div>';
