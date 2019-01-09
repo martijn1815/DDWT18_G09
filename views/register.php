@@ -40,16 +40,16 @@
             <div class="pd-15">&nbsp;</div>
 
             <form action="/DDWT18_G09/register/" method="POST">
-                <div class="form-group">
+                <div class="form-group" <?php if (isset($user_info)){echo "style='display: none;'";} ?>>
                     <label for="inputUsername">Username</label>
-                    <input type="text" class="form-control" id="inputUsername" name="username" required>
+                    <input type="text" class="form-control" id="inputUsername" name="username" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" <?php if (isset($user_info)){echo "style='display: none;'";} ?>>
                     <label for="inputPassword">Password</label><br>
                     <i style="font-size: 13px">Your password must contain at least 8 characters, 1 number, 1 capital letter and 1 small letter.</i>
-                    <input type="password" class="form-control" id="inputPassword" name="password" required>
+                    <input type="password" class="form-control" id="inputPassword" name="password" value="<?php if (isset($user_info)){echo $user_info['password'];} ?>" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" <?php if (isset($user_info)){echo "style='display: none;'";} ?>>
                     <label for="inputRole">Role</label>
                     <select class="form-control" id="inputRole" name="role" required>
                         <option value="" disabled selected hidden>Please select</option>
@@ -59,50 +59,50 @@
                 </div>
                 <div class="form-group">
                     <label for="inputUsername">First name</label>
-                    <input type="text" class="form-control" id="inputUsername" name="firstname" style="text-transform: capitalize;" required>
+                    <input type="text" class="form-control" id="inputUsername" name="firstname" style="text-transform: capitalize;" value="<?php if (isset($user_info)){echo $user_info['first_name'];} ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="inputUsername">Last name</label>
-                    <input type="text" class="form-control" id="inputUsername" name="lastname" style="text-transform: capitalize;" required>
+                    <input type="text" class="form-control" id="inputUsername" name="lastname" style="text-transform: capitalize;" value="<?php if (isset($user_info)){echo $user_info['last_name'];} ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="inputMail">Email</label>
-                    <input type="email" class="form-control" id="inputMail" name="mail" required>
+                    <input type="email" class="form-control" id="inputMail" name="mail" value="<?php if (isset($user_info)){echo $user_info['email'];} ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="inputPhone">Phone number</label>
-                    <input type="number" class="form-control" id="inputPhone" name="phone" minlength="10" maxlength="15" required>
+                    <input type="number" class="form-control" id="inputPhone" name="phone" minlength="10" maxlength="15" value="<?php if (isset($user_info)){echo $user_info['phone_number'];} ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="inputGender">Gender</label>
                     <select class="form-control" id="inputGender" name="gender" required>
                         <option value="" disabled selected hidden>Please select</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="male" <?php if (isset($user_info)){if ($user_info['gender']=='male'){echo 'selected';}} ?>>Male</option>
+                        <option value="female" <?php if (isset($user_info)){if ($user_info['gender']=='female'){echo 'selected';}} ?>>Female</option>
+                        <option value="other" <?php if (isset($user_info)){if ($user_info['gender']=='other'){echo 'selected';}} ?>>Other</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="inputDateOfBirth">Date of birth</label>
-                    <input type="date" class="form-control" id="inputDateOfBirth" name="date_of_birth" placeholder="dd-mm-yyyy" required>
+                    <input type="date" class="form-control" id="inputDateOfBirth" name="date_of_birth" placeholder="dd-mm-yyyy"  value="<?php if (isset($user_info)){echo date("m-d-Y", strtotime($user_info['date_of_birth']));} ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="inputStreet">Street and house number</label>
-                    <input type="text" class="form-control" id="inputStreet" name="street" style="text-transform: capitalize;" required>
+                    <input type="text" class="form-control" id="inputStreet" name="street" style="text-transform: capitalize;" value="<?php if (isset($user_info)){echo $user_info['street'];} ?>" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="inputZip">Zip code</label>
-                        <input type="text" class="form-control" id="inputZip" name="zip" minlength="6" maxlength="6" style="text-transform: uppercase;" required>
+                        <input type="text" class="form-control" id="inputZip" name="zip" minlength="6" maxlength="6" style="text-transform: uppercase;" value="<?php if (isset($user_info)){echo $user_info['zip'];} ?>" required>
                     </div>
                     <div class="form-group col-sm">
                         <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity" name="city" style="text-transform: capitalize;" required>
+                        <input type="text" class="form-control" id="inputCity" name="city" style="text-transform: capitalize;" value="<?php if (isset($user_info)){echo $user_info['city'];} ?>" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputProfession">Study/Profession</label>
-                    <input type="text" class="form-control" id="inputProfession" name="profession" style="text-transform: capitalize;" required>
+                    <input type="text" class="form-control" id="inputProfession" name="profession" style="text-transform: capitalize;" value="<?php if (isset($user_info)){echo $user_info['profession'];} ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="inputLang">What languages do you speak?</label>
@@ -117,41 +117,8 @@
                 </div>
                 <div class="form-group">
                     <label for="inputBiography">Biography; please tell something about yourself</label>
-                    <textarea rows="5" class="form-control" id="inputBiography" name="biography" required></textarea>
+                    <textarea rows="5" class="form-control" id="inputBiography" name="biography" required><?php if (isset($user_info)){echo $user_info['biography'];} ?></textarea>
                 </div>
-
-                <!--
-                <div class="form-group">
-                    <label for="Role">You are</label>
-                    <SELECT name="role" onchange="check_role(this);">
-                        <option value="" disabled selected hidden>Please Choose...</option>
-                        <OPTION value="tenant">Tenant</OPTION>
-                        <OPTION value="owner">Room owner</OPTION>
-                    </SELECT>
-                </div>
-                <div class="form-group" id="Owner" style="display: none">
-                    <label for="Profession">Profession</label>
-                    <input type="text" class="form-control" id="Profession" placeholder="Teacher" name="profession" required>
-                </div>
-                <div class="form-group" id="Tenant" style="display: none">
-                    <label for="Profession_Study">What do you do?</label>
-                    <select name = "Profession_Study" onchange="check_study(this);">
-                        <option value="" disabled selected hidden>Please Choose...</option>
-                        <OPTION value="study">Studying</OPTION>
-                        <OPTION value="work">Working</OPTION>
-                        <OPTION value="study_work">Studying and working</OPTION>
-                    </select>
-                </div>
-                <div class="form-group" id="Study" style="display: none">
-                    <label for="Study">What are you studying</label>
-                    <input type="text" class="form-control" id="Study" placeholder="Information science" name="study" required>
-                </div>
-                <div class="form-group" id="Work" style="display: none">
-                    <label for="Study">What is your profession</label>
-                    <input type="text" class="form-control" id="Work" placeholder="Seller" name="work" required>
-                </div>
-                -->
-
                 <button type="submit" class="btn btn-primary"><?= $button_text ?></button>
             </form>
             </br>

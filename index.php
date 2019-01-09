@@ -501,6 +501,7 @@ elseif (new_route('/DDWT18_G09/userprofile/update/', 'get')){
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
     }
+    $user_info = get_user_info($db, get_user_id());
     $button_text = 'Update';
     /* Choose Template */
     include use_template('register');
