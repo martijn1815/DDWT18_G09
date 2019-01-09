@@ -34,10 +34,6 @@ $navigation_template = Array(
         'url' => '/DDWT18_G09/login/',
         'show' => ['logedout']),
     7 => Array(
-        'name' => 'Logout',
-        'url' => '/DDWT18_G09/logout/',
-        'show' => ['tenant', 'owner']),
-    8 => Array(
         'name' => 'Register',
         'url' => '/DDWT18_G09/register/',
         'show' => ['logedout'])
@@ -151,7 +147,7 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/register', True)
     ]);
-    $navigation = get_navigation($navigation_template, 8, $user_status);
+    $navigation = get_navigation($navigation_template, 7, $user_status);
 
     /* Page content */
     $page_subtitle = 'Please register by filling in the following form';

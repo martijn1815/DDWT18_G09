@@ -48,7 +48,7 @@
                 </div>
                 <div class="card-body">
                     <p>You're logged in to Rooms Overview.</p>
-                    <a href="/DDWT18_G09/logout/" class="btn btn-primary">Logout</a>
+                    <a href="/DDWT18_G09/logout/" class="btn btn-danger">Logout</a>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="card-body">
                     <p>Publish Your room to Rooms Overview.</p>
-                    <a href="/DDWT18_G09/addrooms/" class="btn btn-primary">Add a room</a>
+                    <a href="/DDWT18_G09/addrooms/" class="btn btn-success">Add a room</a>
                 </div>
             </div>';}
             ?>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="card-body">
                     <p>You can check here the rooms overview </p>
-                    <a href="/DDWT18_G09/roomsoverview/" class="btn btn-primary">Rooms overview</a>
+                    <a href="/DDWT18_G09/roomsoverview/" class="btn btn-success">Rooms overview</a>
                 </div>
             </div>';}
         ?>
