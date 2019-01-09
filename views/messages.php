@@ -25,11 +25,12 @@
     <div class="row">
         <!-- Left column -->
         <div class="col-md-12">
-            <!-- Error message -->
             <?php if(isset($page_title)){echo '<h1>'.$page_title.'</h1>';}?>
             <?php if(isset($page_subtitle)){echo '<h5>'.$page_subtitle.'</h5>';}?>
+            <!-- Error message -->
             <?php if (isset($error_msg)){echo $error_msg;} ?>
-            <?php if(isset($rooms_table)){echo $rooms_table;} ?>
+
+            <?php if(isset($page_content)){echo $page_content;} ?>
         </div>
 
 

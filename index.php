@@ -564,7 +564,7 @@ elseif (new_route('/DDWT18_G09/messagesoverview/', 'get')) {
 
     /* Page content */
     $page_subtitle = '';
-    $page_content = get_messages_table($db);
+    $page_content = get_messages_view($db, get_messages($db));
     $submit_btn = '';
     $form_action = '';
 

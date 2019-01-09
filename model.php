@@ -226,7 +226,7 @@ function register_user($pdo, $form_data){
         'type' => 'success',
         'message' => sprintf('%s, your account was successfully created!', get_username($pdo, $_SESSION['user_id']))
     ];
-    redirect(sprintf('/DDWT18_G09/?error_msg=%s', json_encode($feedback)));
+    redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s', json_encode($feedback)));
 }
 
 /**
@@ -686,10 +686,11 @@ function get_user_info($pdo, $user_id ){
 function opt_in($pdo, $form_data){
     $room_info = get_room_info($pdo, $form_data['room_id']);
     $user_id = $_SESSION['user_id'];
-    $stmt = $pdo->prepare('INSERT INTO opt_in(id, tenant_id, message, date) VALUES (?,?,?,?)');
+    $stmt = $pdo->prepare('INSERT INTO opt_in(tenant_id, owner_id, room_id, message, date) VALUES (?,?,?,?,?)');
     $stmt-> execute([
-        $form_data['room_id'],
         $user_id,
+        $room_info['owner_id'],
+        $room_info['id'],
         $form_data["message"],
         date('Y-m-d H:i:s')
     ]);
@@ -727,19 +728,51 @@ function opt_in($pdo, $form_data){
 */
 
 /**
+ * Get array with all listed messages from the database
+ * @param object $pdo database object
+ * @return array Associative array with all rooms
+ */
+function get_messages($pdo){
+    $stmt = $pdo->prepare('SELECT * FROM opt_in');
+    $stmt->execute();
+    $messages = $stmt->fetchAll();
+    $messages_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($messages as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $messages_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $messages_exp;
+}
+
+/**
  * Creats a Bootstrap table with a list of messages for the user
  * @param object $db pdo object
  * @param array $rooms with rooms from the db
  * @return string
  */
-function get_messages_table($pdo){
-    $content_exp = '';
+function get_messages_view($pdo, $messages){
+    $content_exp = '<div class="container">';
     $user_id = $_SESSION['user_id'];
-    $stmt = $pdo->prepare('SELECT * FROM opt_in WHERE tenant_id = ?');
-    $stmt->execute([$user_id]);
-    $messages = $stmt->fetch();
-    var_dump($messages);
-
+    foreach ($messages as $key => $value) {
+        if ($value['owner_id'] == $user_id) {
+            $tennant = get_user_info($pdo, $value["tenant_id"]);
+            $content_exp .= '
+                <div>
+                    <div class="row">
+                        <div class="col"><h5><a href="/DDWT18_G09/">'.$tennant["first_name"].' '.$tennant["last_name"].'</a></h5></div>
+                        <div class="col" align="right">'.$value["date"].'</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">'.$value["message"].'</div>
+                    </div>
+                    </br>
+                </div>';
+        }
+    }
+    $content_exp .= '</div>';
     return $content_exp;
 }
 
