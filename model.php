@@ -629,6 +629,46 @@ function get_room_info($pdo, $room_id){
     return $room_info_exp;
 }
 
+function get_room_table($pdo, $room_info){
+    $owner_id = $room_info["owner_id"];
+    $owner = get_username($pdo, $owner_id);
+        $table_exp = '<table class="table">
+                <tbody>
+                <tr>
+                    <th scope="row">Address</th>
+                    <td>' . $room_info['street'] . ', ' . $room_info['zip'] . ', ' . $room_info['city'] . '.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Owner</th><td>' . $owner . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Type</th>
+                    <td>' . $room_info['type'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Size</th> <td>' . $room_info['size_m2'] . ' m&sup2</td>
+                </tr>
+                <tr>
+                    <th scope="row">Available from</th><td>' . $room_info['available_from'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Available till</th> <td>' . $room_info['available_till'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Furnished</th> <td>' . $room_info['furnished'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Services are included (Gas/Water/Electricity/Internet)</th><td> ' . $room_info['services_including'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Price per month</th> <td>€ ' . $room_info['price'] . '</td>
+                </tr>
+
+                </tbody>
+            </table>';
+    return $table_exp;
+}
+
 function remove_room($pdo, $room_id){
     /* Get room info */
     $room_info = get_room_info($pdo, $room_id);

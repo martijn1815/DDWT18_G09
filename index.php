@@ -406,26 +406,15 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room', 'get')) {
     $navigation = get_navigation($navigation_template, 2, $user_status);
 
     /* Page content */
+    $description = $room_info['description'];
+    $room_table = get_room_table($db, $room_info);
     /*check if the user logged in*/
     if (check_login()) {
         $user = get_username($db, $_SESSION['user_id']);
         $user_role = get_user_info($db, $_SESSION['user_id'])["role"];
     };
     $page_subtitle = sprintf("Information about %s", $room_info['room_title']);
-    /* Get the owner of the room*/
-    $owner_id = $room_info["owner_id"];
-    $owner = get_username($db, $owner_id);
-    $size = $room_info['size_m2'];
-    $zip = $room_info['zip'];
-    $street = $room_info['street'];
-    $city = $room_info['city'];
-    $description = $room_info['description'];
-    $type = $room_info['type'];
-    $available_from = $room_info['available_from'];
-    $available_till = $room_info['available_till'];
-    $furnished = $room_info['furnished'];
-    $price = $room_info['price'];
-    $services_including = $room_info['services_including'];
+
 
 
 
