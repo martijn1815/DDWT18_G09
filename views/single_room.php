@@ -33,40 +33,7 @@
             <h1><?= $page_title ?></h1>
             <h5><?= $page_subtitle ?></h5>
             <p><?= $description ?></p>
-            <table class="table">
-                <tbody>
-                <tr>
-                    <th scope="row">Address</th>
-                    <td><?= $street ?>, <?= $zip?>, <?= $city?>.</td>
-                </tr>
-                <tr>
-                    <th scope="row">Owner</th><td><?= $owner ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">Type</th>
-                    <td><?= $type ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">Size</th> <td><?= $size ?> m&sup2</td>
-                </tr>
-                <tr>
-                    <th scope="row">Available from</th> <td><?= $available_from ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">Available till</th> <td><?= $available_till ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">Furnished</th> <td><?= $furnished ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">Services are included (Gas/Water/Electricity/Internet)</th> <td><?= $services_including ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">Price per month</th> <td>€ <?= $price ?></td>
-                </tr>
-
-                </tbody>
-            </table>
+            <?php if(isset($room_table)){echo $room_table;} ?>
             <?php if (check_login()){
                 if ($user_role == "tenant"){echo'
         <a href="/DDWT18_G09/roomsoverview/room/opt-in/?room_id='.$room_id.' " class="btn btn-primary">Opt-in this room</a>';}
