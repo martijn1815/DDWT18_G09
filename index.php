@@ -89,7 +89,7 @@ if (new_route('/DDWT18_G09/roomsoverview', 'get')) {
         $error_msg = get_error($_GET['error_msg']);
     }
     /* Page content */
-    $rooms_table = get_rooms_table(get_rooms($db));
+    $rooms_table = get_rooms_table(get_rooms($db),$db);
     /* Choose Template */
     include use_template('rooms');
 }
