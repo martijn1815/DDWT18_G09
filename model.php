@@ -767,6 +767,54 @@ function count_opt_in ($pdo, $room_id){
     $nr_opt_in = $stmt-> rowCount();
     return $nr_opt_in;
 }
+
+/**
+ * Get array with all listed messages from the database
+ * @param object $pdo database object
+ * @return array Associative array with all rooms
+ */
+function get_messages($pdo){
+    $stmt = $pdo->prepare('SELECT * FROM opt_in');
+    $stmt->execute();
+    $messages = $stmt->fetchAll();
+    $messages_exp = Array();
+    /* Create array with htmlspecialchars */
+    foreach ($messages as $key => $value){
+        foreach ($value as $user_key => $user_input) {
+            $messages_exp[$key][$user_key] = htmlspecialchars($user_input);
+        }
+    }
+    return $messages_exp;
+}
+/**
+ * Creats a Bootstrap table with a list of messages for the user
+ * @param object $db pdo object
+ * @param array $rooms with rooms from the db
+ * @return string
+ */
+function get_messages_view($pdo, $messages){
+    $content_exp = '<div class="container">';
+    $user_id = $_SESSION['user_id'];
+    foreach ($messages as $key => $value) {
+        if ($value['owner_id'] == $user_id) {
+            $tennant = get_user_info($pdo, $value["tenant_id"]);
+            $content_exp .= '
+                <div>
+                    <div class="row">
+                        <div class="col"><h5><a href="/DDWT18_G09/">'.$tennant["first_name"].' '.$tennant["last_name"].'</a></h5></div>
+                        <div class="col" align="right">'.$value["date"].'</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">'.$value["message"].'</div>
+                    </div>
+                    </br>
+                </div>';
+        }
+    }
+    $content_exp .= '</div>';
+    return $content_exp;
+}
+
 function room_count($pdo){
     /* Get users */
     $stmt = $pdo->prepare('SELECT * FROM rooms');
