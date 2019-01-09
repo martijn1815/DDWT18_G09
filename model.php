@@ -644,6 +644,12 @@ function get_room_info($pdo, $room_id){
     return $room_info_exp;
 }
 
+/**
+ * Creats a Bootstrap table with the info of a room
+ * @param $pdo $db
+ * @param $room_info array with room info
+ * @return string
+ */
 function get_room_table($pdo, $room_info){
     $owner_id = $room_info["owner_id"];
     $owner = get_username($pdo, $owner_id);
@@ -682,6 +688,51 @@ function get_room_table($pdo, $room_info){
                 </tbody>
             </table>';
     return $table_exp;
+}
+
+/**
+ * Creats a Bootstrap table with the info of a user
+ * @param $user_info array with user_info
+ * @return string
+ */
+
+function get_user_table($user_info){
+    $table_exp = '<table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th scope="row">Address</th>
+                    <td>' . $user_info['street'] . ', ' . $user_info['zip'] . ', ' . $user_info['city'] . '.</td>
+                </tr>
+                <tr>
+                    <th scope="row">First name</th><td>' . $user_info['first_name'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Last name</th>
+                    <td>' .  $user_info['last_name']. '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Phone number</th> <td>' .  $user_info['phone_number'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th><td>' .  $user_info['email'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Date of birth</th> <td>' . $user_info['date_of_birth'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Biography</th> <td>' . $user_info['biography'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">Gender</th><td> ' . $user_info['gender'] . '</td>
+                </tr>
+                <tr>
+                    <th scope="row">profession/study</th> <td>' . $user_info['profession'] . '</td>
+                </tr>
+
+                </tbody>
+            </table>';
+    return $table_exp;
+
 }
 
 function remove_room($pdo, $room_id){
@@ -802,11 +853,34 @@ function opt_in($pdo, $form_data){
             $input['ServiceIncluding']
         ]);
 */
+/**
+ * Returns the number of opts in for a specific room
+ * @param object $pdo database object
+ * @param $room_id
+ * @return number
+ */
 function count_opt_in ($pdo, $room_id){
     $stmt = $pdo-> prepare('SELECT *  FROM opt_in WHERE room_id = ? ');
     $stmt-> execute([$room_id]);
     $nr_opt_in = $stmt-> rowCount();
     return $nr_opt_in;
+}
+/**
+ * Get array with all opt in info from db
+ * @param object $pdo database object
+ * @return array Associative array with all rooms
+ */
+function get_optin_info($pdo){
+    $stmt = $pdo-> prepare('SELECT *  FROM opt_in ');
+    $stmt-> execute();
+    $optin_info = $stmt->fetch();
+    $optin_info_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($optin_info as $key => $value){
+        $optin_info_exp[$key] = htmlspecialchars($value);
+    }
+    return $optin_info_exp;
 }
 
 /**
