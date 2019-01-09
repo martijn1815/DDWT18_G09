@@ -828,6 +828,24 @@ function get_messages($pdo){
     return $messages_exp;
 }
 /**
+ * Generates an array with message information
+ * @param object $pdo db object
+ * @param int $room_id id from the room
+ * @return mixed
+ */
+function get_message_info($pdo, $message_id){
+    $stmt = $pdo->prepare('SELECT * FROM opt_in WHERE id = ?');
+    $stmt->execute([$message_id]);
+    $room_info = $stmt->fetch();
+    $message_info_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($room_info as $key => $value){
+        $message_info_exp[$key] = htmlspecialchars($value);
+    }
+    return $message_info_exp;
+}
+/**
  * Creats a Bootstrap table with a list of messages for the user
  * @param object $db pdo object
  * @param array $rooms with rooms from the db
@@ -867,7 +885,7 @@ function get_messages_view($pdo, $messages){
                     </div>
                     <div class="row">
                         <div class="col">
-                            <form class="form-inline"  action="/DDWT18_G09/messagesoverview/delete/" method="POST">
+                            <form class="form-inline"  action="/DDWT18_G09/messsagesoverview/remove" method="POST">
                                 <input class="form-control mr-sm-2" type="hidden" name="id" value="'.$value["id"].'">
                                 <button class="btn btn-danger" type="submit">Delete message</button>
                             </form>
@@ -880,6 +898,36 @@ function get_messages_view($pdo, $messages){
     }
     $content_exp .= '</div>';
     return $content_exp;
+}
+
+function remove_message($pdo, $message_id){
+    /* Get message info */
+    $message_info = get_message_info($pdo, $message_id);
+
+    /* Check if user is creator */
+    if ( !isset($_SESSION['user_id']) and $_SESSION['user_id'] != $message_info['tenant_id']) {
+        return [
+            'type' => 'danger',
+            'message' => 'User is not sender of this message'
+        ];
+    }
+
+    /* Delete message */
+    $stmt = $pdo->prepare("DELETE FROM opt_in WHERE id = ?");
+    $stmt->execute([$message_id]);
+    $deleted = $stmt->rowCount();
+    if ($deleted ==  1) {
+        return [
+            'type' => 'success',
+            'message' => 'Message was removed!'
+        ];
+    }
+    else {
+        return [
+            'type' => 'warning',
+            'message' => 'An error occurred. The message was not removed.'
+        ];
+    }
 }
 
 function room_count($pdo){

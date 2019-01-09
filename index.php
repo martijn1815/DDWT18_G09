@@ -446,6 +446,17 @@ elseif (new_route('/DDWT18_G09/messagesoverview/', 'get')) {
     /* Choose Template */
     include use_template('messages');
 }
+/* Remove Message POST */
+elseif (new_route('/DDWT18_G09/messsagesoverview/remove', 'post')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        redirect('/DDWT18_G09/login/');
+    }
+    /* Remove serie in database */
+    $feedback = remove_message($db, $_POST['id']);
+    /* Redirect to serie GET route */
+    redirect(sprintf('/DDWT18_G09/messagesoverview/?error_msg=%s', json_encode($feedback)));
+}
 /* Update Profile get*/
 elseif (new_route('/DDWT18_G09/userprofile/update/', 'get')){
     /* Check if logged in */
