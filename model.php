@@ -722,12 +722,13 @@ function get_user_info($pdo, $user_id ){
 function opt_in($pdo, $form_data){
     $room_info = get_room_info($pdo, $form_data['room_id']);
     $user_id = $_SESSION['user_id'];
-    $stmt = $pdo->prepare('INSERT INTO opt_in(tenant_id, room_id, message, date) VALUES (?,?,?,?)');
+    $stmt = $pdo->prepare('INSERT INTO opt_in(tenant_id, owner_id, room_id, message, date) VALUES (?,?,?,?,?)');
     $stmt-> execute([
         $user_id,
-        $form_data['room_id'],
+        $room_info['owner_id'],
+        $room_info['id'],
         $form_data["message"],
-        date('Y-m-d')
+        date('Y-m-d H:i:s')
     ]);
     $success = $stmt->rowCount();
     if ($success ==  1) {
