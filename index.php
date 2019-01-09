@@ -506,3 +506,38 @@ elseif (new_route('/DDWT18_G09/userprofile/remove/', 'post')){
     /* Redirect to homepage */
     redirect(sprintf('/DDWT18_G09/login/?error_msg=%s', json_encode($error_msg)));
 }
+
+/* User table GET */
+elseif (new_route('/DDWT18_G09/messagesoverview/userinformation', 'get')) {
+    /* Check if logged in */
+    if ( !check_login() ) {
+        $user_status = 'logedout';
+        $feedback = [
+            'type' => 'danger',
+            'message' => sprintf('You have to login to add rooms!! Please login or register as new user.')
+        ];
+        redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
+    } else {
+        $user_status = get_user_role($db);
+    }
+
+    /* Page info */
+    $page_title = 'User information';
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18' => na('/DDWT18_G09/', False),
+        'Messages' => na('/DDWT18_G09/messsagesoverview/', False),
+        'User Information' => na('/DDWT18_G09/messsagesoverview/userinformation', True),
+    ]);
+    $navigation = get_navigation($navigation_template, 5, $user_status);
+    /* Page content */
+    $page_subtitle = '';
+    $user_table = get_user_table(get_user_info($db, $_GET['user_id']));
+    $submit_btn = '';
+    $form_action = '';
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+    /* Choose Template */
+    include use_template('user_info');
+}

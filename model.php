@@ -936,7 +936,7 @@ function get_messages_view($pdo, $messages){
                 $content_exp .= '
                 <div>
                     <div class="row">
-                        <div class="col"><h5><a href="/DDWT18_G09/">' . $tennant["first_name"] . ' ' . $tennant["last_name"] . '</a></h5></div>
+                        <div class="col"><h5><a href="/DDWT18_G09/messagesoverview/userinformation/?user_id='.$tennant["id"].'">' . $tennant["first_name"] . ' ' . $tennant["last_name"] . '</a></h5></div>
                         <div class="col" align="right">' . $value["date"] . '</div>
                     </div>
                     <div class="row">
@@ -951,7 +951,7 @@ function get_messages_view($pdo, $messages){
                 $content_exp .= '
                 <div>
                     <div class="row">
-                        <div class="col"><h5>Send to: <a href="/DDWT18_G09/">' . $owner["first_name"] . ' ' . $owner["last_name"] . '</a></h5></div>
+                        <div class="col"><h5>Send to: <a href="/DDWT18_G09/messagesoverview/userinformation/?user_id='.$owner["id"].'">' . $owner["first_name"] . ' ' . $owner["last_name"] . '</a></h5></div>
                         <div class="col" align="right">' . $value["date"] . '</div>
                     </div>
                     <div class="row">
