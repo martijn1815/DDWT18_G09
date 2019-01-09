@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Gegenereerd op: 09 jan 2019 om 14:47
--- Serverversie: 5.7.23
--- PHP-versie: 7.2.10
+-- Generation Time: Jan 09, 2019 at 04:46 PM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -25,7 +25,7 @@ USE `ddwt18_g09`;
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `languages`
+-- Table structure for table `languages`
 --
 
 CREATE TABLE `languages` (
@@ -34,7 +34,7 @@ CREATE TABLE `languages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `languages`
+-- Dumping data for table `languages`
 --
 
 INSERT INTO `languages` (`user_id`, `language`) VALUES
@@ -46,12 +46,19 @@ INSERT INTO `languages` (`user_id`, `language`) VALUES
 (7, 'dutch'),
 (7, 'english'),
 (9, 'dutch'),
-(10, 'dutch');
+(10, 'dutch'),
+(11, 'dutch'),
+(11, 'english'),
+(12, 'dutch'),
+(12, 'english'),
+(12, 'german'),
+(13, 'dutch'),
+(13, 'english');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `opt_in`
+-- Table structure for table `opt_in`
 --
 
 CREATE TABLE `opt_in` (
@@ -64,16 +71,16 @@ CREATE TABLE `opt_in` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `opt_in`
+-- Dumping data for table `opt_in`
 --
 
 INSERT INTO `opt_in` (`id`, `tenant_id`, `owner_id`, `room_id`, `message`, `date`) VALUES
-(5, 6, 0, 4, 'test', '2019-01-09');
+(11, 12, 13, 12, 'Hallo sir, \r\nI would like to rent this room.', '2019-01-09');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `rooms`
+-- Table structure for table `rooms`
 --
 
 CREATE TABLE `rooms` (
@@ -94,23 +101,16 @@ CREATE TABLE `rooms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `rooms`
+-- Dumping data for table `rooms`
 --
 
 INSERT INTO `rooms` (`id`, `owner_id`, `room_title`, `size_m2`, `zip`, `street`, `city`, `description`, `type`, `available_from`, `available_till`, `furnished`, `price`, `services_including`) VALUES
-(2, 5, 'test', 15, '0000aa', 'test 1', 'test', 'test', 'studenthouse', '2019-01-01', '2019-08-01', 'no', 350, 'no'),
-(3, 5, 'test2', 15, '0000aa', 'test 2', 'test', 'test2', 'studenthouse', '2019-01-01', '2019-08-01', 'yes', 350, 'yes'),
-(4, 5, 'test3', 18, '0000aa', 'test3', 'test', 'test3', 'ownershouse', '2018-01-01', '2019-01-01', 'no', 250, 'yes'),
-(5, 5, 'test4', 13, '0000aa', 'test 4', 'test', 'test', 'ownershouse', '2018-01-01', '2019-01-01', 'yes', 150, 'no'),
-(6, 5, 'test5', 3, '0000aa', 'test 5', 'test', 'test', 'studenthouse', '2018-01-01', '2019-01-01', 'no', 50, 'yes'),
-(7, 5, 'test6', 5, '0000aa', 'test 6', 'test', 'test', 'studenthouse', '2018-01-01', '2019-01-01', 'yes', 50, 'no'),
-(8, 5, 'test 01', 5, '0000aa', 'tes 01', 'test', 'test', 'studenthouse', '2018-01-01', '2019-01-01', 'no', 50, 'yes'),
-(9, 7, 'test', 35, '9231GC', 'Johan ter schoeleweg 63', 'Surhuisterveen', 'test', 'studenthouse', '2018-10-22', '2019-10-22', 'yes', 320, 'yes');
+(12, 13, 'Room in Groningen', 21, '9713WD', 'Tjerk Bolhuisstraat 5', 'Groningen', 'A perfect room for a university student.', 'studenthouse', '2019-09-01', '2020-08-31', 'no', 350, 'yes');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -132,22 +132,19 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `zip`, `street`, `city`, `phone_number`, `email`, `biography`, `date_of_birth`, `role`, `gender`, `profession`) VALUES
-(5, 'test', '$2y$10$mfMsKnPZFU46.Obv8IWyietb7LDQvvVyoI3QuoPSpAjpDzrGjo6d.', 'test', 'test', '0000aa', 'test 1', 'test', 645925691, 'test@test.test', 'test', '2000-11-11', 'tenant', 'male', 'test'),
-(6, 'zoek', '$2y$10$Q/QMSatJaVZVxEjpRdp44OGOFBbQ10WZYIDiMOYZNS9AQ6ecC9Ufy', 'Mohammad', 'Issa', '9231GC', 'Johan ter schoeleweg 63', 'Surhuisterveen', 687959190, 'mhd.issa990@gmail.com', 'test', '1990-10-22', 'tenant', 'male', 'seller'),
-(7, 'owner1', '$2y$10$gM/xNu5eNsai56JtWsbAh.yZoEVLDZQjkfIGp9YcTq0LkYpjI28Ga', 'Mohammad', 'Issa', '9231GC', 'Johan ter schoeleweg 63', 'Surhuisterveen', 687959190, 'mhd.issa990@gmail.com', 'test', '1990-10-22', 'owner', 'male', 'seller'),
-(9, 'tenant', '$2y$10$ZVWSug3JqQAZ5C56XvoDB.3zifqjiGHgFDNb7s3pDlfCFFYlzw/Ta', 'tenant', 'test2', '0000aa', 'test 1', 'test', 645925691, 'test@test.nl', 'test', '1996-02-02', 'tenant', 'male', 'test'),
-(10, 'owner', '$2y$10$mcFgsxU3fhosx3V5BK1cd.PUJROzE2GvFa4BuNnnRoOOgjKwRkRru', 'Owner', 'Test', '0000aa', 'Test 1', 'test', 645925691, 'test@test.nl', 'test', '1996-02-02', 'owner', 'male', 'test');
+(12, 'John Jansen', '$2y$10$aqxHBLTGCzsqr3q5yc4n5OPX8EHaW97XVcNK7kHXLjZomxn8EkCpi', 'John', 'Jansen', '9714Bp', 'Eyssoniusstraat 3', 'Groningen', 612345678, 'John.jansen@example.com', 'My hobbies are swimming, reading and traveling.', '1995-07-06', 'tenant', 'male', 'Bedrijfskunde'),
+(13, 'Ronald510', '$2y$10$aRrj1amfoBho4JF1z3qLe.3r94YYXhkIqxOXkmfeNJ5xu3M8EO7d.', 'Ronald', 'stoffers', '9731CD', 'P. Waijerstraat 53', 'groningen', 612345678, 'stoffers1903@example.com', 'I am searching for a good student for my room.', '1975-01-23', 'owner', 'male', 'visser');
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `opt_in`
+-- Indexes for table `opt_in`
 --
 ALTER TABLE `opt_in`
   ADD PRIMARY KEY (`id`),
@@ -155,53 +152,53 @@ ALTER TABLE `opt_in`
   ADD KEY `room_id` (`room_id`);
 
 --
--- Indexen voor tabel `rooms`
+-- Indexes for table `rooms`
 --
 ALTER TABLE `rooms`
   ADD PRIMARY KEY (`id`,`owner_id`),
   ADD KEY `owner_id` (`owner_id`);
 
 --
--- Indexen voor tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`,`username`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `opt_in`
+-- AUTO_INCREMENT for table `opt_in`
 --
 ALTER TABLE `opt_in`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT voor een tabel `rooms`
+-- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT voor een tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- Beperkingen voor geëxporteerde tabellen
+-- Constraints for dumped tables
 --
 
 --
--- Beperkingen voor tabel `opt_in`
+-- Constraints for table `opt_in`
 --
 ALTER TABLE `opt_in`
   ADD CONSTRAINT `opt_in_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `opt_in_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
--- Beperkingen voor tabel `rooms`
+-- Constraints for table `rooms`
 --
 ALTER TABLE `rooms`
   ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`);
