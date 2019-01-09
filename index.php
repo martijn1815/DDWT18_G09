@@ -412,35 +412,7 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room/opt-in', 'post')) {
     /* Redirect to room GET route */
     redirect(sprintf('/DDWT18_G09/roomsoverview/?error_msg=%s', json_encode($error_msg)));
 }
-/*login get*/
-elseif (new_route('/DDWT18_G09/login/', 'get')){
-    /* Check if logged in */
-    if ( check_login() ) {
-        $user_status = get_user_role($db);
-        $feedback = [
-            'type' => 'success',
-            'message' => sprintf('You are already logged in.')
-        ];
-        redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s',  json_encode($feedback)));
-    } else {
-        $user_status = 'logedout';
-    }
-    /* Page info */
-    $page_title = 'Login';
-    $breadcrumbs = get_breadcrumbs([
-        'DDWT18' => na('/DDWT18_G09/', False),
-        'Login' => na('/DDWT18_G09/login', True)
-    ]);
-    $navigation = get_navigation($navigation_template, 6, $user_status);
-    /* Page content */
-    $page_subtitle = 'Please enter your username and password ';
-    /* Get error msg from POST route */
-    if ( isset($_GET['error_msg']) ) {
-        $error_msg = get_error($_GET['error_msg']);
-    }
-    /* Choose Template */
-    include use_template('login');
-}
+
 /* Messages Overview GET */
 elseif (new_route('/DDWT18_G09/messagesoverview/', 'get')) {
     /* Check if logged in */
