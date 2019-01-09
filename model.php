@@ -558,17 +558,17 @@ function get_rooms_table($rooms,$pdo){
         <th scope="col" style="width: 30%">Room</th>
         <th scope="col" style="width: 15%; text-align: center;">Size</th>
         <th scope="col" style="width: 15%; text-align: center;">Price</th>
-        <th scope="col" style="width: 30%; text-align: center;">Already opted in</th>
+        <th scope="col" style="width: 30%; text-align: center;">Responded to</th>
     </tr>
     </thead>
     <tbody>';
     foreach($rooms as $key => $value){
         $table_exp .= '
         <tr class="clickable-row" data-href="/DDWT18_G09/roomsoverview/room/?room_id='.$value['id'].'">
-            <td style="width: 30%">'.$value['room_title'].'</td>
+            <td style="width: 50%">'.$value['room_title'].'</td>
             <td style="width: 15%; text-align: center;">'.$value['size_m2'].'m<sup>2</sup></td>
             <td style="width: 15%; text-align: center;">&euro;'.number_format($value['price'], 2).'</td>
-            <td style="width: 30%; text-align: center;">'.count_opt_in($pdo, $value['id']).'</td>
+            <td style="width: 10%; text-align: center;">'.count_opt_in($pdo, $value['id']).'</td>
         </tr>
         ';
     }
