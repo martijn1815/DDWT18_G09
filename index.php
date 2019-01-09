@@ -70,7 +70,7 @@ if (new_route('/DDWT18_G09/', 'get')) {
     include use_template('main');
 }
 /* Rooms Overview */
-if (new_route('/DDWT18_G09/roomsoverview', 'get')) {
+elseif (new_route('/DDWT18_G09/roomsoverview', 'get')) {
     /* Page info */
     $page_title = 'Rooms Overview';
     $breadcrumbs = get_breadcrumbs([
@@ -94,7 +94,7 @@ if (new_route('/DDWT18_G09/roomsoverview', 'get')) {
     include use_template('rooms');
 }
 /* My Rooms GET*/
-if (new_route('/DDWT18_G09/myrooms', 'get')) {
+elseif (new_route('/DDWT18_G09/myrooms', 'get')) {
     /* Page info */
     $page_title = 'My Rooms';
     $breadcrumbs = get_breadcrumbs([
@@ -544,4 +544,14 @@ elseif (new_route('/DDWT18_G09/messagesoverview/userinformation', 'get')) {
     }
     /* Choose Template */
     include use_template('user_info');
+}
+else{
+    if ( !check_login() ) {
+        $user_status = 'logedout';
+    }else{
+        $user_status = get_user_role($db);
+    }
+    $navigation = get_navigation($navigation_template, 0, $user_status);
+    http_response_code(404);
+    include use_template("404");
 }
