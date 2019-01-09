@@ -27,7 +27,7 @@ $navigation_template = Array(
     5 => Array(
         'name' => 'Messages',
         'url' => '/DDWT18_G09/messagesoverview/',
-        'show' => ['owner']),
+        'show' => ['tenant', 'owner']),
     6 => Array(
         'name' => 'User Profile',
         'url' => '/DDWT18_G09/userprofile/',
@@ -453,15 +453,7 @@ elseif (new_route('/DDWT18_G09/messagesoverview/', 'get')) {
     } else {
         $user_status = get_user_role($db);
     }
-    /* chech if the user is an owner*/
-    if (get_user_info($db,$_SESSION['user_id'])["role"]!= "owner"){
-        $feedback = [
-            'type' => 'danger',
-            'message' => sprintf('%s, you do not have the permission to add rooms!',
-                get_username($db, $_SESSION['user_id']))
-        ];
-        redirect(sprintf('/DDWT18_G09/myrooms/?error_msg=%s',  json_encode($feedback)));
-    }
+
     /* Page info */
     $page_title = 'Messages Overview';
     $breadcrumbs = get_breadcrumbs([
