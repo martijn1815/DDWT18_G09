@@ -863,7 +863,15 @@ function get_messages_view($pdo, $messages){
                         <div class="col" align="right">' . $value["date"] . '</div>
                     </div>
                     <div class="row">
-                        <div class="col">' . $value["message"] . '</div>
+                        <div class="col"><p>' . $value["message"] . '</p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <form class="form-inline"  action="/DDWT18_G09/messagesoverview/delete/" method="POST">
+                                <input class="form-control mr-sm-2" type="hidden" name="id" value="'.$value["id"].'">
+                                <button class="btn btn-danger" type="submit">Delete message</button>
+                            </form>
+                        </div>
                     </div>
                     </br>
                 </div>';
