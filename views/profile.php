@@ -52,6 +52,17 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Manage your user profile
+                </div>
+                <div class="card-body">
+                    <p><a href="/DDWT18_G09/userprofile/update/" class="btn btn-success">Change user information</a></p>
+                    <a href="/DDWT18_G09/userprofile/" class="btn btn-danger">Delete user account</a>
+                </div>
+            </div>
+        </div>
         <?php if ($user_role == "owner"){echo'
         <div class="col-md-4">
             <div class="card">
@@ -62,8 +73,9 @@
                     <p>Publish Your room to Rooms Overview.</p>
                     <a href="/DDWT18_G09/addrooms/" class="btn btn-success">Add a room</a>
                 </div>
-            </div>';}
-            ?>
+            </div>
+        </div>';}
+        ?>
 
         <?php if ($user_role == "tenant"){echo'
         <div class="col-md-4">
@@ -75,7 +87,8 @@
                     <p>You can check here the rooms overview </p>
                     <a href="/DDWT18_G09/roomsoverview/" class="btn btn-success">Rooms overview</a>
                 </div>
-            </div>';}
+            </div>
+        </div>';}
         ?>
         </div>
 
