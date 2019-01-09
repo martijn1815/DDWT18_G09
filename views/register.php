@@ -39,7 +39,7 @@
 
             <div class="pd-15">&nbsp;</div>
 
-            <form action="/DDWT18_G09/register/" method="POST">
+            <form action=<?= $form_action ?> method="POST">
                 <div class="form-group" <?php if (isset($user_info)){echo "style='display: none;'";} ?>>
                     <label for="inputUsername">Username</label>
                     <input type="text" class="form-control" id="inputUsername" name="username" value="<?php if (isset($user_info)){echo $user_info['username'];} ?>" required>
@@ -53,8 +53,8 @@
                     <label for="inputRole">Role</label>
                     <select class="form-control" id="inputRole" name="role" required>
                         <option value="" disabled selected hidden>Please select</option>
-                        <option value="tenant">Tenant</option>
-                        <option value="owner">Owner</option>
+                        <option value="tenant" <?php if (isset($user_info)){if ($user_info['role']=='tenant'){echo 'selected';}} ?>>Tenant</option>
+                        <option value="owner" <?php if (isset($user_info)){if ($user_info['role']=='owner'){echo 'selected';}} ?>>Owner</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -126,43 +126,6 @@
     </div>
 </div>
 
-<!--Check the role of the user and display extra fields-->
-<!--
-<script>
-    function check_role(that) {
-        if (that.value == "owner") {
-            document.getElementById("Owner").style.display = "block";
-            document.getElementById("Tenant").style.display = "none";
-            document.getElementById("Work").style.display = "none";
-            document.getElementById("Study").style.display = "none";
-
-        } else if (that.value == "tenant"){
-            document.getElementById("Tenant").style.display = "block";
-            document.getElementById("Owner").style.display = "none";
-
-        } else {
-            document.getElementById("Owner").style.display = "none";
-            document.getElementById("Tenant").style.display = "none";
-        }
-    }
-    function check_study(that) {
-        if (that.value == "study") {
-            document.getElementById("Study").style.display = "block";
-            document.getElementById("Work").style.display = "none";
-        } else if (that.value == "work") {
-            document.getElementById("Work").style.display = "block";
-            document.getElementById("Study").style.display = "none";
-        } else if (that.value == "study_work") {
-            document.getElementById("Study").style.display = "block";
-            document.getElementById("Work").style.display = "block";
-        }
-        else{
-            document.getElementById("Study").style.display = "none";
-            document.getElementById("Work").style.display = "none";
-        }
-    }
-</script>
--->
 <!-- Initialize the multiselect-plugin: -->
 <script type="text/javascript">
     $(document).ready(function() {
