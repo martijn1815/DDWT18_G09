@@ -890,3 +890,94 @@ function get_navigation($template, $active_id, $user_status){
     </nav>';
     return $navigation_exp;
 }
+/**
+ * @param PDO $pdo
+ * @param $form_data
+ * @return array
+ */
+function update_user($pdo, $form_data){
+    /* Check if all fields are set */
+    $fields = ['username', 'password', 'firstname', 'lastname', 'street', 'zip', 'city', 'phone', 'mail', 'biography', 'profession', 'date_of_birth', 'role', 'gender', 'lang'];
+    foreach ($fields as $value) {
+        if (empty($form_data[$value])) {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('Form not complete, please fill in %s.', $value)
+            ];
+        }
+    }
+
+    /* Check data types */
+    if (strlen($form_data['password']) < 8){
+        return [
+            'type' => 'danger',
+            'message' => 'The password must contain at least 8 characters'
+        ];
+    }elseif (!preg_match("#[0-9]+#", $form_data['password'])){
+        return [
+            'type' => 'danger',
+            'message' => 'The password must contain at least 1 number!'
+        ];
+
+    }elseif (!preg_match("#[A-Z]+#", $form_data['password'])){
+        return [
+            'type' => 'danger',
+            'message' => 'The password must contain at least 1 capital letter!'
+        ];
+
+    }elseif (!preg_match("#[a-z]+#", $form_data['password'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'The password must contain at least 1 small letter!'
+        ];
+    }else{
+        $password = password_hash($form_data['password'], PASSWORD_DEFAULT);
+    }
+    /* ...To be added... */
+
+    /* Hash password */
+
+    /* Get user info */
+    session_start();
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+    $stmt->execute([$_SESSION['user_id']]);
+    $user_info = $stmt->fetch();
+
+    /* Save user to the database */
+    $stmt = $pdo->prepare('UPDATE users SET username = ?, password = ?, first_name = ?, last_name = ?, street = ?, zip = ?, city = ?, phone_number = ?, email = ?, biography = ?, date_of_birth = ?, role = ?, gender = ?, profession = ? WHERE id = ?');
+    $stmt->execute([
+        $form_data['username'],
+        $password,
+        $form_data['firstname'],
+        $form_data['lastname'],
+        $form_data['street'],
+        $form_data['zip'],
+        $form_data['city'],
+        $form_data['phone'],
+        $form_data['mail'],
+        $form_data['biography'],
+        date("y-m-d", strtotime($form_data['date_of_birth'])),
+        $form_data['role'],
+        $form_data['gender'],
+        $form_data['profession'],
+        $user_info['id']
+    ]);
+    $updated = $stmt->rowCount();
+    /*
+    $user_id = $pdo->lastInsertId();
+    foreach ($form_data['lang'] as $language) {
+        $stmt = $pdo->prepare('INSERT INTO languages (user_id, language) VALUES (?, ?)');
+        $stmt->execute([$user_id, $language]);
+    }*/
+    if ($updated ==  1) {
+        return [
+            'type' => 'success',
+            'message' => sprintf('User %s updated in the database.', $form_data['username'])
+        ];
+    } else {
+        return [
+            'type' => 'danger',
+            'message' => 'There was an error. The user was not updated. Try it again.'
+        ];
+    }
+}
