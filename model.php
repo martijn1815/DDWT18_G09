@@ -784,7 +784,9 @@ function get_navigation($template, $active_id, $user_status){
     <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username">
     <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password">
     <button class="btn btn-success" type="submit">Login</button>
-  </form>';}
+  </form>';}else{
+            $navigation_exp.='<a href="/DDWT18_G09/logout/" class="btn btn-danger">Logout</a>';
+        }
     $navigation_exp.= '</div>
     </nav>';
     return $navigation_exp;
