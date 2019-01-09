@@ -1012,10 +1012,10 @@ function room_count($pdo){
     return $rooms;
 }
 
-function student_count($pdo){
+function tenant_count($pdo){
     /* Get users */
-    $stmt = $pdo->prepare('SELECT * FROM users WHERE role = tenant');
-    $stmt->execute();
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE role = ?');
+    $stmt->execute(['tenant']);
     $tenants = $stmt->rowCount();
     return $tenants;
 }

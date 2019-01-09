@@ -17,17 +17,21 @@
         <!-- Menu -->
         <?= $navigation ?>
         <!-- Content -->
-        <div class="container">
-            <!-- Left column -->
-            <div class="col-md-8">
-                <!-- Error message -->
-                <?php if (isset($error_msg)){echo $error_msg;} ?>
+        <div class="container" style="padding-top: 30px;">
+            <div class="row">
+                <!-- Left column -->
+                <div class="col-md-8">
+                    <!-- Error message -->
+                    <?php if (isset($error_msg)){echo $error_msg;} ?>
 
-                'The online platform to view and offer student rooms'
+                    'The online platform to view and offer student rooms'
+                </div>
+                <!-- Right column -->
+                <div class="col-md-4">
+                    <?php include $cards ?>
+                </div>
             </div>
-
         </div>
-
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

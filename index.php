@@ -62,6 +62,9 @@ if (new_route('/DDWT18_G09/', 'get')) {
     /* Page content */
     $page_subtitle = 'The online platform to view and offer student rooms';
     $page_content = 'content';
+    $cards = use_template('cards');
+    $nbr_rooms = room_count($db);
+    $nbr_tenants = tenant_count($db);
     /* Choose Template */
     include use_template('main');
 }

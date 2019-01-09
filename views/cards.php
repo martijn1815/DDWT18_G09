@@ -1,29 +1,26 @@
-/**
- * Created by PhpStorm.
- * User: julius
- * Date: 08/01/2019
- * Time: 13:27
- */
-
 <!-- Rooms count -->
 <div class="card">
     <div class="card-header">
         Rooms
     </div>
     <div class="card-body">
-        <p class="count">Our Platform already has</p>
-        <h2><?= $room_count ?></h2>
-        <p>rooms</p>
-<a href="/DDWT18_G09/addrooms/" class="btn btn-primary">Add your room</a>
+        <p class="count">At the moment we have</p>
+        <h2><?= $nbr_rooms ?></h2>
+        <p>rooms available on our website</p>
+        <a href="/DDWT18_G09/roomsoverview/" class="btn btn-primary">View the rooms</a>
+    </div>
 </div>
-
-<div class="card-header">
-    Users
-</div>
-<div class="card-body">
-    <p class="count">We currently have</p>
-    <h2><?= $student_count ?></h2>
-    <p>students looking for a room</p>
-    <a href="/DDWT18_G09/register/" class="btn btn-primary">Register if you are also looking</a>
-</div>
+</br>
+    <!-- Users count -->
+<div class="card">
+    <div class="card-header">
+        Users
+    </div>
+    <div class="card-body">
+        <p class="count">We currently have</p>
+        <h2><?= $nbr_tenants ?></h2>
+        <p>tenants looking for a room</p>
+        <p><i>Also looking for a room?</i></p>
+        <a href="/DDWT18_G09/register/" class="btn btn-primary">Register here</a>
+    </div>
 </div>
