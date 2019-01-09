@@ -571,7 +571,6 @@ function get_rooms_table($rooms){
  * @return string
  */
 function get_myrooms_table($rooms){
-
     $user_id = $_SESSION['user_id'];
     $table_exp = '
     <table class="table table-hover">
@@ -726,6 +725,23 @@ function opt_in($pdo, $form_data){
             $input['ServiceIncluding']
         ]);
 */
+
+/**
+ * Creats a Bootstrap table with a list of messages for the user
+ * @param object $db pdo object
+ * @param array $rooms with rooms from the db
+ * @return string
+ */
+function get_messages_table($pdo){
+    $content_exp = '';
+    $user_id = $_SESSION['user_id'];
+    $stmt = $pdo->prepare('SELECT * FROM opt_in WHERE tenant_id = ?');
+    $stmt->execute([$user_id]);
+    $messages = $stmt->fetch();
+    var_dump($messages);
+
+    return $content_exp;
+}
 
 function room_count($pdo){
     /* Get users */
