@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jan 09, 2019 at 12:00 AM
+-- Generation Time: Jan 09, 2019 at 09:13 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -55,9 +55,17 @@ INSERT INTO `languages` (`user_id`, `language`) VALUES
 CREATE TABLE `opt_in` (
   `id` int(11) NOT NULL,
   `tenant_id` int(11) NOT NULL,
+  `room_id` int(11) NOT NULL,
   `message` varchar(256) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `opt_in`
+--
+
+INSERT INTO `opt_in` (`id`, `tenant_id`, `room_id`, `message`, `date`) VALUES
+(5, 6, 4, 'test', '2019-01-09');
 
 -- --------------------------------------------------------
 
@@ -138,7 +146,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `z
 --
 ALTER TABLE `opt_in`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `tenant_id` (`tenant_id`);
+  ADD KEY `tenant_id` (`tenant_id`),
+  ADD KEY `room_id` (`room_id`);
 
 --
 -- Indexes for table `rooms`
@@ -161,7 +170,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `opt_in`
 --
 ALTER TABLE `opt_in`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -183,7 +192,8 @@ ALTER TABLE `users`
 -- Constraints for table `opt_in`
 --
 ALTER TABLE `opt_in`
-  ADD CONSTRAINT `opt_in_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `opt_in_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `opt_in_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`);
 
 --
 -- Constraints for table `rooms`
