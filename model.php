@@ -42,38 +42,6 @@ function redirect($location){
     header(sprintf('Location: %s', $location));
     die();
 }
-/**
- * Creates navigation HTML code using given array
- * @param array $navigation Array with as Key the page name and as Value the corresponding url
- * @return string html code that represents the navigation
- */
-function get_navigation($template, $active_id, $user_status){
-    $navigation_exp = '
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">Rooms Overview</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">';
-    foreach ($template as $id => $info) {
-        if (in_array($user_status, $info['show'])) {
-            if ($active_id == $id) {
-                $navigation_exp .= '<li class="nav-item active">';
-                $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
-            } else {
-                $navigation_exp .= '<li class="nav-item">';
-                $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
-            }
-        }
-        $navigation_exp .= '</li>';
-    }
-    $navigation_exp .= '
-    </ul>
-    </div>
-    </nav>';
-    return $navigation_exp;
-}
 
 /**
  * Check if the route exist
@@ -540,7 +508,7 @@ function get_rooms($pdo){
 function get_rooms_table($rooms){
     $table_exp = '
     <table class="table table-hover">
-    <thead
+    <thead class="thead-dark">
     <tr>
         <th scope="col" style="width: 70%">Room</th>
         <th scope="col" style="width: 15">Size</th>
@@ -781,4 +749,43 @@ function student_count($pdo){
     $stmt->execute();
     $tenants = $stmt->rowCount();
     return $tenants;
+}
+
+/**
+ * Creates navigation HTML code using given array
+ * @param array $navigation Array with as Key the page name and as Value the corresponding url
+ * @return string html code that represents the navigation
+ */
+function get_navigation($template, $active_id, $user_status){
+    $navigation_exp = '
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" style="color: aliceblue">Rooms Overview</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">';
+    foreach ($template as $id => $info) {
+        if (in_array($user_status, $info['show'])) {
+            if ($active_id == $id) {
+                $navigation_exp .= '<li class="nav-item active">';
+                $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
+            } else {
+                $navigation_exp .= '<li class="nav-item">';
+                $navigation_exp .= '<a class="nav-link" href="' . $info['url'] . '">' . $info['name'] . '</a>';
+            }
+        }
+        $navigation_exp .= '</li>';
+    }
+    $navigation_exp .= '
+    </ul>';
+        if (!check_login()){$navigation_exp.='
+    <form class="form-inline"  action="/DDWT18_G09/login/" method="POST">
+    <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username">
+    <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password">
+    <button class="btn btn-success" type="submit">Login</button>
+  </form>';}
+    $navigation_exp.= '</div>
+    </nav>';
+    return $navigation_exp;
 }
