@@ -131,17 +131,24 @@ function register_user($pdo, $form_data){
             ];
         }
     }
-
-    /* Check if user already exists */
-    try {
-        $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
-        $stmt->execute([$form_data['username']]);
-        $user_exists = $stmt->rowCount();
-    } catch (\PDOException $e) {
+    /*check username special characters*/
+    if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $form_data['username'])){
         return [
             'type' => 'danger',
-            'message' => sprintf('There was an error: %s', $e->getMessage())
+            'message' => 'The username you entered contains not allowed character!'
         ];
+    }else {
+        /* Check if user already exists */
+        try {
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');
+            $stmt->execute([$form_data['username']]);
+            $user_exists = $stmt->rowCount();
+        } catch (\PDOException $e) {
+            return [
+                'type' => 'danger',
+                'message' => sprintf('There was an error: %s', $e->getMessage())
+            ];
+        }
     }
     if (!empty($user_exists)){
         return [
@@ -151,6 +158,7 @@ function register_user($pdo, $form_data){
     }
 
     /* Check data types */
+
     if (strlen($form_data['password']) < 8){
         return [
             'type' => 'danger',
