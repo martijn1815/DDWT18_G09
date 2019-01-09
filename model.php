@@ -151,10 +151,35 @@ function register_user($pdo, $form_data){
     }
 
     /* Check data types */
+    if (strlen($form_data['password']) < 8){
+        return [
+            'type' => 'danger',
+            'message' => 'The password must contain at least 8 characters'
+        ];
+    }elseif (!preg_match("#[0-9]+#", $form_data['password'])){
+        return [
+            'type' => 'danger',
+            'message' => 'The password must contain at least 1 number!'
+        ];
+
+    }elseif (!preg_match("#[A-Z]+#", $form_data['password'])){
+        return [
+            'type' => 'danger',
+            'message' => 'The password must contain at least 1 capital letter!'
+        ];
+
+    }elseif (!preg_match("#[a-z]+#", $form_data['password'])) {
+        return [
+            'type' => 'danger',
+            'message' => 'The password must contain at least 1 small letter!'
+        ];
+    }else{
+        $password = password_hash($form_data['password'], PASSWORD_DEFAULT);
+    }
     /* ...To be added... */
 
     /* Hash password */
-    $password = password_hash($form_data['password'], PASSWORD_DEFAULT);
+
 
     /* Save user to the database */
     try {
