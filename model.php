@@ -600,7 +600,7 @@ function get_room_info($pdo, $room_id){
 function get_room_table($pdo, $room_info){
     $owner_id = $room_info["owner_id"];
     $owner = get_username($pdo, $owner_id);
-        $table_exp = '<table class="table">
+        $table_exp = '<table class="table table-striped">
                 <tbody>
                 <tr>
                     <th scope="row">Address</th>
