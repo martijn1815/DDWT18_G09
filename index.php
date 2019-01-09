@@ -60,8 +60,9 @@ if (new_route('/DDWT18_G09/', 'get')) {
         $error_msg = get_error($_GET['error_msg']);
     }
     /* Page content */
-    $page_subtitle = 'The online platform to view and offer student rooms';
-    $page_content = 'content';
+    $page_subtitle = 'Welcome';
+    $page_content1 = 'Are you looking for a room or appartment or are you an owner and are you looking for new tenants? Our online platform provides you the oppurtunity to bring owners and room hunters together.';
+    $page_content2 = 'Take a look at the rooms that are on offer at our rooms overview. Would you fine a room to your liking, register or login and send a message to the owner. If the owner sees you as a sutable tenant he or she will contact you on your provide e-mail or phonenumber!';
     $cards = use_template('cards');
     $nbr_rooms = room_count($db);
     $nbr_tenants = tenant_count($db);

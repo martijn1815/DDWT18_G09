@@ -24,7 +24,9 @@
                     <!-- Error message -->
                     <?php if (isset($error_msg)){echo $error_msg;} ?>
 
-                    'The online platform to view and offer student rooms'
+                    <h1><?= $page_subtitle ?></h1>
+                    <p><?= $page_content1 ?></p>
+                    <p><?= $page_content2 ?></p>
                 </div>
                 <!-- Right column -->
                 <div class="col-md-4">
