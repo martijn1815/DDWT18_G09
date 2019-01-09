@@ -733,6 +733,26 @@ function get_user_info($pdo, $user_id ){
     }
     return $user_info_exp;
 }
+
+/**
+ * Generates an array with languages user speaks
+ * @param object $pdo db object
+ * @param int $user_id id from the user
+ * @return mixed
+ */
+function get_user_info_languages($pdo, $user_id ){
+    $stmt = $pdo->prepare('SELECT * FROM languages WHERE user_id = ?');
+    $stmt->execute([$user_id]);
+    $user_info = $stmt->fetch();
+    $user_info_exp = Array();
+
+    /* Create array with htmlspecialchars */
+    foreach ($user_info as $key => $value){
+        $user_info_exp[$key] = htmlspecialchars($value);
+    }
+    return $user_info_exp;
+}
+
 /**
  * saves opt_in data to database
  * @param object $pdo db object

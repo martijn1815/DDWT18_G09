@@ -107,12 +107,12 @@
                 <div class="form-group">
                     <label for="inputLang">What languages do you speak?</label>
                     <select class="form-control" id="inputLang" name="lang[]" multiple="multiple" required>
-                        <option value="dutch">Dutch</option>
-                        <option value="english">English</option>
-                        <option value="french">French</option>
-                        <option value="german">German</option>
-                        <option value="italian">Italian</option>
-                        <option value="spanish">Spanish</option>
+                        <option value="dutch" <?php if (isset($user_info_language)){if (in_array('dutch', $user_info_language)){echo 'selected';}} ?>>Dutch</option>
+                        <option value="english" <?php if (isset($user_info_language)){if (in_array('english', $user_info_language)){echo 'selected';}} ?>>English</option>
+                        <option value="french" <?php if (isset($user_info_language)){if (in_array('french', $user_info_language)){echo 'selected';}} ?>>French</option>
+                        <option value="german" <?php if (isset($user_info_language)){if (in_array('german', $user_info_language)){echo 'selected';}} ?>>German</option>
+                        <option value="italian" <?php if (isset($user_info_language)){if (in_array('italian', $user_info_language)){echo 'selected';}} ?>>Italian</option>
+                        <option value="spanish" <?php if (isset($user_info_language)){if (in_array('spanish', $user_info_language)){echo 'selected';}} ?>>Spanish</option>
                     </select>
                 </div>
                 <div class="form-group">

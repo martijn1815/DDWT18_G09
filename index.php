@@ -496,13 +496,14 @@ elseif (new_route('/DDWT18_G09/userprofile/update/', 'get')){
     ]);
     $navigation = get_navigation($navigation_template, 6, $user_status);
     /* Page content */
-    $page_subtitle = 'Please register by filling in the following form';
+    $page_subtitle = '';
+    $user_info = get_user_info($db, get_user_id2());
+    $user_info_language = get_user_info_languages($db, get_user_id2());
+    $button_text = 'Update';
     /* Get error msg from POST route */
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
     }
-    $user_info = get_user_info($db, get_user_id2());
-    $button_text = 'Update';
     /* Choose Template */
     include use_template('register');
 }
