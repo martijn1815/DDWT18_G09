@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Gegenereerd op: 09 jan 2019 om 11:21
+-- Gegenereerd op: 09 jan 2019 om 14:47
 -- Serverversie: 5.7.23
 -- PHP-versie: 7.2.10
 
@@ -45,7 +45,8 @@ INSERT INTO `languages` (`user_id`, `language`) VALUES
 (6, 'english'),
 (7, 'dutch'),
 (7, 'english'),
-(8, 'dutch');
+(9, 'dutch'),
+(10, 'dutch');
 
 -- --------------------------------------------------------
 
@@ -67,9 +68,7 @@ CREATE TABLE `opt_in` (
 --
 
 INSERT INTO `opt_in` (`id`, `tenant_id`, `owner_id`, `room_id`, `message`, `date`) VALUES
-(5, 6, 0, 4, 'test', '2019-01-09'),
-(6, 8, 8, 10, 'test', '2019-01-09'),
-(7, 8, 8, 10, 'test2', '2019-01-09');
+(5, 6, 0, 4, 'test', '2019-01-09');
 
 -- --------------------------------------------------------
 
@@ -106,8 +105,7 @@ INSERT INTO `rooms` (`id`, `owner_id`, `room_title`, `size_m2`, `zip`, `street`,
 (6, 5, 'test5', 3, '0000aa', 'test 5', 'test', 'test', 'studenthouse', '2018-01-01', '2019-01-01', 'no', 50, 'yes'),
 (7, 5, 'test6', 5, '0000aa', 'test 6', 'test', 'test', 'studenthouse', '2018-01-01', '2019-01-01', 'yes', 50, 'no'),
 (8, 5, 'test 01', 5, '0000aa', 'tes 01', 'test', 'test', 'studenthouse', '2018-01-01', '2019-01-01', 'no', 50, 'yes'),
-(9, 7, 'test', 35, '9231GC', 'Johan ter schoeleweg 63', 'Surhuisterveen', 'test', 'studenthouse', '2018-10-22', '2019-10-22', 'yes', 320, 'yes'),
-(10, 8, 'Test', 15, '0000aa', 'test', 'test', 'test', 'studenthouse', '2019-01-01', '2019-08-01', 'yes', 350, 'no');
+(9, 7, 'test', 35, '9231GC', 'Johan ter schoeleweg 63', 'Surhuisterveen', 'test', 'studenthouse', '2018-10-22', '2019-10-22', 'yes', 320, 'yes');
 
 -- --------------------------------------------------------
 
@@ -141,7 +139,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `z
 (5, 'test', '$2y$10$mfMsKnPZFU46.Obv8IWyietb7LDQvvVyoI3QuoPSpAjpDzrGjo6d.', 'test', 'test', '0000aa', 'test 1', 'test', 645925691, 'test@test.test', 'test', '2000-11-11', 'tenant', 'male', 'test'),
 (6, 'zoek', '$2y$10$Q/QMSatJaVZVxEjpRdp44OGOFBbQ10WZYIDiMOYZNS9AQ6ecC9Ufy', 'Mohammad', 'Issa', '9231GC', 'Johan ter schoeleweg 63', 'Surhuisterveen', 687959190, 'mhd.issa990@gmail.com', 'test', '1990-10-22', 'tenant', 'male', 'seller'),
 (7, 'owner1', '$2y$10$gM/xNu5eNsai56JtWsbAh.yZoEVLDZQjkfIGp9YcTq0LkYpjI28Ga', 'Mohammad', 'Issa', '9231GC', 'Johan ter schoeleweg 63', 'Surhuisterveen', 687959190, 'mhd.issa990@gmail.com', 'test', '1990-10-22', 'owner', 'male', 'seller'),
-(8, 'owner', '$2y$10$yVylfKKe/r92Ncky6hGTpukrezCUHj0IDS8yrFq1vd/wQNoduX8/e', 'Owner', 'Test', '0000aa', 'test 1', 'test', 645925691, 'test@test.nl', 'test', '1996-02-02', 'owner', 'male', 'test');
+(9, 'tenant', '$2y$10$ZVWSug3JqQAZ5C56XvoDB.3zifqjiGHgFDNb7s3pDlfCFFYlzw/Ta', 'tenant', 'test2', '0000aa', 'test 1', 'test', 645925691, 'test@test.nl', 'test', '1996-02-02', 'tenant', 'male', 'test'),
+(10, 'owner', '$2y$10$mcFgsxU3fhosx3V5BK1cd.PUJROzE2GvFa4BuNnnRoOOgjKwRkRru', 'Owner', 'Test', '0000aa', 'Test 1', 'test', 645925691, 'test@test.nl', 'test', '1996-02-02', 'owner', 'male', 'test');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -176,7 +175,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `opt_in`
 --
 ALTER TABLE `opt_in`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT voor een tabel `rooms`
@@ -188,7 +187,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
