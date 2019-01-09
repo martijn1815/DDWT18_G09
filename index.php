@@ -139,6 +139,7 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
     }
+    $button_text = 'Register';
     /* Choose Template */
     include use_template('register');
 }
@@ -500,6 +501,7 @@ elseif (new_route('/DDWT18_G09/userprofile/update/', 'get')){
     if ( isset($_GET['error_msg']) ) {
         $error_msg = get_error($_GET['error_msg']);
     }
+    $button_text = 'Update';
     /* Choose Template */
     include use_template('register');
 }

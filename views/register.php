@@ -152,7 +152,7 @@
                 </div>
                 -->
 
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary"><?= $button_text ?></button>
             </form>
             </br>
         </div>
