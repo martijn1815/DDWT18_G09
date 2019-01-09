@@ -26,22 +26,14 @@ $navigation_template = Array(
         'url' => '/DDWT18_G09/addrooms/',
         'show' => ['owner']),
     5 => Array(
-        'name' => 'Messages',
-        'url' => '/DDWT18_G09/messagesoverview/',
-        'show' => ['owner']),
-    6 => Array(
         'name' => 'User Profile',
         'url' => '/DDWT18_G09/userprofile/',
         'show' => ['tenant', 'owner']),
-    7 => Array(
+    6 => Array(
         'name' => 'Login',
         'url' => '/DDWT18_G09/login/',
         'show' => ['logedout']),
-    8 => Array(
-        'name' => 'Logout',
-        'url' => '/DDWT18_G09/logout/',
-        'show' => ['tenant', 'owner']),
-    9 => Array(
+    7 => Array(
         'name' => 'Register',
         'url' => '/DDWT18_G09/register/',
         'show' => ['logedout'])
@@ -101,7 +93,7 @@ if (new_route('/DDWT18_G09/roomsoverview', 'get')) {
     }
 
     /* Page content */
-    $rooms_table = get_rooms_table(get_rooms($db));
+    $rooms_table = get_rooms_table(get_rooms($db),$db);
 
     /* Choose Template */
     include use_template('rooms');
@@ -155,7 +147,7 @@ elseif (new_route('/DDWT18_G09/register/', 'get')){
         'DDWT18_G09' => na('/DDWT18_G09/', False),
         'Register' => na('/DDWT18_G09/register', True)
     ]);
-    $navigation = get_navigation($navigation_template, 9, $user_status);
+    $navigation = get_navigation($navigation_template, 7, $user_status);
 
     /* Page content */
     $page_subtitle = 'Please register by filling in the following form';
@@ -322,7 +314,7 @@ elseif (new_route('/DDWT18_G09/login/', 'get')){
         'DDWT18' => na('/DDWT18_G09/', False),
         'Login' => na('/DDWT18_G09/login', True)
     ]);
-    $navigation = get_navigation($navigation_template, 7, $user_status);
+    $navigation = get_navigation($navigation_template, 6, $user_status);
 
     /* Page content */
     $page_subtitle = 'Please enter your username and password ';
@@ -364,7 +356,7 @@ elseif (new_route('/DDWT18_G09/userprofile/', 'get')){
         'DDWT18' => na('/DDWT18_G09/', False),
         'My profile' => na('/DDWT18_G09/userprofile/', True)
     ]);
-    $navigation = get_navigation($navigation_template, 6, $user_status);
+    $navigation = get_navigation($navigation_template, 5, $user_status);
 
     /* Page content */
     $page_subtitle = 'The overview of your profile';
@@ -388,6 +380,7 @@ elseif (new_route('/DDWT18_G09/logout/', 'get')){
 
 
 /* Single room */
+
 elseif (new_route('/DDWT18_G09/roomsoverview/room', 'get')) {
     /* Get rooms from db */
     $room_id = $_GET['room_id'];
@@ -409,26 +402,15 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room', 'get')) {
     $navigation = get_navigation($navigation_template, 2, $user_status);
 
     /* Page content */
+    $description = $room_info['description'];
+    $room_table = get_room_table($db, $room_info);
     /*check if the user logged in*/
     if (check_login()) {
         $user = get_username($db, $_SESSION['user_id']);
         $user_role = get_user_info($db, $_SESSION['user_id'])["role"];
     };
     $page_subtitle = sprintf("Information about %s", $room_info['room_title']);
-    /* Get the owner of the room*/
-    $owner_id = $room_info["owner_id"];
-    $owner = get_username($db, $owner_id);
-    $size = $room_info['size_m2'];
-    $zip = $room_info['zip'];
-    $street = $room_info['street'];
-    $city = $room_info['city'];
-    $description = $room_info['description'];
-    $type = $room_info['type'];
-    $available_from = $room_info['available_from'];
-    $available_till = $room_info['available_till'];
-    $furnished = $room_info['furnished'];
-    $price = $room_info['price'];
-    $services_including = $room_info['services_including'];
+
 
 
 
@@ -495,84 +477,4 @@ elseif (new_route('/DDWT18_G09/roomsoverview/room/opt-in', 'post')) {
     /* Redirect to room GET route */
     redirect(sprintf('/DDWT18_G09/roomsoverview/?error_msg=%s', json_encode($error_msg)));
 
-}
-
-/*login get*/
-elseif (new_route('/DDWT18_G09/login/', 'get')){
-    /* Check if logged in */
-    if ( check_login() ) {
-        $user_status = get_user_role($db);
-        $feedback = [
-            'type' => 'success',
-            'message' => sprintf('You are already logged in.')
-        ];
-        redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s',  json_encode($feedback)));
-    } else {
-        $user_status = 'logedout';
-    }
-
-    /* Page info */
-    $page_title = 'Login';
-    $breadcrumbs = get_breadcrumbs([
-        'DDWT18' => na('/DDWT18_G09/', False),
-        'Login' => na('/DDWT18_G09/login', True)
-    ]);
-    $navigation = get_navigation($navigation_template, 6, $user_status);
-
-    /* Page content */
-    $page_subtitle = 'Please enter your username and password ';
-    /* Get error msg from POST route */
-    if ( isset($_GET['error_msg']) ) {
-        $error_msg = get_error($_GET['error_msg']);
-    }
-
-    /* Choose Template */
-    include use_template('login');
-}
-
-/* Messages Overview GET */
-elseif (new_route('/DDWT18_G09/messagesoverview/', 'get')) {
-    /* Check if logged in */
-    if ( !check_login() ) {
-        $user_status = 'logedout';
-        $feedback = [
-            'type' => 'danger',
-            'message' => sprintf('You have to login to add rooms!! Please login or register as new user.')
-        ];
-        redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
-    } else {
-        $user_status = get_user_role($db);
-    }
-
-    /* chech if the user is an owner*/
-    if (get_user_info($db,$_SESSION['user_id'])["role"]!= "owner"){
-        $feedback = [
-            'type' => 'danger',
-            'message' => sprintf('%s, you do not have the permission to add rooms!',
-                get_username($db, $_SESSION['user_id']))
-        ];
-        redirect(sprintf('/DDWT18_G09/myrooms/?error_msg=%s',  json_encode($feedback)));
-    }
-
-    /* Page info */
-    $page_title = 'Messages Overview';
-    $breadcrumbs = get_breadcrumbs([
-        'DDWT18' => na('/DDWT18_G09/', False),
-        'Messages' => na('/DDWT18_G09/messsagesoverview/', True),
-    ]);
-    $navigation = get_navigation($navigation_template, 5, $user_status);
-
-    /* Page content */
-    $page_subtitle = '';
-    $page_content = get_messages_view($db, get_messages($db));
-    $submit_btn = '';
-    $form_action = '';
-
-    /* Get error msg from POST route */
-    if ( isset($_GET['error_msg']) ) {
-        $error_msg = get_error($_GET['error_msg']);
-    }
-
-    /* Choose Template */
-    include use_template('messages');
 }
