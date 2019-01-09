@@ -473,3 +473,40 @@ elseif (new_route('/DDWT18_G09/messagesoverview/', 'get')) {
     /* Choose Template */
     include use_template('messages');
 }
+/* Update Profile get*/
+elseif (new_route('/DDWT18_G09/userprofile/update/', 'get')){
+    /* Check if logged in */
+    if ( !check_login() ) {
+        $user_status = 'logedout';
+        $feedback = [
+            'type' => 'danger',
+            'message' => sprintf('You have to be logged in! Please login or register as new user.')
+        ];
+        redirect(sprintf('/DDWT18_G09/login/?error_msg=%s',  json_encode($feedback)));
+    } else {
+        $user_status = get_user_role($db);
+    }
+    /* Page info */
+    $page_title = 'Update user information';
+    $breadcrumbs = get_breadcrumbs([
+        'DDWT18_G09' => na('/DDWT18_G09/', False),
+        'My Profile' => na('/DDWT18_G09/userprofile/update/', True),
+        'Update Profile' => na('/DDWT18_G09/userprofile/update/', True)
+    ]);
+    $navigation = get_navigation($navigation_template, 6, $user_status);
+    /* Page content */
+    $page_subtitle = 'Please register by filling in the following form';
+    /* Get error msg from POST route */
+    if ( isset($_GET['error_msg']) ) {
+        $error_msg = get_error($_GET['error_msg']);
+    }
+    /* Choose Template */
+    include use_template('register');
+}
+/* Update Profile post*/
+elseif (new_route('/DDWT18_G09/userprofile/update/', 'post')){
+    /* Register user */
+    $error_msg = update_user($db, $_POST);
+    /* Redirect to homepage */
+    redirect(sprintf('/DDWT18_G09/userprofile/?error_msg=%s', json_encode($error_msg)));
+}
