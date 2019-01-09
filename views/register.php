@@ -45,7 +45,8 @@
                     <input type="text" class="form-control" id="inputUsername" name="username" required>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword">Password</label>
+                    <label for="inputPassword">Password</label><br>
+                    <i style="font-size: 13px">Your password must contain at least 8 characters, 1 number, 1 capital letter and 1 small letter.</i>
                     <input type="password" class="form-control" id="inputPassword" name="password" required>
                 </div>
                 <div class="form-group">
